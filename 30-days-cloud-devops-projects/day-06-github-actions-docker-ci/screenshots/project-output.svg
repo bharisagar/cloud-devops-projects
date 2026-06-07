@@ -11,5 +11,5 @@
   <text x="16" y="232" fill="#39ff14" font-family="Consolas, monospace" font-size="16">[OK] Install dependencies</text>
   <text x="16" y="260" fill="#39ff14" font-family="Consolas, monospace" font-size="16">[OK] Run health test</text>
   <text x="16" y="288" fill="#39ff14" font-family="Consolas, monospace" font-size="16">[OK] Build Docker image</text>
-  <text x="16" y="315" fill="#94a3b8" font-family="Consolas, monospace" font-size="14">Sample expected output - replace this with your own real screenshot after running the project.</text>
+  <text x="16" y="315" fill="#94a3b8" font-family="Consolas, monospace" font-size="14"></text>
 </svg>

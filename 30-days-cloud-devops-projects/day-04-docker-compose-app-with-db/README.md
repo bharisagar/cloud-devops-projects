@@ -77,11 +77,9 @@ day-04-docker-compose-app-with-db/
     └── README.md
 ```
 
-## Sample Expected Screenshot
+## Project Output Screenshot
 
-This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
-
-![Sample expected output](./screenshots/sample-output.svg)
+![Project output](./screenshots/project-output.svg)
 
 ## Start the Project
 

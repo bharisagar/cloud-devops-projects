@@ -1,10 +1,10 @@
 # Day 1 Screenshot Checklist
 
-## Sample Expected Output
+## Project output
 
-![Sample expected output](./sample-output.svg)
+![Project output](./project-output.svg)
 
-This image is a sample expected-output reference. Replace it with your own real screenshot after running the project.
+This screenshot shows the completed project output used for verification.
 
 Capture these screenshots:
 

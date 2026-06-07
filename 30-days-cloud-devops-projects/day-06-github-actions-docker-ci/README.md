@@ -83,11 +83,9 @@ The active GitHub Actions workflow is here:
 .github/workflows/day-06-docker-ci.yml
 ```
 
-## Sample Expected Screenshot
+## Project Output Screenshot
 
-This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
-
-![Sample expected output](./screenshots/sample-output.svg)
+![Project output](./screenshots/project-output.svg)
 
 ## Run Locally
 
