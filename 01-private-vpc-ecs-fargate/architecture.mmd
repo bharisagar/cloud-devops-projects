@@ -1,0 +1,9 @@
+flowchart LR
+  user["User"] --> alb["Public Application Load Balancer"]
+  alb --> task["ECS Fargate Task in Private Subnet"]
+  task --> ecr_api["ECR API VPC Endpoint"]
+  task --> ecr_dkr["ECR Docker VPC Endpoint"]
+  task --> logs["CloudWatch Logs VPC Endpoint"]
+  task --> secrets["Secrets Manager VPC Endpoint"]
+  task --> s3["S3 Gateway Endpoint"]
+  task --> ssm["SSM VPC Endpoint"]

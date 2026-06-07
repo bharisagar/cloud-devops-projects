@@ -1,0 +1,5 @@
+aws_region    = "ap-south-1"
+project_name  = "private-vpc-ecs-demo"
+vpc_cidr      = "10.40.0.0/16"
+container_port = 3000
+desired_count = 1

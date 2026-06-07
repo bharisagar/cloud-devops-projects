@@ -1,0 +1,52 @@
+name: Deploy Private VPC ECS Demo
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "real-projects/01-private-vpc-ecs-fargate/app/**"
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REPOSITORY: private-vpc-ecs-demo
+  ECS_CLUSTER: private-vpc-ecs-demo
+  ECS_SERVICE: private-vpc-ecs-demo
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push image
+        working-directory: real-projects/01-private-vpc-ecs-fargate/app
+        run: |
+          IMAGE_URI="${{ steps.ecr.outputs.registry }}/${ECR_REPOSITORY}:${{ github.sha }}"
+          docker build -t "$IMAGE_URI" .
+          docker push "$IMAGE_URI"
+          echo "IMAGE_URI=$IMAGE_URI" >> "$GITHUB_ENV"
+
+      - name: Force ECS deployment
+        run: |
+          aws ecs update-service \
+            --cluster "$ECS_CLUSTER" \
+            --service "$ECS_SERVICE" \
+            --force-new-deployment
