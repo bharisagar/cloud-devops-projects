@@ -19,6 +19,30 @@ This project explains two common paths:
 
 You can use DockerHub first. ECR will make more sense after AWS IAM and CLI setup.
 
+## Theory: Container Registry and Image Tags
+
+A container registry is a storage system for Docker images.
+
+### Repository
+
+A repository stores images for one application. For example, `day-07-registry-api` is the repository name.
+
+### Tag
+
+A tag identifies a version of an image. `latest` is common, but it is not enough for production because it does not clearly explain what version is running.
+
+### Push
+
+`docker push` uploads an image from your machine or CI runner to the registry.
+
+### Pull
+
+`docker pull` downloads an image from the registry to another machine.
+
+### Why Registries Matter
+
+ECS, Kubernetes, and deployment servers do not know about your laptop image. They need to pull an image from a registry. That is why publishing is a key step between local Docker and real deployment.
+
 ## Architecture
 
 ```mermaid
@@ -50,6 +74,12 @@ The manual GitHub Actions workflow is here:
 ```text
 .github/workflows/day-07-publish-image.yml
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Run Locally
 

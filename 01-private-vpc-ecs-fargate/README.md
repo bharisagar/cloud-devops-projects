@@ -59,6 +59,34 @@ The clean fix is to design the network intentionally:
 - Use VPC endpoints for AWS service access.
 - Avoid NAT gateway cost when the application does not need general outbound internet access.
 
+## Theory: Private ECS Networking
+
+ECS Fargate looks simple from the console, but task startup depends on several AWS services.
+
+### ECS Task
+
+An ECS task is the running unit. In Fargate, AWS manages the underlying host, but your task still needs networking, IAM permissions, image access, and log configuration.
+
+### Private Subnet
+
+A private subnet does not route directly to the internet. This is good for security, but it means the task cannot automatically reach ECR, S3, CloudWatch Logs, or Secrets Manager unless you provide a path.
+
+### NAT Gateway
+
+A NAT gateway lets private resources reach the internet. It is simple, but it has hourly and data processing cost. For small workloads that only need AWS service access, VPC endpoints can be a better design.
+
+### VPC Endpoint
+
+A VPC endpoint gives private network access to AWS services without public internet routing. Interface endpoints are used for services like ECR API, ECR Docker, CloudWatch Logs, Secrets Manager, and SSM. A gateway endpoint is used for S3.
+
+### Task Execution Role
+
+The task execution role is used by ECS during startup. It needs permission to pull images from ECR and write logs to CloudWatch. If networking is correct but IAM is wrong, startup can still fail.
+
+### Security Group Flow
+
+The ALB should talk to the ECS task on the application port. The ECS task should talk to VPC endpoints on HTTPS port `443`. The endpoint security group must allow traffic from the task security group.
+
 ## Folder Structure
 
 ```text
@@ -77,6 +105,12 @@ The clean fix is to design the network intentionally:
     ├── variables.tf
     └── versions.tf
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Prerequisites
 

@@ -27,6 +27,37 @@ By the end of this day, you will have:
 - a pull-request style summary
 - screenshots as evidence
 
+## Theory: Why Git Workflow Matters in DevOps
+
+Git is not only for application developers. In DevOps, almost everything important becomes code.
+
+Examples:
+
+- Terraform files create infrastructure.
+- Dockerfiles define application runtime.
+- Kubernetes YAML controls deployments.
+- GitHub Actions files control CI/CD.
+- Bash scripts automate operations.
+- Markdown files document runbooks.
+
+Because of this, a careless Git change can break real systems. A professional workflow reduces that risk.
+
+### Branch
+
+A branch gives you a safe place to work. Instead of changing `main` directly, you isolate your change and make it reviewable.
+
+### Commit
+
+A commit is a checkpoint. A good commit should explain one clear change. If something breaks later, the team can inspect or revert that commit.
+
+### Diff
+
+The diff is your first review. Before asking another person to review your work, read your own changes. This habit catches mistakes early.
+
+### Pull Request
+
+A pull request is not just a button in GitHub. It is a communication document. It should explain what changed, how it was tested, and what risk exists.
+
 ## Architecture
 
 ```mermaid
@@ -53,6 +84,12 @@ day-02-git-github-workflow/
 └── screenshots/
     └── README.md
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Run the App Locally
 

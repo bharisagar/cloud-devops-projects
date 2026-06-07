@@ -1,5 +1,11 @@
 # Day 1 Screenshot Checklist
 
+## Sample Expected Output
+
+![Sample expected output](./sample-output.svg)
+
+This image is a sample expected-output reference. Replace it with your own real screenshot after running the project.
+
 Capture these screenshots:
 
 - `01-script-run-success.png`: full terminal output after running the script.

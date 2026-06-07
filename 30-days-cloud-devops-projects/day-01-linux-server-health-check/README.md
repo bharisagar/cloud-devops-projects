@@ -31,6 +31,34 @@ For example:
 
 DevOps is not only about creating infrastructure. It is about operating systems with confidence.
 
+## Theory: How a Server Tells You It Is in Trouble
+
+Every server has a few basic signals. If you can read these signals, troubleshooting becomes much easier.
+
+### CPU
+
+CPU tells you how much processing pressure the machine is under. High CPU is not always bad. A build server, video processor, or batch worker may use high CPU normally. The problem starts when CPU stays high and the application becomes slow.
+
+### Memory
+
+Memory pressure can cause applications to slow down, restart, or get killed by the operating system. On Linux, memory also includes cache and buffers, so do not panic just because "free" memory looks low. Learn to look at used, available, and swap together.
+
+### Disk
+
+Disk issues are very common in real incidents. Logs, Docker images, old backups, and temporary files can fill a server. Once disk is full, applications may fail to write logs, databases may stop, and deployments may break.
+
+### Process
+
+A service can only respond if the process is running. A process check is a simple but powerful validation after deployments and restarts.
+
+### Port
+
+Even if the process is running, the service may not be listening on the expected port. Port checks help confirm whether traffic can actually reach the application.
+
+### Network
+
+Network checks confirm whether the server can reach external systems like GitHub, package registries, APIs, or cloud endpoints. Many DevOps issues are not code issues. They are DNS, routing, proxy, firewall, or connectivity issues.
+
 ## Architecture
 
 ```mermaid
@@ -57,6 +85,12 @@ day-01-linux-server-health-check/
 └── screenshots/
     └── README.md
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Prerequisites
 

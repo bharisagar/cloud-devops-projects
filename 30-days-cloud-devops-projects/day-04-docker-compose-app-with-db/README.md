@@ -26,6 +26,30 @@ Docker Compose is a good local practice tool because it lets you describe multip
 
 In real projects, this same thinking later becomes Kubernetes manifests, Helm charts, ECS task definitions, or Terraform modules.
 
+## Theory: Multi-Container Applications
+
+A single container is useful, but most real applications are made of multiple services.
+
+### Service
+
+In Docker Compose, a service is one part of the system. In this project, `app` is one service and `db` is another service.
+
+### Network
+
+Compose creates a private network for the services. Containers on that network can talk to each other using service names.
+
+### Volume
+
+The Postgres container stores data in a named volume. Without a volume, database data can disappear when the container is recreated.
+
+### Environment Variables
+
+Environment variables keep configuration outside the code. The app reads database host, username, password, and database name from environment variables.
+
+### Dependency Timing
+
+`depends_on` controls startup order, but it does not guarantee the database is ready for queries. Real applications need retry logic, health checks, or startup probes.
+
 ## Architecture
 
 ```mermaid
@@ -52,6 +76,12 @@ day-04-docker-compose-app-with-db/
 └── screenshots/
     └── README.md
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Start the Project
 

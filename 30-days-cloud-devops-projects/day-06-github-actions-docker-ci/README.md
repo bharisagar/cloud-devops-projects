@@ -27,6 +27,30 @@ A good CI pipeline catches:
 
 I like to think of CI as the first gate. If the code cannot pass this gate, it should not go near production.
 
+## Theory: Continuous Integration
+
+Continuous Integration means every important code change should be checked automatically.
+
+### Runner
+
+A GitHub Actions runner is a temporary machine that executes workflow steps. In this project, GitHub provides an Ubuntu runner.
+
+### Workflow
+
+A workflow is the YAML file under `.github/workflows`. It defines when the automation should run and what jobs it should perform.
+
+### Job
+
+A job is a group of steps that run on a runner. Our job installs dependencies, runs a test, and builds a Docker image.
+
+### Step
+
+A step is one action inside a job. Examples: checkout code, setup Node.js, run tests, build Docker image.
+
+### Feedback Loop
+
+The real value of CI is fast feedback. If the health test or Docker build fails, the learner knows the change is unsafe before deployment.
+
 ## Architecture
 
 ```mermaid
@@ -58,6 +82,12 @@ The active GitHub Actions workflow is here:
 ```text
 .github/workflows/day-06-docker-ci.yml
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Run Locally
 

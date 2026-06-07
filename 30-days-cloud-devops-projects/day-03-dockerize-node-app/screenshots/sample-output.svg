@@ -1,0 +1,14 @@
+<svg width="980" height="330" viewBox="0 0 980 330" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="330" fill="#050505"/>
+  <text x="16" y="30" font-family="Consolas, monospace" font-size="16">
+    <tspan fill="#39ff14">LENOVO@Bari-Sagar</tspan><tspan fill="#ff5cff"> MINGW64 </tspan><tspan fill="#ffd700">/c/bari_sagar/cloud-devops-projects/30-days-cloud-devops-projects/day-03-dockerize-node-app </tspan><tspan fill="#00d4ff">(main)</tspan>
+  </text>
+  <text x="16" y="58" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">$ docker build -t day-03-node-api .</text>
+  <text x="16" y="92" fill="#94a3b8" font-family="Consolas, monospace" font-size="16">[+] Building 8.4s (9/9) FINISHED</text>
+  <text x="16" y="120" fill="#94a3b8" font-family="Consolas, monospace" font-size="16"> =&gt; [internal] load build definition from Dockerfile</text>
+  <text x="16" y="148" fill="#94a3b8" font-family="Consolas, monospace" font-size="16"> =&gt; [4/5] RUN npm install --omit=dev</text>
+  <text x="16" y="176" fill="#39ff14" font-family="Consolas, monospace" font-size="16"> =&gt; naming to docker.io/library/day-03-node-api</text>
+  <text x="16" y="218" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">$ docker run --rm -p 3000:3000 day-03-node-api</text>
+  <text x="16" y="246" fill="#22d3ee" font-family="Consolas, monospace" font-size="16">day-03-node-api listening on port 3000</text>
+  <text x="16" y="305" fill="#94a3b8" font-family="Consolas, monospace" font-size="14">Sample expected output - replace this with your own real screenshot after running the project.</text>
+</svg>

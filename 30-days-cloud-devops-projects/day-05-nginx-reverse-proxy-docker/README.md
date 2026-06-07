@@ -33,6 +33,30 @@ That proxy can handle:
 
 Today we keep it simple and focus on routing.
 
+## Theory: Reverse Proxy Basics
+
+A reverse proxy receives traffic on behalf of backend applications.
+
+### Client
+
+The client is the browser, curl command, mobile app, or any system sending a request.
+
+### Proxy
+
+Nginx is the proxy in this project. It listens on port `8080` on your laptop and forwards traffic to backend containers.
+
+### Upstream
+
+An upstream is the backend service that receives traffic from Nginx. In this project, `app-blue` and `app-green` are upstream services.
+
+### Routing
+
+Routing decides where traffic goes. `/blue` goes to the blue app. `/green` goes to the green app. This is the same foundation used by ingress controllers and cloud load balancers.
+
+### 502 Bad Gateway
+
+A 502 usually means the proxy is reachable, but it cannot successfully talk to the backend. This is one of the most common reverse proxy troubleshooting signals.
+
 ## Architecture
 
 ```mermaid
@@ -59,6 +83,12 @@ day-05-nginx-reverse-proxy-docker/
 └── screenshots/
     └── README.md
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Start the Project
 

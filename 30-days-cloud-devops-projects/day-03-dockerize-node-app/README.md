@@ -29,6 +29,30 @@ If you do not understand image build and container run basics, Kubernetes and EC
 - How to inspect logs.
 - How to stop and remove containers.
 
+## Theory: Image, Container, and Dockerfile
+
+Docker becomes simple when you separate three ideas.
+
+### Dockerfile
+
+A Dockerfile is the recipe. It tells Docker how to package the application. It usually includes a base image, working directory, dependencies, source files, exposed port, and startup command.
+
+### Image
+
+An image is the packaged application. It is read-only and can be shared with other systems. CI/CD pipelines, Kubernetes, ECS, and Docker servers use images as deployment artifacts.
+
+### Container
+
+A container is a running instance of an image. If an image is like a class, a container is like an object created from that class. You can run many containers from the same image.
+
+### Build Context
+
+When you run `docker build`, Docker sends files from the current folder to the Docker daemon. This is called the build context. `.dockerignore` prevents unnecessary files like `node_modules`, `.git`, logs, and secrets from entering the build context.
+
+### Port Mapping
+
+The app listens on port `3000` inside the container. `-p 3000:3000` maps your laptop's port `3000` to the container's port `3000`.
+
 ## Architecture
 
 ```mermaid
@@ -52,6 +76,12 @@ day-03-dockerize-node-app/
 └── screenshots/
     └── README.md
 ```
+
+## Sample Expected Screenshot
+
+This is a sample expected-output reference, not real evidence from a laptop run. Use it to understand what success should look like, then capture your own screenshot.
+
+![Sample expected output](./screenshots/sample-output.svg)
 
 ## Run Without Docker First
 

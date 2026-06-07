@@ -1,0 +1,15 @@
+<svg width="980" height="330" viewBox="0 0 980 330" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="330" fill="#050505"/>
+  <text x="16" y="30" font-family="Consolas, monospace" font-size="16">
+    <tspan fill="#39ff14">LENOVO@Bari-Sagar</tspan><tspan fill="#ff5cff"> MINGW64 </tspan><tspan fill="#ffd700">/c/bari_sagar/cloud-devops-projects/30-days-cloud-devops-projects/day-06-github-actions-docker-ci </tspan><tspan fill="#00d4ff">(main)</tspan>
+  </text>
+  <text x="16" y="58" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">$ npm test</text>
+  <text x="16" y="92" fill="#94a3b8" font-family="Consolas, monospace" font-size="16">&gt; day-06-ci-api@1.0.0 test</text>
+  <text x="16" y="120" fill="#94a3b8" font-family="Consolas, monospace" font-size="16">&gt; node test/health.test.js</text>
+  <text x="16" y="158" fill="#39ff14" font-family="Consolas, monospace" font-size="16">health test passed</text>
+  <text x="16" y="204" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">GitHub Actions: Day 6 Docker CI</text>
+  <text x="16" y="232" fill="#39ff14" font-family="Consolas, monospace" font-size="16">[OK] Install dependencies</text>
+  <text x="16" y="260" fill="#39ff14" font-family="Consolas, monospace" font-size="16">[OK] Run health test</text>
+  <text x="16" y="288" fill="#39ff14" font-family="Consolas, monospace" font-size="16">[OK] Build Docker image</text>
+  <text x="16" y="315" fill="#94a3b8" font-family="Consolas, monospace" font-size="14">Sample expected output - replace this with your own real screenshot after running the project.</text>
+</svg>

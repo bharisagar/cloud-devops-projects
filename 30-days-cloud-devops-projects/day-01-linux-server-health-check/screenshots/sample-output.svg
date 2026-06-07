@@ -1,0 +1,15 @@
+<svg width="980" height="330" viewBox="0 0 980 330" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="330" fill="#050505"/>
+  <text x="16" y="30" font-family="Consolas, monospace" font-size="16">
+    <tspan fill="#39ff14">LENOVO@Bari-Sagar</tspan><tspan fill="#ff5cff"> MINGW64 </tspan><tspan fill="#ffd700">/c/bari_sagar/cloud-devops-projects/30-days-cloud-devops-projects/day-01-linux-server-health-check </tspan><tspan fill="#00d4ff">(main)</tspan>
+  </text>
+  <text x="16" y="58" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">$ ./scripts/server-health-check.sh</text>
+  <text x="16" y="92" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">========================================</text>
+  <text x="16" y="120" fill="#22d3ee" font-family="Consolas, monospace" font-size="16"> Bhari Sagar - Server Health Check</text>
+  <text x="16" y="148" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">Hostname        : devops-lab</text>
+  <text x="16" y="176" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">[CPU] Load Average : 0.41 0.33 0.30</text>
+  <text x="16" y="204" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">[Memory] Total: 15Gi  Used: 7Gi  Free: 3Gi</text>
+  <text x="16" y="232" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">[Disk] / : 42% used</text>
+  <text x="16" y="260" fill="#39ff14" font-family="Consolas, monospace" font-size="16">Result          : health check completed</text>
+  <text x="16" y="305" fill="#94a3b8" font-family="Consolas, monospace" font-size="14">Sample expected output - replace this with your own real screenshot after running the project.</text>
+</svg>

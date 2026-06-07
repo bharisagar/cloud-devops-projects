@@ -1,5 +1,11 @@
 # Day 5 Screenshot Checklist
 
+## Sample Expected Output
+
+![Sample expected output](./sample-output.svg)
+
+This image is a sample expected-output reference. Replace it with your own real screenshot after running the project.
+
 Capture:
 
 - `01-compose-up-build.png`

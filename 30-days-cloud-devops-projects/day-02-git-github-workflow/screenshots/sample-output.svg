@@ -1,0 +1,14 @@
+<svg width="980" height="330" viewBox="0 0 980 330" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="330" fill="#050505"/>
+  <text x="16" y="30" font-family="Consolas, monospace" font-size="16">
+    <tspan fill="#39ff14">LENOVO@Bari-Sagar</tspan><tspan fill="#ff5cff"> MINGW64 </tspan><tspan fill="#ffd700">/c/bari_sagar/cloud-devops-projects/30-days-cloud-devops-projects/day-02-git-github-workflow </tspan><tspan fill="#00d4ff">(main)</tspan>
+  </text>
+  <text x="16" y="58" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">$ git checkout -b feature/day-02-update-notes</text>
+  <text x="16" y="86" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">Switched to a new branch 'feature/day-02-update-notes'</text>
+  <text x="16" y="128" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">$ git status --short</text>
+  <text x="16" y="156" fill="#22d3ee" font-family="Consolas, monospace" font-size="16"> M app/index.html</text>
+  <text x="16" y="198" fill="#f8fafc" font-family="Consolas, monospace" font-size="16">$ git commit -m "Add Day 2 Git workflow project"</text>
+  <text x="16" y="226" fill="#39ff14" font-family="Consolas, monospace" font-size="16">[feature/day-02-update-notes 8b91a2c] Add Day 2 Git workflow project</text>
+  <text x="16" y="254" fill="#f8fafc" font-family="Consolas, monospace" font-size="16"> 6 files changed, 210 insertions(+)</text>
+  <text x="16" y="305" fill="#94a3b8" font-family="Consolas, monospace" font-size="14">Sample expected output - replace this with your own real screenshot after running the project.</text>
+</svg>

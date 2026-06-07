@@ -58,6 +58,8 @@ The most important DevOps habit is not memorizing commands. It is learning how s
 
 Every day has a `screenshots/README.md` file. Use it as a checklist.
 
+The repo also includes sample expected-output SVGs. These are only visual references so learners know what a successful run may look like. They should not be presented as real proof. When you run the project on your laptop, add your own screenshots beside them.
+
 Good screenshots include:
 
 - Terminal command success.
