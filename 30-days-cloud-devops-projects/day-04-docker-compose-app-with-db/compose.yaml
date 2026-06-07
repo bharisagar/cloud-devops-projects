@@ -1,0 +1,32 @@
+services:
+  app:
+    build:
+      context: ./app
+    container_name: day-04-compose-api
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: devops
+      DB_PASSWORD: devops_password
+      DB_NAME: devops_tasks
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    container_name: day-04-postgres
+    environment:
+      POSTGRES_USER: devops
+      POSTGRES_PASSWORD: devops_password
+      POSTGRES_DB: devops_tasks
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

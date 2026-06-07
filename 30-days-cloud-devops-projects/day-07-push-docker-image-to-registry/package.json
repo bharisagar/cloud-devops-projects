@@ -1,0 +1,10 @@
+{
+  "name": "day-07-registry-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node.js API used to practice Docker image publishing.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

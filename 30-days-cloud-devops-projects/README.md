@@ -1,0 +1,27 @@
+# 30 Days Cloud DevOps Projects
+
+This is the day-by-day learning path. The first 7 days build a strong local foundation before touching cloud services.
+
+## Days 1-7
+
+| Day | Project | Outcome |
+| --- | --- | --- |
+| [Day 1](./day-01-linux-server-health-check/README.md) | Linux Server Health Check Automation | Create a script that collects CPU, memory, disk, process, and network status. |
+| [Day 2](./day-02-git-github-workflow/README.md) | Git and GitHub Workflow Project | Practice branches, commits, PR-style thinking, and release notes using a small static app. |
+| [Day 3](./day-03-dockerize-node-app/README.md) | Dockerize a Node.js App | Build and run a containerized API with health checks. |
+| [Day 4](./day-04-docker-compose-app-with-db/README.md) | Docker Compose App with Database | Run an app and PostgreSQL together using Compose networking. |
+| [Day 5](./day-05-nginx-reverse-proxy-docker/README.md) | Nginx Reverse Proxy with Docker | Route traffic through Nginx to backend containers. |
+| [Day 6](./day-06-github-actions-docker-ci/README.md) | GitHub Actions CI for Docker App | Run test and Docker build checks automatically on GitHub. |
+| [Day 7](./day-07-push-docker-image-to-registry/README.md) | Push Docker Image to Registry | Tag and publish a Docker image to DockerHub or AWS ECR. |
+
+## Learning Rule
+
+Every project should leave proof:
+
+- Commands you ran.
+- Output you saw.
+- Screenshots you captured.
+- Mistakes you fixed.
+- A short explanation in your own words.
+
+That is how a project becomes interview evidence instead of just another folder in GitHub.

@@ -1,0 +1,28 @@
+========================================
+ Bhari Sagar - Server Health Check
+========================================
+Hostname        : devops-lab
+Date            : 2026-06-07 11:30:00
+Kernel          : Linux 6.6.87
+
+[CPU]
+Load Average    : 0.41 0.33 0.30
+
+[Memory]
+Total           : 15Gi
+Used            : 7Gi
+Free            : 3Gi
+
+[Disk]
+/               : 42% used
+
+[Process]
+node            : running
+
+[Port]
+3000            : listening
+
+[Network]
+github.com      : reachable
+
+Result          : health check completed

@@ -1,0 +1,27 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: day-05-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app-blue
+      - app-green
+
+  app-blue:
+    build:
+      context: ./app-blue
+    container_name: day-05-app-blue
+    environment:
+      APP_NAME: blue
+      PORT: 3000
+
+  app-green:
+    build:
+      context: ./app-green
+    container_name: day-05-app-green
+    environment:
+      APP_NAME: green
+      PORT: 3000

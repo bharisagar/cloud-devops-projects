@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 2 Git Workflow Notes</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Day 2 Project</p>
+        <h1>Git and GitHub Workflow</h1>
+        <p>
+          A small static page used to practice branches, commits, diffs, and pull-request thinking.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article>
+          <h2>Branch</h2>
+          <code>git checkout -b feature/day-02-update-notes</code>
+          <p>Create a safe workspace for your change.</p>
+        </article>
+        <article>
+          <h2>Commit</h2>
+          <code>git commit -m "Add Day 2 Git workflow project"</code>
+          <p>Keep the message short but meaningful.</p>
+        </article>
+        <article>
+          <h2>Review</h2>
+          <code>git diff</code>
+          <p>Read your change before others review it.</p>
+        </article>
+      </section>
+
+      <section class="checklist">
+        <h2>Before Push Checklist</h2>
+        <ul id="checks"></ul>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

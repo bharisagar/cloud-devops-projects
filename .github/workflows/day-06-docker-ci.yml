@@ -1,0 +1,38 @@
+name: Day 6 Docker CI
+
+on:
+  push:
+    paths:
+      - "30-days-cloud-devops-projects/day-06-github-actions-docker-ci/**"
+      - ".github/workflows/day-06-docker-ci.yml"
+  pull_request:
+    paths:
+      - "30-days-cloud-devops-projects/day-06-github-actions-docker-ci/**"
+      - ".github/workflows/day-06-docker-ci.yml"
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: 30-days-cloud-devops-projects/day-06-github-actions-docker-ci
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run health test
+        run: npm test
+
+      - name: Build Docker image
+        run: docker build -t day-06-ci-api .

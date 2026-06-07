@@ -1,0 +1,11 @@
+{
+  "name": "day-03-node-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple Node.js API for Docker learning.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --check server.js"
+  }
+}

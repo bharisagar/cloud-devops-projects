@@ -1,33 +1,84 @@
-# Real DevOps Projects
+# 30 Days Cloud DevOps Projects
 
-This folder contains portfolio-grade DevOps projects connected to the DevOpsGrade website. The goal is to keep every project practical: architecture, code, deployment steps, troubleshooting notes, and interview talking points.
+This repository is a practical Cloud and DevOps project roadmap by Bhari Sagar.
 
-## Project Index
+The goal is simple: do not just read DevOps. Build it, break it, fix it, document it, and keep evidence.
 
-| # | Project | Status | Focus |
+I created this repo for learners who want project-based practice across Linux, Git, Docker, CI/CD, AWS, Terraform, Kubernetes, observability, security, and real production thinking. Every project is written in a way a beginner can follow, but the explanations are also shaped by the kind of issues engineers face in real work.
+
+## Current Status
+
+| Day | Project | Status | Main Skill |
 | --- | --- | --- | --- |
-| 01 | Private VPC ECS Fargate Platform | Complete | AWS networking, ECS, VPC endpoints, cost optimization |
-| 02 | Terraform AWS Foundation Module | Planned | Terraform modules, remote state, IAM, VPC standards |
-| 03 | GitHub Actions CI/CD for Containers | Planned | Docker build, scan, ECR push, ECS deploy |
-| 04 | EKS GitOps Application Platform | Planned | EKS, Argo CD, Helm, ingress, sealed secrets |
-| 05 | Kubernetes Observability Stack | Planned | Prometheus, Grafana, Loki, Alertmanager |
-| 06 | Docker Image Optimization Factory | Planned | BuildKit, SBOM, vulnerability scanning |
-| 07 | DevSecOps Quality Gate Pipeline | Planned | SonarQube, Checkov, Trivy, Gitleaks |
-| 08 | AWS AI Governance Blueprint | Planned | Bedrock guardrails, IAM, audit evidence |
-| 09 | AWS Cost and Tagging Automation | Planned | Cost Explorer, tags, budgets, scheduled reporting |
-| 10 | Backup and Disaster Recovery Automation | Planned | AWS Backup, restore testing, RTO/RPO |
-| 11 | Incident Runbook Automation | Planned | CloudWatch, SSM automation, Kubernetes runbooks |
+| Day 1 | Linux Server Health Check Automation | Complete | Linux, Bash, PowerShell, troubleshooting |
+| Day 2 | Git and GitHub Workflow Project | Complete | Git workflow, branches, PR thinking |
+| Day 3 | Dockerize a Node.js App | Complete | Dockerfile, image build, container run |
+| Day 4 | Docker Compose App with Database | Complete | Compose, app + Postgres, networking |
+| Day 5 | Nginx Reverse Proxy with Docker | Complete | Reverse proxy, upstreams, containers |
+| Day 6 | GitHub Actions CI for Docker App | Complete | CI pipeline, test, Docker build |
+| Day 7 | Push Docker Image to Registry | Complete | DockerHub/ECR publishing, tags |
+| Day 8-30 | Coming next | Planned | AWS, Terraform, Kubernetes, security, monitoring |
 
-## How These Projects Are Written
+## Repository Structure
 
-Each project should include:
+```text
+cloud-devops-projects/
+├── 30-days-cloud-devops-projects/
+│   ├── day-01-linux-server-health-check/
+│   ├── day-02-git-github-workflow/
+│   ├── day-03-dockerize-node-app/
+│   ├── day-04-docker-compose-app-with-db/
+│   ├── day-05-nginx-reverse-proxy-docker/
+│   ├── day-06-github-actions-docker-ci/
+│   └── day-07-push-docker-image-to-registry/
+├── .github/
+│   └── workflows/
+│       ├── day-06-docker-ci.yml
+│       └── day-07-publish-image.yml
+└── 01-private-vpc-ecs-fargate/
+```
 
-- `README.md` with problem, architecture, implementation, validation, and cleanup.
-- Terraform, Kubernetes, or automation code that can be reviewed safely.
-- No hard-coded credentials, account IDs, private domains, or client names.
-- A troubleshooting section based on real failure modes.
-- Cost and security notes so the project feels production-aware.
+The `30-days-cloud-devops-projects` folder is the structured learning path. The `01-private-vpc-ecs-fargate` folder is an advanced production-style project that will later map into the AWS/Terraform section of the roadmap.
 
-## Safety
+## How to Study This Repo
 
-These projects are learning references. Review cost-impacting resources before running `terraform apply`, especially NAT gateways, load balancers, EKS clusters, RDS instances, and cross-region backups.
+For each day:
+
+1. Read the concept section first.
+2. Run the project locally.
+3. Take screenshots for evidence.
+4. Break one thing intentionally.
+5. Fix it using the troubleshooting section.
+6. Write your own short explanation in the project notes.
+7. Push your version to GitHub.
+
+The most important DevOps habit is not memorizing commands. It is learning how systems behave when something fails.
+
+## Evidence for Students
+
+Every day has a `screenshots/README.md` file. Use it as a checklist.
+
+Good screenshots include:
+
+- Terminal command success.
+- Browser output.
+- Docker container running.
+- GitHub Actions workflow result.
+- Error screenshot and fix screenshot.
+
+Do not upload secrets, access keys, private IPs from office systems, customer names, or internal URLs.
+
+## Safety Notes
+
+- Days 1-7 are designed to run locally.
+- Docker-based days require Docker Desktop on Windows or Docker Engine on Linux.
+- AWS/Terraform days should be run in a personal sandbox AWS account only.
+- Always destroy paid cloud resources after testing.
+
+## Advanced Project Already Available
+
+| Project | Focus |
+| --- | --- |
+| [Private VPC ECS Fargate Platform](./01-private-vpc-ecs-fargate/README.md) | AWS ECS, private subnets, VPC endpoints, CloudWatch, ECR, cost optimization |
+
+This project solves a real-world class of ECS Fargate `ResourceInitializationError` issues where tasks in private subnets cannot reach ECR, CloudWatch Logs, S3, or Secrets Manager.
