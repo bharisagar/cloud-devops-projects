@@ -18,5 +18,3 @@ Capture:
 - `08-vpc-endpoints.png`: required endpoints created.
 - `09-alb-working.png`: ALB DNS responding.
 - `10-cloudwatch-logs.png`: application logs in CloudWatch.
-
-Blur account IDs, private ARNs, public IPs, access keys, office domains, and customer names before publishing screenshots.
