@@ -15,6 +15,7 @@ Sensitive account details and full ARNs are redacted. The resources were destroy
 | Bedrock Guardrail console and CLI | Guardrail created with restricted professional advice policy and `READY` status. |
 | Governance test results | Prompt injection and restricted advice blocked by Guardrails. |
 | S3 CloudTrail evidence | CloudTrail governance logs delivered to S3. |
+| Day 2 cost governance evidence | Terraform-backed cost allocation tags, monthly budget guardrail, and validation output. |
 
 ## 1. Terraform Outputs
 
@@ -55,6 +56,18 @@ Sensitive account details and full ARNs are redacted. The resources were destroy
 ## 10. S3 CloudTrail Evidence
 
 <img src="../screenshots/evidence/10-s3-cloudtrail-evidence.png" alt="S3 console showing CloudTrail governance evidence logs" width="900">
+
+## 11. Day 2 Cost Allocation Tags
+
+<img src="../screenshots/evidence/11-day2-cost-tags-implementation.svg" alt="Day 2 Terraform implementation evidence for cost allocation tags" width="900">
+
+## 12. Day 2 Monthly Budget Guardrail
+
+<img src="../screenshots/evidence/12-day2-budget-control.svg" alt="Day 2 Terraform implementation evidence for the monthly AWS Budget control" width="900">
+
+## 13. Day 2 Terraform Validation
+
+<img src="../screenshots/evidence/13-day2-terraform-validate.svg" alt="Day 2 Terraform validation success evidence" width="900">
 
 ## Cleanup Evidence
 

@@ -1,0 +1,25 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F4F7FB"/>
+  <rect x="64" y="56" width="1152" height="608" rx="18" fill="#FFFFFF" stroke="#D8E0EA"/>
+  <rect x="64" y="56" width="1152" height="72" rx="18" fill="#172033"/>
+  <text x="104" y="102" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Implementation Evidence: Terraform Validation</text>
+  <text x="104" y="160" font-family="Inter, Arial, sans-serif" font-size="18" fill="#526173">Day 2 cost governance controls were validated locally before publishing</text>
+
+  <rect x="104" y="204" width="760" height="300" rx="12" fill="#0F172A"/>
+  <circle cx="136" cy="232" r="7" fill="#EF4444"/>
+  <circle cx="160" cy="232" r="7" fill="#F59E0B"/>
+  <circle cx="184" cy="232" r="7" fill="#22C55E"/>
+  <text x="132" y="296" font-family="Consolas, monospace" font-size="22" fill="#E5E7EB">&gt; terraform validate</text>
+  <text x="132" y="356" font-family="Consolas, monospace" font-size="24" font-weight="700" fill="#A7F3D0">Success!</text>
+  <text x="248" y="356" font-family="Consolas, monospace" font-size="24" fill="#E5E7EB">The configuration is valid.</text>
+  <text x="132" y="424" font-family="Consolas, monospace" font-size="20" fill="#93C5FD">Validated:</text>
+  <text x="252" y="424" font-family="Consolas, monospace" font-size="20" fill="#E5E7EB">tags, variables, outputs, AWS Budget resource</text>
+
+  <rect x="912" y="224" width="200" height="200" rx="100" fill="#EAF8F0"/>
+  <path d="M963 324L1000 361L1068 282" stroke="#1E6C3E" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="900" y="472" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#172033">Configuration valid</text>
+  <text x="866" y="506" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">Checked after adding the Day 2 cost governance layer.</text>
+
+  <text x="104" y="626" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">Source: local Terraform validation output</text>
+  <text x="908" y="626" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#172033">Cost governance control 3 of 3</text>
+</svg>

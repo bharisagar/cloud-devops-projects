@@ -22,6 +22,9 @@ The full screenshot gallery is documented here: [Deployment Evidence](../docs/de
 | [`08-governance-tests-quota-and-blocked.png`](./evidence/08-governance-tests-quota-and-blocked.png) | Governance test output with quota handling and blocked prompt injection. |
 | [`09-governance-tests-restricted-advice.png`](./evidence/09-governance-tests-restricted-advice.png) | Restricted professional advice blocked by Guardrails. |
 | [`10-s3-cloudtrail-evidence.png`](./evidence/10-s3-cloudtrail-evidence.png) | CloudTrail governance logs stored in S3. |
+| [`11-day2-cost-tags-implementation.svg`](./evidence/11-day2-cost-tags-implementation.svg) | Day 2 cost allocation tags implemented in Terraform. |
+| [`12-day2-budget-control.svg`](./evidence/12-day2-budget-control.svg) | Day 2 monthly budget guardrail implemented in Terraform. |
+| [`13-day2-terraform-validate.svg`](./evidence/13-day2-terraform-validate.svg) | Day 2 Terraform validation evidence. |
 
 ## Evidence Checklist
 

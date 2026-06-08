@@ -1,0 +1,41 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F4F7FB"/>
+  <rect x="64" y="56" width="1152" height="608" rx="18" fill="#FFFFFF" stroke="#D8E0EA"/>
+  <rect x="64" y="56" width="1152" height="72" rx="18" fill="#172033"/>
+  <text x="104" y="102" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Implementation Evidence: Cost Allocation Tags</text>
+  <text x="104" y="160" font-family="Inter, Arial, sans-serif" font-size="18" fill="#526173">Day 2 extension for the AWS Bedrock AI Governance Lab</text>
+
+  <rect x="104" y="198" width="520" height="386" rx="12" fill="#0F172A"/>
+  <text x="132" y="236" font-family="Consolas, monospace" font-size="18" fill="#A7F3D0">locals {</text>
+  <text x="156" y="272" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">common_tags = {</text>
+  <text x="180" y="308" font-family="Consolas, monospace" font-size="18" fill="#93C5FD">Project</text>
+  <text x="316" y="308" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">= var.project_name</text>
+  <text x="180" y="344" font-family="Consolas, monospace" font-size="18" fill="#93C5FD">Application</text>
+  <text x="316" y="344" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">= "bedrock-ai-governance"</text>
+  <text x="180" y="380" font-family="Consolas, monospace" font-size="18" fill="#93C5FD">Environment</text>
+  <text x="316" y="380" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">= var.environment</text>
+  <text x="180" y="416" font-family="Consolas, monospace" font-size="18" fill="#93C5FD">Team</text>
+  <text x="316" y="416" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">= var.team_name</text>
+  <text x="180" y="452" font-family="Consolas, monospace" font-size="18" fill="#93C5FD">CostCenter</text>
+  <text x="316" y="452" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">= var.cost_center</text>
+  <text x="180" y="488" font-family="Consolas, monospace" font-size="18" fill="#93C5FD">Owner</text>
+  <text x="316" y="488" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">= var.owner</text>
+  <text x="180" y="524" font-family="Consolas, monospace" font-size="18" fill="#93C5FD">CostGoverned</text>
+  <text x="316" y="524" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">= "true"</text>
+  <text x="156" y="560" font-family="Consolas, monospace" font-size="18" fill="#E5E7EB">}</text>
+
+  <rect x="690" y="198" width="424" height="86" rx="12" fill="#E9F4FF"/>
+  <text x="722" y="232" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#134E8A">Project ownership</text>
+  <text x="722" y="260" font-family="Inter, Arial, sans-serif" font-size="16" fill="#315F85">Every supported resource can be traced to the AI governance lab.</text>
+
+  <rect x="690" y="314" width="424" height="86" rx="12" fill="#EAF8F0"/>
+  <text x="722" y="348" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#1E6C3E">Team accountability</text>
+  <text x="722" y="376" font-family="Inter, Arial, sans-serif" font-size="16" fill="#3F7053">Cost and ownership can be reviewed by team and owner.</text>
+
+  <rect x="690" y="430" width="424" height="86" rx="12" fill="#FFF3DC"/>
+  <text x="722" y="464" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#815313">Environment clarity</text>
+  <text x="722" y="492" font-family="Inter, Arial, sans-serif" font-size="16" fill="#7A6037">Sandbox spend is separated from staging and production.</text>
+
+  <text x="104" y="626" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">Source: terraform/main.tf</text>
+  <text x="908" y="626" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#172033">Cost governance control 1 of 3</text>
+</svg>

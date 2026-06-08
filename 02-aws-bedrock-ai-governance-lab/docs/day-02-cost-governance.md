@@ -42,6 +42,12 @@ budget_alert_email       = "you@example.com"
 
 The cost governance layer gives the lab three practical controls: ownership tags for every supported resource, a monthly budget threshold for sandbox usage, and a cost allocation model that can be reviewed by workload, team, environment, and cost center.
 
+Additional implementation evidence:
+
+- [Cost allocation tags](../screenshots/evidence/11-day2-cost-tags-implementation.svg)
+- [Monthly budget guardrail](../screenshots/evidence/12-day2-budget-control.svg)
+- [Terraform validation](../screenshots/evidence/13-day2-terraform-validate.svg)
+
 ## Real-World Pattern
 
 In an enterprise setup, each AI app should have:

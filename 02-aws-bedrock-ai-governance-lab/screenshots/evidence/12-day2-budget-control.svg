@@ -1,0 +1,30 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F4F7FB"/>
+  <rect x="64" y="56" width="1152" height="608" rx="18" fill="#FFFFFF" stroke="#D8E0EA"/>
+  <rect x="64" y="56" width="1152" height="72" rx="18" fill="#172033"/>
+  <text x="104" y="102" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Implementation Evidence: Monthly Budget Guardrail</text>
+  <text x="104" y="160" font-family="Inter, Arial, sans-serif" font-size="18" fill="#526173">Terraform-managed AWS Budget control for sandbox AI spend</text>
+
+  <rect x="104" y="200" width="520" height="348" rx="12" fill="#0F172A"/>
+  <text x="132" y="238" font-family="Consolas, monospace" font-size="17" fill="#A7F3D0">resource "aws_budgets_budget" "ai_governance_lab" {</text>
+  <text x="156" y="274" font-family="Consolas, monospace" font-size="17" fill="#E5E7EB">budget_type  = "COST"</text>
+  <text x="156" y="310" font-family="Consolas, monospace" font-size="17" fill="#E5E7EB">limit_amount = tostring(var.monthly_budget_limit_usd)</text>
+  <text x="156" y="346" font-family="Consolas, monospace" font-size="17" fill="#E5E7EB">limit_unit   = "USD"</text>
+  <text x="156" y="382" font-family="Consolas, monospace" font-size="17" fill="#E5E7EB">time_unit    = "MONTHLY"</text>
+  <text x="156" y="430" font-family="Consolas, monospace" font-size="17" fill="#93C5FD">threshold = 80  # actual spend alert</text>
+  <text x="156" y="466" font-family="Consolas, monospace" font-size="17" fill="#FBBF24">threshold = 100 # forecasted spend alert</text>
+  <text x="132" y="512" font-family="Consolas, monospace" font-size="17" fill="#A7F3D0">}</text>
+
+  <circle cx="884" cy="340" r="112" fill="#EAF8F0" stroke="#63B77A" stroke-width="20"/>
+  <path d="M884 228 A112 112 0 0 1 994 361" stroke="#F0A43C" stroke-width="20" stroke-linecap="round"/>
+  <text x="835" y="335" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" fill="#172033">$5</text>
+  <text x="806" y="374" font-family="Inter, Arial, sans-serif" font-size="18" fill="#526173">monthly sandbox limit</text>
+
+  <rect x="714" y="500" width="340" height="42" rx="10" fill="#FFF3DC"/>
+  <text x="742" y="527" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#815313">80% actual spend alert</text>
+  <rect x="714" y="558" width="340" height="42" rx="10" fill="#FFE9E4"/>
+  <text x="742" y="585" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#9B3522">100% forecasted spend alert</text>
+
+  <text x="104" y="626" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">Source: terraform/budget.tf</text>
+  <text x="908" y="626" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#172033">Cost governance control 2 of 3</text>
+</svg>
