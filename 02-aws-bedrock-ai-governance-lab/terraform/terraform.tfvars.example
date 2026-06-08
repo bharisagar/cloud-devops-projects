@@ -1,3 +1,12 @@
 ﻿aws_region       = "ap-south-1"
 project_name     = "bedrock-ai-governance-lab"
 bedrock_model_id = "apac.amazon.nova-micro-v1:0"
+
+environment              = "sandbox"
+team_name                = "platform-engineering"
+cost_center              = "learning-lab"
+owner                    = "bharisagar"
+monthly_budget_limit_usd = 5
+
+# Optional: set this to create AWS Budget alerts for the lab.
+# budget_alert_email = "you@example.com"

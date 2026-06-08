@@ -17,3 +17,13 @@ output "governance_log_bucket" {
   description = "S3 bucket for governance logs and evidence."
   value       = aws_s3_bucket.governance_logs.id
 }
+
+output "cost_governance_tags" {
+  description = "Tags used for AI workload cost allocation."
+  value       = local.common_tags
+}
+
+output "monthly_budget_name" {
+  description = "AWS Budget name when budget_alert_email is configured."
+  value       = length(aws_budgets_budget.ai_governance_lab) > 0 ? aws_budgets_budget.ai_governance_lab[0].name : "not-created"
+}

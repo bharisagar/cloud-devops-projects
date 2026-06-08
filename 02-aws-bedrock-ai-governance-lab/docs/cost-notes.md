@@ -20,3 +20,5 @@ Cost control recommendations:
 - Destroy the stack after testing.
 - Avoid submitting large documents or images.
 - Review the AWS Pricing Calculator for your region.
+- Configure `budget_alert_email` and `monthly_budget_limit_usd` in Terraform for AWS Budget alerts.
+- Use the cost governance tags in [Day 2: AI Cost Governance](./day-02-cost-governance.md) for Cost Explorer grouping.

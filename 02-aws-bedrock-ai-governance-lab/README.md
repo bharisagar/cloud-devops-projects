@@ -14,6 +14,7 @@ The project deploys a serverless application that invokes Amazon Bedrock through
 - S3 bucket for Bedrock model invocation logs and governance evidence.
 - CloudTrail trail for API-level audit visibility.
 - IAM roles and policies using least-privilege patterns.
+- Cost governance tags and optional AWS Budget alerts for sandbox spend control.
 - Governance test prompts for safe requests, PII, prompt injection, and restricted topics.
 
 ## High-Level Architecture
@@ -60,6 +61,7 @@ flowchart LR
 | Model invocation logs | Bedrock logging, S3, CloudWatch | Prompt and response activity can be reviewed based on logging configuration. |
 | API audit | CloudTrail | AWS API calls are recorded for investigation. |
 | Data protection | S3 encryption, IAM | Logs and evidence are stored with encryption and access control. |
+| Cost governance | Tags, AWS Budgets, Cost Explorer | AI workload spend can be tracked by project, owner, team, environment, and cost center. |
 
 ## Prerequisites
 
@@ -100,6 +102,10 @@ The test suite sends safe prompts, prompt injection attempts, PII-style inputs, 
 ## Evidence Screenshots
 
 See [Deployment Evidence](./docs/deployment-evidence.md) for redacted screenshots from a real sandbox deployment.
+
+See [Day 2: AI Cost Governance](./docs/day-02-cost-governance.md) for the cost tagging and budget-control extension.
+
+![Day 2 AI Cost Governance Evidence](./assets/day-02-cost-governance-evidence.svg)
 
 See [screenshots/README.md](./screenshots/README.md) for the screenshot checklist used during deployment.
 

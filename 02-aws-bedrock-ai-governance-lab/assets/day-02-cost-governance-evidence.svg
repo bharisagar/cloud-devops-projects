@@ -1,0 +1,44 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F6F8FB"/>
+  <rect x="56" y="52" width="1168" height="616" rx="18" fill="#FFFFFF" stroke="#D7DEE8"/>
+  <text x="96" y="112" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#161E2E">Day 2: AI Cost Governance</text>
+  <text x="96" y="150" font-family="Inter, Arial, sans-serif" font-size="18" fill="#526173">AWS Bedrock AI Governance Lab</text>
+
+  <rect x="96" y="196" width="332" height="380" rx="12" fill="#F9FBFD" stroke="#D8E0EA"/>
+  <text x="124" y="240" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#172033">Cost Allocation Tags</text>
+  <rect x="124" y="272" width="256" height="34" rx="8" fill="#E9F4FF"/>
+  <text x="142" y="295" font-family="Consolas, monospace" font-size="15" fill="#134E8A">Project = bedrock-ai...</text>
+  <rect x="124" y="318" width="224" height="34" rx="8" fill="#EAF8F0"/>
+  <text x="142" y="341" font-family="Consolas, monospace" font-size="15" fill="#1E6C3E">Team = platform-eng</text>
+  <rect x="124" y="364" width="236" height="34" rx="8" fill="#FFF3DC"/>
+  <text x="142" y="387" font-family="Consolas, monospace" font-size="15" fill="#815313">Environment = sandbox</text>
+  <rect x="124" y="410" width="218" height="34" rx="8" fill="#F0ECFF"/>
+  <text x="142" y="433" font-family="Consolas, monospace" font-size="15" fill="#4A3C91">CostCenter = learning</text>
+  <text x="124" y="500" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">Every supported AWS resource carries ownership metadata for accountability.</text>
+
+  <rect x="474" y="196" width="332" height="380" rx="12" fill="#F9FBFD" stroke="#D8E0EA"/>
+  <text x="502" y="240" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#172033">Monthly Budget Guardrail</text>
+  <circle cx="640" cy="360" r="86" fill="#EAF8F0" stroke="#63B77A" stroke-width="16"/>
+  <path d="M640 274 A86 86 0 0 1 721 389" stroke="#F0A43C" stroke-width="16" stroke-linecap="round"/>
+  <text x="604" y="355" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" fill="#172033">$5</text>
+  <text x="582" y="384" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">sandbox limit</text>
+  <rect x="526" y="476" width="228" height="40" rx="8" fill="#FFF3DC"/>
+  <text x="546" y="502" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#815313">80% actual alert</text>
+  <rect x="526" y="528" width="228" height="40" rx="8" fill="#FFE9E4"/>
+  <text x="546" y="554" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#9B3522">100% forecast alert</text>
+
+  <rect x="852" y="196" width="332" height="380" rx="12" fill="#F9FBFD" stroke="#D8E0EA"/>
+  <text x="880" y="240" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#172033">Workload Cost View</text>
+  <rect x="896" y="292" width="64" height="214" rx="8" fill="#2F80ED"/>
+  <rect x="980" y="346" width="64" height="160" rx="8" fill="#27AE60"/>
+  <rect x="1064" y="410" width="64" height="96" rx="8" fill="#F2994A"/>
+  <line x1="884" y1="506" x2="1144" y2="506" stroke="#9AA8B8" stroke-width="2"/>
+  <text x="894" y="540" font-family="Inter, Arial, sans-serif" font-size="14" fill="#526173">Bedrock</text>
+  <text x="982" y="540" font-family="Inter, Arial, sans-serif" font-size="14" fill="#526173">Logs</text>
+  <text x="1062" y="540" font-family="Inter, Arial, sans-serif" font-size="14" fill="#526173">API</text>
+  <text x="880" y="590" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">Costs can be reviewed by project, app, team, and environment.</text>
+
+  <rect x="96" y="610" width="1088" height="1" fill="#D7DEE8"/>
+  <text x="96" y="642" font-family="Inter, Arial, sans-serif" font-size="16" fill="#526173">Governance scope: safe model usage + audit trails + cost accountability</text>
+  <text x="950" y="642" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#172033">bharisagar/cloud-devops-projects</text>
+</svg>
