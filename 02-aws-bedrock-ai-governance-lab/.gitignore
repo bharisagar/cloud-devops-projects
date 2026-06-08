@@ -1,0 +1,9 @@
+﻿terraform/.terraform/
+terraform/lambda_function.zip
+terraform/*.tfplan
+terraform/tfplan
+terraform/terraform.tfvars
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+__pycache__/
+*.pyc

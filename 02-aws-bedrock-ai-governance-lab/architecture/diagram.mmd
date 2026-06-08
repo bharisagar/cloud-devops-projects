@@ -1,0 +1,12 @@
+﻿flowchart LR
+  user["User / Tester"] --> api["Amazon API Gateway"]
+  api --> lambda["AWS Lambda AI App"]
+  lambda --> guardrails["Amazon Bedrock Guardrails"]
+  guardrails --> model["Amazon Bedrock Foundation Model"]
+  model --> guardrails
+  guardrails --> lambda
+  lambda --> ddb["DynamoDB AI Audit Table"]
+  lambda --> cw["CloudWatch App Logs"]
+  bedrocklogs["Bedrock Invocation Logging"] --> s3["S3 Governance Log Bucket"]
+  bedrocklogs --> cwl["CloudWatch Logs"]
+  cloudtrail["AWS CloudTrail"] --> s3

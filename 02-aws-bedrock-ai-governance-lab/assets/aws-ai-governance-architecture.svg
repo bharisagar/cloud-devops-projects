@@ -1,0 +1,33 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-label="AWS Bedrock AI Governance architecture diagram">
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}.title{font:700 34px Arial,Helvetica,sans-serif;fill:#0f172a}.sub{font:400 16px Arial,Helvetica,sans-serif;fill:#475569}.card{fill:#fff;stroke:#cbd5e1;stroke-width:2}.aws{fill:#ff9900}.svc{font:700 18px Arial,Helvetica,sans-serif;fill:#0f172a}.meta{font:400 13px Arial,Helvetica,sans-serif;fill:#475569}.line{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:7 7;fill:none;marker-end:url(#arrow)}.zone{fill:#eef6ff;stroke:#bfdbfe;stroke-width:2}.zoneTitle{font:700 17px Arial,Helvetica,sans-serif;fill:#1d4ed8}.small{font:700 12px Arial,Helvetica,sans-serif;fill:#fff}.evidence{fill:#ecfdf5;stroke:#86efac;stroke-width:2}.warn{fill:#fff7ed;stroke:#fdba74;stroke-width:2}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/></marker>
+  </defs>
+  <rect class="bg" width="1400" height="820"/>
+  <text x="60" y="62" class="title">AWS Bedrock AI Governance Lab</text>
+  <text x="60" y="92" class="sub">High-level architecture for governed GenAI: access control, guardrails, audit logs, and evidence storage.</text>
+
+  <rect x="45" y="125" width="1310" height="500" rx="18" class="zone"/>
+  <text x="70" y="158" class="zoneTitle">AWS Account - Sandbox Governance Environment</text>
+
+  <g transform="translate(85 235)"><rect width="145" height="112" rx="12" class="card"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="31" y="45" class="small">USER</text><text x="18" y="82" class="svc">User / Tester</text><text x="18" y="100" class="meta">Prompt request</text></g>
+  <g transform="translate(285 235)"><rect width="155" height="112" rx="12" class="card"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="28" y="45" class="small">API</text><text x="18" y="82" class="svc">API Gateway</text><text x="18" y="100" class="meta">Public HTTPS API</text></g>
+  <g transform="translate(505 235)"><rect width="165" height="112" rx="12" class="card"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="26" y="45" class="small">L</text><text x="18" y="82" class="svc">AWS Lambda</text><text x="18" y="100" class="meta">AI app + audit logic</text></g>
+  <g transform="translate(735 235)"><rect width="190" height="112" rx="12" class="warn"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="26" y="45" class="small">GR</text><text x="18" y="82" class="svc">Bedrock Guardrails</text><text x="18" y="100" class="meta">Input + output policy</text></g>
+  <g transform="translate(990 235)"><rect width="185" height="112" rx="12" class="card"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="23" y="45" class="small">FM</text><text x="18" y="82" class="svc">Amazon Bedrock</text><text x="18" y="100" class="meta">Approved foundation model</text></g>
+
+  <path class="line" d="M230 291 H285"/><path class="line" d="M440 291 H505"/><path class="line" d="M670 291 H735"/><path class="line" d="M925 291 H990"/><path class="line" d="M990 326 C945 390 785 390 760 348"/>
+
+  <g transform="translate(420 445)"><rect width="180" height="105" rx="12" class="evidence"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="24" y="45" class="small">DB</text><text x="18" y="80" class="svc">DynamoDB</text><text x="18" y="98" class="meta">AI audit table</text></g>
+  <g transform="translate(655 445)"><rect width="190" height="105" rx="12" class="evidence"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="23" y="45" class="small">CW</text><text x="18" y="80" class="svc">CloudWatch Logs</text><text x="18" y="98" class="meta">App + invocation logs</text></g>
+  <g transform="translate(900 445)"><rect width="180" height="105" rx="12" class="evidence"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="27" y="45" class="small">S3</text><text x="18" y="80" class="svc">Amazon S3</text><text x="18" y="98" class="meta">Governance evidence</text></g>
+  <g transform="translate(1140 445)"><rect width="170" height="105" rx="12" class="evidence"/><rect x="18" y="18" width="42" height="42" rx="8" class="aws"/><text x="23" y="45" class="small">CT</text><text x="18" y="80" class="svc">CloudTrail</text><text x="18" y="98" class="meta">API audit trail</text></g>
+
+  <path class="dash" d="M590 348 V445"/><path class="dash" d="M630 348 C690 390 720 405 735 445"/><path class="dash" d="M1080 348 C1030 388 1000 410 990 445"/><path class="dash" d="M1175 495 H1080"/>
+
+  <rect x="85" y="665" width="1230" height="105" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="110" y="700" class="svc">Governance outcomes</text>
+  <text x="110" y="730" class="sub">Least-privilege access - Guardrail policy enforcement - Prompt/response traceability - Cloud audit logs - S3 evidence storage - Repeatable Terraform deployment</text>
+</svg>

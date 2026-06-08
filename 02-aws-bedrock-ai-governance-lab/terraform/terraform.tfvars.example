@@ -1,0 +1,3 @@
+﻿aws_region       = "ap-south-1"
+project_name     = "bedrock-ai-governance-lab"
+bedrock_model_id = "apac.amazon.nova-micro-v1:0"

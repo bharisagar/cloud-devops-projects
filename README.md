@@ -23,19 +23,20 @@ I created this repo for learners who want project-based practice across Linux, G
 
 ```text
 cloud-devops-projects/
-├── 30-days-cloud-devops-projects/
-│   ├── day-01-linux-server-health-check/
-│   ├── day-02-git-github-workflow/
-│   ├── day-03-dockerize-node-app/
-│   ├── day-04-docker-compose-app-with-db/
-│   ├── day-05-nginx-reverse-proxy-docker/
-│   ├── day-06-github-actions-docker-ci/
-│   └── day-07-push-docker-image-to-registry/
-├── .github/
-│   └── workflows/
-│       ├── day-06-docker-ci.yml
-│       └── day-07-publish-image.yml
-└── 01-private-vpc-ecs-fargate/
+|-- 30-days-cloud-devops-projects/
+|   |-- day-01-linux-server-health-check/
+|   |-- day-02-git-github-workflow/
+|   |-- day-03-dockerize-node-app/
+|   |-- day-04-docker-compose-app-with-db/
+|   |-- day-05-nginx-reverse-proxy-docker/
+|   |-- day-06-github-actions-docker-ci/
+|   `-- day-07-push-docker-image-to-registry/
+|-- .github/
+|   `-- workflows/
+|       |-- day-06-docker-ci.yml
+|       `-- day-07-publish-image.yml
+|-- 01-private-vpc-ecs-fargate/
+`-- 02-aws-bedrock-ai-governance-lab/
 ```
 
 The `30-days-cloud-devops-projects` folder is the structured learning path. The `01-private-vpc-ecs-fargate` folder is an advanced production-style project that will later map into the AWS/Terraform section of the roadmap.
@@ -80,5 +81,6 @@ Do not upload secrets, access keys, private IPs from office systems, customer na
 | Project | Focus |
 | --- | --- |
 | [Private VPC ECS Fargate Platform](./01-private-vpc-ecs-fargate/README.md) | AWS ECS, private subnets, VPC endpoints, CloudWatch, ECR, cost optimization |
+| [AWS Bedrock AI Governance Lab](./02-aws-bedrock-ai-governance-lab/README.md) | Amazon Bedrock, Guardrails, AI governance, IAM, audit logging, CloudTrail |
 
 This project solves a real-world class of ECS Fargate `ResourceInitializationError` issues where tasks in private subnets cannot reach ECR, CloudWatch Logs, S3, or Secrets Manager.
