@@ -91,7 +91,7 @@ variable "app_policy_mode" {
 variable "bedrock_model_id" {
   description = "Bedrock model or inference profile ID."
   type        = string
-  default     = "apac.amazon.nova-lite-v1:0"
+  default     = "apac.amazon.nova-pro-v1:0"
 }
 
 variable "sagemaker_endpoint_name" {

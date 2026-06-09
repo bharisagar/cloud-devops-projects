@@ -47,7 +47,7 @@ Ask these before proposing the final design:
 - Add model approval workflow using SageMaker Model Registry for custom models.
 - Add WAF, rate limits, and customer-specific authorization.
 
-## Recommended Message to Senior Architects
+## Architecture Review Focus
 
 The value is not only the AI model. The value is the control plane around the model:
 

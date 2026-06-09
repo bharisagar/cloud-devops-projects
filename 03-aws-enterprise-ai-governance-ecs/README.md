@@ -4,7 +4,14 @@ Organization-level reference architecture for a governed AI API on AWS.
 
 This project moves the earlier Lambda governance lab into an enterprise container pattern using Amazon ECS on Fargate, API Gateway, private networking, Bedrock Guardrails, DynamoDB audit records, CloudWatch monitoring, CloudTrail, S3 evidence storage, and Terraform.
 
-The design is intentionally prepared for a later Bedrock vs SageMaker comparison. The same governance API can call Amazon Bedrock managed foundation models or a SageMaker endpoint for customer-owned/custom models.
+The design is intentionally prepared for a Bedrock vs SageMaker comparison. The same governance API can call Amazon Bedrock managed foundation models or a SageMaker endpoint for customer-owned/custom models.
+
+Recommended model choices:
+
+- Bedrock baseline: Amazon Nova Pro through `apac.amazon.nova-pro-v1:0`.
+- Bedrock cost-optimized option: Amazon Nova Lite through `apac.amazon.nova-lite-v1:0`.
+- Bedrock advanced reasoning option: Claude Sonnet 4.6 through `anthropic.claude-sonnet-4-6` or the available regional inference profile when long-context analysis is required and the higher token cost is accepted.
+- SageMaker custom-model option: Meta Llama 3.1 8B Instruct on a SageMaker `ml.g5.xlarge` real-time endpoint.
 
 ## What This Builds
 
@@ -58,7 +65,7 @@ The container supports three AI provider modes:
 - `bedrock`: invokes Amazon Bedrock through the Converse API and Bedrock Guardrails.
 - `sagemaker`: invokes a configured SageMaker endpoint through SageMaker Runtime.
 
-For a senior architect review, start with `demo` for a predictable walkthrough, then switch to `bedrock` after model access and quotas are confirmed.
+Start with `demo` for a predictable walkthrough, then switch to `bedrock` after model access, quotas, and cost controls are confirmed.
 
 ## Project Structure
 
@@ -67,7 +74,7 @@ For a senior architect review, start with `demo` for a predictable walkthrough, 
   app/                 Containerized FastAPI governance service
   terraform/           AWS infrastructure as code
   tests/               API governance test runner
-  docs/                Architecture, customer approach, cost, monitoring, demo guide
+  docs/                Architecture, customer approach, cost, monitoring, and solution walkthrough
   assets/              Architecture diagram
 ```
 
@@ -103,14 +110,14 @@ Recommended flow:
 5. Capture evidence screenshots.
 6. Destroy sandbox resources when the demo is complete.
 
-## Senior Architect Review Documents
+## Solution Documents
 
 - [Solution architecture](./docs/solution-architecture.md)
 - [Customer approach](./docs/customer-approach.md)
 - [Bedrock vs SageMaker](./docs/bedrock-vs-sagemaker.md)
 - [Security, monitoring, and latency](./docs/security-monitoring-latency.md)
 - [Cost model](./docs/cost-model.md)
-- [Demo script](./docs/demo-script.md)
+- [Solution walkthrough](./docs/solution-walkthrough.md)
 
 ## Cleanup
 

@@ -1,117 +1,164 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-  <title id="title">Enterprise AI Governance Platform on ECS</title>
-  <desc id="desc">High-level AWS architecture showing API Gateway, VPC Link, ECS Fargate, Bedrock, SageMaker, DynamoDB, CloudWatch, CloudTrail, and S3.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="940" viewBox="0 0 1600 940" role="img" aria-labelledby="title desc">
+  <title id="title">Enterprise AI Governance Gateway on AWS</title>
+  <desc id="desc">AWS architecture diagram for API Gateway, VPC Link, internal Application Load Balancer, ECS Fargate, Bedrock Nova Pro, optional SageMaker Llama endpoint, DynamoDB audit records, CloudWatch, CloudTrail, S3, IAM, and VPC endpoints.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#06121f"/>
-      <stop offset="1" stop-color="#0f172a"/>
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#111827"/>
     </linearGradient>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#020617" flood-opacity="0.42"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#67e8f9"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
     </marker>
     <style>
-      .title { font: 700 28px Arial, sans-serif; fill: #f8fafc; }
-      .subtitle { font: 400 15px Arial, sans-serif; fill: #94a3b8; }
-      .section { font: 700 15px Arial, sans-serif; fill: #cbd5e1; letter-spacing: 1px; }
-      .card-title { font: 700 15px Arial, sans-serif; fill: #f8fafc; }
-      .card-sub { font: 400 12px Arial, sans-serif; fill: #cbd5e1; }
+      .h1 { font: 700 34px Arial, sans-serif; fill: #f8fafc; }
+      .h2 { font: 700 18px Arial, sans-serif; fill: #e2e8f0; letter-spacing: .7px; }
+      .muted { font: 400 15px Arial, sans-serif; fill: #94a3b8; }
+      .small { font: 400 12px Arial, sans-serif; fill: #cbd5e1; }
       .tiny { font: 400 11px Arial, sans-serif; fill: #94a3b8; }
-      .line { stroke: #67e8f9; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
-      .line-muted { stroke: #64748b; stroke-width: 1.8; fill: none; stroke-dasharray: 7 5; marker-end: url(#arrow); }
-      .aws { font: 700 12px Arial, sans-serif; fill: #111827; }
+      .svc-title { font: 700 15px Arial, sans-serif; fill: #f8fafc; }
+      .svc-sub { font: 400 12px Arial, sans-serif; fill: #cbd5e1; }
+      .badge { font: 700 11px Arial, sans-serif; fill: #111827; }
+      .line { stroke: #38bdf8; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .line-alt { stroke: #a78bfa; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .line-muted { stroke: #64748b; stroke-width: 1.9; fill: none; stroke-dasharray: 7 6; marker-end: url(#arrow); }
+      .boundary { fill: #020617; stroke: #243449; stroke-width: 1.4; }
+      .tile { fill: #0f172a; stroke: #334155; stroke-width: 1.2; filter: url(#shadow); }
+      .orange { fill: #ff9900; }
+      .blue { fill: #2563eb; }
+      .green { fill: #059669; }
+      .purple { fill: #7c3aed; }
+      .red { fill: #dc2626; }
     </style>
   </defs>
 
-  <rect width="1280" height="720" fill="url(#bg)"/>
-  <text x="54" y="54" class="title">Enterprise AI Governance Platform on AWS</text>
-  <text x="54" y="82" class="subtitle">API Gateway + Private ECS Fargate + Bedrock/SageMaker + audit, monitoring, security, and cost controls</text>
+  <rect width="1600" height="940" fill="url(#bg)"/>
+  <text x="60" y="62" class="h1">Enterprise AI Governance Gateway on AWS</text>
+  <text x="60" y="94" class="muted">Private ECS AI gateway with Bedrock Nova Pro, optional SageMaker Llama endpoint, audit evidence, monitoring, latency alarms, and cost visibility</text>
 
-  <rect x="44" y="118" width="260" height="510" rx="22" fill="#07111f" stroke="#1e293b"/>
-  <text x="68" y="152" class="section">CONSUMERS</text>
+  <rect x="50" y="130" width="250" height="660" rx="24" class="boundary"/>
+  <text x="78" y="168" class="h2">CONSUMER LAYER</text>
 
-  <rect x="78" y="192" width="188" height="78" rx="16" fill="#0f766e" filter="url(#shadow)"/>
-  <circle cx="106" cy="230" r="18" fill="#f59e0b"/>
-  <text x="98" y="235" class="aws">APP</text>
-  <text x="136" y="222" class="card-title">Customer App</text>
-  <text x="136" y="244" class="card-sub">Web, mobile, internal tools</text>
+  <rect x="82" y="214" width="186" height="90" rx="16" class="tile"/>
+  <circle cx="116" cy="259" r="21" class="orange"/>
+  <path d="M105 259 h22 M116 248 v22" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
+  <text x="150" y="252" class="svc-title">Client App</text>
+  <text x="150" y="274" class="svc-sub">Web, portal, API user</text>
 
-  <rect x="78" y="316" width="188" height="78" rx="16" fill="#155e75" filter="url(#shadow)"/>
-  <circle cx="106" cy="354" r="18" fill="#f59e0b"/>
-  <text x="97" y="359" class="aws">SSO</text>
-  <text x="136" y="346" class="card-title">Identity Layer</text>
-  <text x="136" y="368" class="card-sub">IAM, OIDC, Cognito</text>
+  <rect x="82" y="354" width="186" height="90" rx="16" class="tile"/>
+  <circle cx="116" cy="399" r="21" class="orange"/>
+  <path d="M106 399 h20 M116 389 a10 10 0 1 1 0 20" stroke="#111827" stroke-width="3" fill="none"/>
+  <text x="150" y="392" class="svc-title">Identity</text>
+  <text x="150" y="414" class="svc-sub">OIDC / Cognito ready</text>
 
-  <rect x="350" y="118" width="470" height="510" rx="22" fill="#07111f" stroke="#1e293b"/>
-  <text x="374" y="152" class="section">PRIVATE APPLICATION PLATFORM</text>
+  <rect x="350" y="130" width="520" height="660" rx="24" class="boundary"/>
+  <text x="378" y="168" class="h2">PRIVATE APPLICATION PLATFORM</text>
 
-  <rect x="396" y="190" width="168" height="78" rx="16" fill="#1d4ed8" filter="url(#shadow)"/>
-  <circle cx="424" cy="228" r="18" fill="#f59e0b"/>
-  <text x="414" y="233" class="aws">API</text>
-  <text x="454" y="220" class="card-title">API Gateway</text>
-  <text x="454" y="242" class="card-sub">HTTP API routes</text>
+  <rect x="390" y="214" width="190" height="90" rx="16" class="tile"/>
+  <circle cx="424" cy="259" r="21" class="orange"/>
+  <path d="M414 247 l20 12 l-20 12 z" fill="#111827"/>
+  <text x="458" y="252" class="svc-title">Amazon API Gateway</text>
+  <text x="458" y="274" class="svc-sub">HTTP API /prompt</text>
 
-  <rect x="610" y="190" width="168" height="78" rx="16" fill="#0e7490" filter="url(#shadow)"/>
-  <circle cx="638" cy="228" r="18" fill="#f59e0b"/>
-  <text x="628" y="233" class="aws">VPC</text>
-  <text x="668" y="220" class="card-title">VPC Link</text>
-  <text x="668" y="242" class="card-sub">Private integration</text>
+  <rect x="640" y="214" width="190" height="90" rx="16" class="tile"/>
+  <circle cx="674" cy="259" r="21" class="orange"/>
+  <path d="M665 253 q9 -9 18 0 M665 265 q9 9 18 0" stroke="#111827" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <text x="708" y="252" class="svc-title">API Gateway VPC Link</text>
+  <text x="708" y="274" class="svc-sub">Private integration</text>
 
-  <rect x="396" y="316" width="168" height="78" rx="16" fill="#7c2d12" filter="url(#shadow)"/>
-  <circle cx="424" cy="354" r="18" fill="#f59e0b"/>
-  <text x="413" y="359" class="aws">ALB</text>
-  <text x="454" y="346" class="card-title">Internal ALB</text>
-  <text x="454" y="368" class="card-sub">Private target routing</text>
+  <rect x="390" y="370" width="190" height="90" rx="16" class="tile"/>
+  <circle cx="424" cy="415" r="21" class="orange"/>
+  <path d="M410 419 h28 M414 409 h20 M419 399 h10" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
+  <text x="458" y="408" class="svc-title">Internal ALB</text>
+  <text x="458" y="430" class="svc-sub">Private target group</text>
 
-  <rect x="610" y="316" width="168" height="78" rx="16" fill="#047857" filter="url(#shadow)"/>
-  <circle cx="638" cy="354" r="18" fill="#f59e0b"/>
-  <text x="627" y="359" class="aws">ECS</text>
-  <text x="668" y="346" class="card-title">Fargate Service</text>
-  <text x="668" y="368" class="card-sub">AI gateway container</text>
+  <rect x="640" y="370" width="190" height="90" rx="16" class="tile"/>
+  <circle cx="674" cy="415" r="21" class="orange"/>
+  <path d="M662 405 h24 v20 h-24z M668 399 h12 M668 431 h12" stroke="#111827" stroke-width="3" fill="none"/>
+  <text x="708" y="408" class="svc-title">Amazon ECS Fargate</text>
+  <text x="708" y="430" class="svc-sub">FastAPI governance app</text>
 
-  <rect x="396" y="450" width="382" height="86" rx="16" fill="#111827" stroke="#334155"/>
-  <text x="424" y="482" class="card-title">Private AWS Service Access</text>
-  <text x="424" y="507" class="card-sub">ECR, CloudWatch Logs, STS, S3, DynamoDB, Bedrock Runtime via VPC endpoints</text>
+  <rect x="390" y="526" width="440" height="92" rx="16" class="tile"/>
+  <circle cx="424" cy="572" r="21" class="orange"/>
+  <path d="M413 572 h22 M424 561 v22 M416 564 l16 16 M432 564 l-16 16" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+  <text x="458" y="565" class="svc-title">VPC Endpoints</text>
+  <text x="458" y="588" class="svc-sub">Bedrock Runtime, ECR, CloudWatch Logs, STS, S3, DynamoDB</text>
 
-  <rect x="876" y="118" width="360" height="510" rx="22" fill="#07111f" stroke="#1e293b"/>
-  <text x="900" y="152" class="section">AI, GOVERNANCE, AND EVIDENCE</text>
+  <rect x="930" y="130" width="300" height="660" rx="24" class="boundary"/>
+  <text x="958" y="168" class="h2">MODEL PROVIDERS</text>
 
-  <rect x="920" y="190" width="252" height="78" rx="16" fill="#4c1d95" filter="url(#shadow)"/>
-  <circle cx="948" cy="228" r="18" fill="#f59e0b"/>
-  <text x="936" y="233" class="aws">BR</text>
-  <text x="978" y="220" class="card-title">Amazon Bedrock Guardrails</text>
-  <text x="978" y="242" class="card-sub">Input and output controls</text>
+  <rect x="970" y="214" width="220" height="100" rx="16" class="tile"/>
+  <circle cx="1006" cy="264" r="22" class="orange"/>
+  <path d="M995 264 l11 -15 l11 15 l-11 15z" fill="#111827"/>
+  <text x="1042" y="252" class="svc-title">Amazon Bedrock</text>
+  <text x="1042" y="274" class="svc-sub">Nova Pro baseline</text>
+  <text x="1042" y="294" class="tiny">Guardrails enabled</text>
 
-  <rect x="920" y="302" width="252" height="78" rx="16" fill="#1e40af" filter="url(#shadow)"/>
-  <circle cx="948" cy="340" r="18" fill="#f59e0b"/>
-  <text x="936" y="345" class="aws">SM</text>
-  <text x="978" y="332" class="card-title">SageMaker Endpoint</text>
-  <text x="978" y="354" class="card-sub">Optional custom model path</text>
+  <rect x="970" y="382" width="220" height="100" rx="16" class="tile"/>
+  <circle cx="1006" cy="432" r="22" class="orange"/>
+  <path d="M994 444 h24 M998 438 v-20 M1006 438 v-30 M1014 438 v-12" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
+  <text x="1042" y="420" class="svc-title">Amazon SageMaker</text>
+  <text x="1042" y="442" class="svc-sub">Llama 3.1 8B endpoint</text>
+  <text x="1042" y="462" class="tiny">Optional custom model path</text>
 
-  <rect x="920" y="414" width="252" height="78" rx="16" fill="#92400e" filter="url(#shadow)"/>
-  <circle cx="948" cy="452" r="18" fill="#f59e0b"/>
-  <text x="936" y="457" class="aws">DDB</text>
-  <text x="978" y="444" class="card-title">DynamoDB Audit</text>
-  <text x="978" y="466" class="card-sub">Request and policy evidence</text>
+  <rect x="970" y="550" width="220" height="100" rx="16" class="tile"/>
+  <circle cx="1006" cy="600" r="22" class="orange"/>
+  <path d="M996 588 h20 v24 h-20z M1000 592 h12 M1000 600 h12 M1000 608 h12" stroke="#111827" stroke-width="3" fill="none"/>
+  <text x="1042" y="588" class="svc-title">Model Policy</text>
+  <text x="1042" y="610" class="svc-sub">routing, quotas, fallback</text>
+  <text x="1042" y="630" class="tiny">Nova Lite / Claude Sonnet 4.6 option</text>
 
-  <rect x="920" y="526" width="252" height="78" rx="16" fill="#164e63" filter="url(#shadow)"/>
-  <circle cx="948" cy="564" r="18" fill="#f59e0b"/>
-  <text x="938" y="569" class="aws">OBS</text>
-  <text x="978" y="556" class="card-title">CloudWatch, CloudTrail, S3</text>
-  <text x="978" y="578" class="card-sub">Monitoring and audit storage</text>
+  <rect x="1280" y="130" width="270" height="660" rx="24" class="boundary"/>
+  <text x="1308" y="168" class="h2">EVIDENCE &amp; OPS</text>
 
-  <path class="line" d="M266 230 H396"/>
-  <path class="line" d="M564 229 H610"/>
-  <path class="line" d="M694 268 V316"/>
-  <path class="line" d="M610 355 H564"/>
-  <path class="line" d="M564 355 H610"/>
-  <path class="line" d="M778 354 H920"/>
-  <path class="line-muted" d="M778 354 C840 354 840 340 920 340"/>
-  <path class="line" d="M778 390 C850 430 860 452 920 452"/>
-  <path class="line-muted" d="M704 394 C760 520 820 564 920 564"/>
-  <path class="line-muted" d="M610 493 H920"/>
+  <rect x="1312" y="214" width="206" height="82" rx="16" class="tile"/>
+  <circle cx="1346" cy="255" r="20" class="orange"/>
+  <ellipse cx="1346" cy="246" rx="13" ry="6" fill="#111827"/>
+  <path d="M1333 246 v18 c0 4 26 4 26 0 v-18" stroke="#111827" stroke-width="3" fill="none"/>
+  <text x="1380" y="248" class="svc-title">DynamoDB</text>
+  <text x="1380" y="270" class="svc-sub">AI audit table</text>
 
-  <text x="54" y="674" class="tiny">Design intent: keep the AI runtime private, expose only the managed API boundary, and store repeatable evidence for security, monitoring, latency, cost, and audit reviews.</text>
+  <rect x="1312" y="336" width="206" height="82" rx="16" class="tile"/>
+  <circle cx="1346" cy="377" r="20" class="orange"/>
+  <path d="M1335 389 h24 M1338 382 v-15 M1346 382 v-24 M1354 382 v-10" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
+  <text x="1380" y="370" class="svc-title">CloudWatch</text>
+  <text x="1380" y="392" class="svc-sub">logs, metrics, alarms</text>
+
+  <rect x="1312" y="458" width="206" height="82" rx="16" class="tile"/>
+  <circle cx="1346" cy="499" r="20" class="orange"/>
+  <path d="M1335 492 c12 -12 22 -12 22 0 c0 10 -18 10 -18 20" stroke="#111827" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <text x="1380" y="492" class="svc-title">CloudTrail</text>
+  <text x="1380" y="514" class="svc-sub">AWS API audit</text>
+
+  <rect x="1312" y="580" width="206" height="82" rx="16" class="tile"/>
+  <circle cx="1346" cy="621" r="20" class="orange"/>
+  <path d="M1334 612 h24 v20 h-24z M1338 608 h16" stroke="#111827" stroke-width="3" fill="none"/>
+  <text x="1380" y="614" class="svc-title">Amazon S3</text>
+  <text x="1380" y="636" class="svc-sub">evidence bucket</text>
+
+  <rect x="1312" y="702" width="206" height="62" rx="16" class="tile"/>
+  <circle cx="1346" cy="733" r="18" class="orange"/>
+  <path d="M1338 733 h16 M1346 725 v16" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
+  <text x="1380" y="727" class="svc-title">IAM + Budgets</text>
+  <text x="1380" y="747" class="svc-sub">least privilege, tags</text>
+
+  <path class="line" d="M268 259 H390"/>
+  <path class="line" d="M580 259 H640"/>
+  <path class="line" d="M735 304 V370"/>
+  <path class="line" d="M640 415 H580"/>
+  <path class="line" d="M580 415 H640"/>
+  <path class="line" d="M830 415 H930 C948 415 952 264 970 264"/>
+  <path class="line-alt" d="M830 425 H910 C948 425 952 432 970 432"/>
+  <path class="line-muted" d="M750 460 C820 520 875 585 970 600"/>
+  <path class="line" d="M830 415 C1010 425 1128 250 1312 255"/>
+  <path class="line-muted" d="M765 460 C930 520 1110 375 1312 377"/>
+  <path class="line-muted" d="M1190 264 C1260 315 1270 498 1312 499"/>
+  <path class="line-muted" d="M1190 264 C1260 360 1270 620 1312 621"/>
+  <path class="line-muted" d="M610 618 C860 720 1080 733 1312 733"/>
+
+  <rect x="390" y="830" width="1160" height="58" rx="18" fill="#0b1220" stroke="#334155"/>
+  <text x="420" y="855" class="small">Primary production path: API Gateway -> VPC Link -> Internal ALB -> ECS Fargate -> Bedrock Nova Pro + Guardrails -> DynamoDB + CloudWatch + CloudTrail/S3.</text>
+  <text x="420" y="876" class="tiny">Optional custom-model path: ECS Fargate -> SageMaker Llama 3.1 8B Instruct endpoint. Use only when custom model ownership and MLOps justify the endpoint cost.</text>
 </svg>

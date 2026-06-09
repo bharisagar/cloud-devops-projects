@@ -55,7 +55,7 @@ def main():
             args.endpoint,
             {
                 "tenant_id": "demo-customer",
-                "use_case": "senior-architect-review",
+                "use_case": "enterprise-ai-governance-review",
                 "user_id": "demo-user",
                 "sensitivity": "internal",
                 "prompt": test["prompt"],

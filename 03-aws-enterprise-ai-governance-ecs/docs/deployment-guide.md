@@ -84,12 +84,14 @@ python run_governance_tests.py --endpoint <api_endpoint>
 
 ## 6. Switch to Bedrock Mode
 
-After the demo mode works:
+After the local policy and audit path works, switch the managed model path to Amazon Nova Pro:
 
 ```hcl
 ai_provider = "bedrock"
-bedrock_model_id = "apac.amazon.nova-lite-v1:0"
+bedrock_model_id = "apac.amazon.nova-pro-v1:0"
 ```
+
+Use `apac.amazon.nova-lite-v1:0` only when the requirement is a lower-cost route for simple or high-volume prompts.
 
 Then:
 

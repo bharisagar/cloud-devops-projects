@@ -17,9 +17,12 @@ task_memory    = 1024
 min_task_count = 1
 max_task_count = 4
 
-bedrock_model_id = "apac.amazon.nova-lite-v1:0"
+# Production baseline for this architecture: Amazon Nova Pro through APAC cross-region inference.
+# Use Nova Lite for cost-optimized testing, or Claude Sonnet 4.6 for advanced long-context reasoning.
+bedrock_model_id = "apac.amazon.nova-pro-v1:0"
 
 # Use this only when ai_provider = "sagemaker".
+# Recommended custom-model path: Meta Llama 3.1 8B Instruct deployed on a SageMaker ml.g5.xlarge real-time endpoint.
 sagemaker_endpoint_name = ""
 
 enable_bedrock_invocation_logging = false

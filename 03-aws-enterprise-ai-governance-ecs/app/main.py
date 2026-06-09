@@ -23,7 +23,7 @@ APP_POLICY_MODE = os.getenv("APP_POLICY_MODE", "monitor").lower()
 AUDIT_TABLE_NAME = os.getenv("AUDIT_TABLE_NAME", "")
 AUDIT_TTL_DAYS = int(os.getenv("AUDIT_TTL_DAYS", "30"))
 
-BEDROCK_MODEL_ID = os.getenv("BEDROCK_MODEL_ID", "apac.amazon.nova-lite-v1:0")
+BEDROCK_MODEL_ID = os.getenv("BEDROCK_MODEL_ID", "apac.amazon.nova-pro-v1:0")
 BEDROCK_GUARDRAIL_ID = os.getenv("BEDROCK_GUARDRAIL_ID", "")
 BEDROCK_GUARDRAIL_VERSION = os.getenv("BEDROCK_GUARDRAIL_VERSION", "DRAFT")
 
