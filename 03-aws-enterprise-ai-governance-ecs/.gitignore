@@ -1,0 +1,13 @@
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+tfplan
+*.tfvars
+*.zip
+__pycache__/
+*.pyc
+.venv/
+.env
+screenshots/*.png
+screenshots/*.jpg
+screenshots/*.jpeg

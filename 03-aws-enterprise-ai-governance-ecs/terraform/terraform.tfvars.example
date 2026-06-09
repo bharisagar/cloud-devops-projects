@@ -1,0 +1,30 @@
+aws_region   = "ap-south-1"
+project_name = "enterprise-ai-governance-ecs"
+environment  = "sandbox"
+owner        = "barisagar"
+cost_center  = "learning-ai-governance"
+
+ai_provider     = "demo"
+app_policy_mode = "monitor"
+
+# After building and pushing the image, either leave this empty to use the
+# project ECR repository with :latest or paste the full image URI.
+container_image = ""
+
+desired_count  = 1
+task_cpu       = 512
+task_memory    = 1024
+min_task_count = 1
+max_task_count = 4
+
+bedrock_model_id = "apac.amazon.nova-lite-v1:0"
+
+# Use this only when ai_provider = "sagemaker".
+sagemaker_endpoint_name = ""
+
+enable_bedrock_invocation_logging = false
+
+# Optional emails. Leave blank for no notifications.
+alarm_email        = ""
+budget_alert_email = ""
+monthly_budget_usd = "20"
