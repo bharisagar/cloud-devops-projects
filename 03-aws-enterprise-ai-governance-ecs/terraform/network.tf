@@ -102,12 +102,12 @@ resource "aws_security_group_rule" "ecs_from_alb" {
 
 resource "aws_security_group_rule" "ecs_to_https" {
   type              = "egress"
-  description       = "ECS tasks to AWS service endpoints"
+  description       = "ECS tasks to AWS HTTPS endpoints through PrivateLink and gateway endpoints"
   security_group_id = aws_security_group.ecs_tasks.id
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = [var.vpc_cidr]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "vpc_endpoints_from_ecs" {

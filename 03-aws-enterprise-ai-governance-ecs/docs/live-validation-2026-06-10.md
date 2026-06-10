@@ -4,6 +4,42 @@ Region: `ap-south-1` / Asia Pacific (Mumbai)
 
 AWS profile used: `bedrock-governance`
 
+## ECS Platform Validation
+
+Deployed the ECS version of the governed AI gateway and validated the full application path:
+
+- API Gateway endpoint: `https://fbdettqx12.execute-api.ap-south-1.amazonaws.com/`
+- ECS cluster: `enterprise-ai-governance-ecs`
+- ECS service: `enterprise-ai-governance-ecs`
+- ECR image: `909969506392.dkr.ecr.ap-south-1.amazonaws.com/enterprise-ai-governance-ecs:latest`
+- Bedrock Guardrail ID: `9bo7yc28tvi6`
+- DynamoDB audit table: `enterprise-ai-governance-ecs-audit`
+- CloudWatch dashboard: `enterprise-ai-governance-ecs-dashboard`
+
+Health and routing checks:
+
+```json
+{
+  "service": "enterprise-ai-governance-ecs",
+  "status": "healthy",
+  "region": "ap-south-1",
+  "provider": "demo",
+  "audit_enabled": true,
+  "policy_mode": "monitor"
+}
+```
+
+Governance test results:
+
+- Safe architecture prompt returned `governance_action = allowed`.
+- Prompt injection prompt returned `governance_action = monitored`.
+- Restricted professional advice prompt returned `governance_action = monitored`.
+- Sensitive identifier prompt returned `governance_action = monitored`.
+- DynamoDB stored audit records for all test requests.
+- CloudWatch Logs captured structured `prompt_completed` events.
+
+Evidence screenshots are documented in [evidence.md](./evidence.md).
+
 ## Bedrock Runtime Check
 
 Validated that Bedrock inference profiles are available in the account, including:

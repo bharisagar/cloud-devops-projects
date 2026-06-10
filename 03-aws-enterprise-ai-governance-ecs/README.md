@@ -112,6 +112,14 @@ Recommended flow:
 5. Capture evidence screenshots.
 6. Destroy sandbox resources when the demo is complete.
 
+## Deployment Evidence
+
+Live AWS evidence from the June 10, 2026 sandbox deployment is captured in:
+
+[docs/evidence.md](./docs/evidence.md)
+
+The evidence covers ECS Fargate service health, running tasks, ECR image delivery, internal ALB routing, Bedrock Guardrail readiness, and the SageMaker Runtime smoke-test path.
+
 ## Solution Documents
 
 - [Solution architecture](./docs/solution-architecture.md)
@@ -119,6 +127,7 @@ Recommended flow:
 - [Bedrock vs SageMaker](./docs/bedrock-vs-sagemaker.md)
 - [Security, monitoring, and latency](./docs/security-monitoring-latency.md)
 - [Cost model](./docs/cost-model.md)
+- [Deployment evidence](./docs/evidence.md)
 - [SageMaker runtime smoke test](./docs/sagemaker-smoke-test.md)
 - [Live validation notes - 2026-06-10](./docs/live-validation-2026-06-10.md)
 - [Solution walkthrough](./docs/solution-walkthrough.md)

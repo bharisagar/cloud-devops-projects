@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "governance_evidence" {
-  bucket_prefix = "${var.project_name}-evidence-"
+  bucket_prefix = "ai-gov-evidence-"
 }
 
 resource "aws_s3_bucket_public_access_block" "governance_evidence" {
