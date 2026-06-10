@@ -12,7 +12,9 @@ This project uses one governed API layer and supports two AI backend patterns:
 | Bedrock production baseline | Amazon Nova Pro | `apac.amazon.nova-pro-v1:0` | Strong price-performance for enterprise text reasoning, architecture Q&A, policy explanation, and governed assistant workflows. |
 | Bedrock cost-optimized route | Amazon Nova Lite | `apac.amazon.nova-lite-v1:0` | Use for high-volume simple prompts, routing, summarization, and demos where cost matters more than highest reasoning quality. |
 | Bedrock advanced reasoning option | Anthropic Claude Sonnet 4.6 | `anthropic.claude-sonnet-4-6` or available regional inference profile | Use when long-context reasoning, complex analysis, or code-heavy planning requires a stronger model and the higher token cost is acceptable. |
-| SageMaker custom-model path | Meta Llama 3.1 8B Instruct | SageMaker real-time endpoint on `ml.g5.xlarge` | Shows customer-owned model hosting, endpoint operations, custom containers, Model Registry, Model Monitor, and MLOps governance. |
+| SageMaker runtime smoke test | Custom lightweight endpoint | SageMaker real-time endpoint on `ml.m5.large` | Low-cost proof that the governance gateway can invoke SageMaker Runtime. |
+| SageMaker LLM path after quota approval | Gemma 3 1B Instruct | JumpStart endpoint on `ml.g5.2xlarge` | Cost-conscious text-generation endpoint for custom-model operations. |
+| SageMaker Llama-class path after quota approval | Llama3 8B SEA-Lion v2.1 Instruct | JumpStart endpoint on `ml.g5.4xlarge` | Stronger 8B text-generation endpoint when GPU quota and budget are approved. |
 
 ## Why Bedrock Nova Pro Is the Default
 
@@ -30,15 +32,21 @@ Use Nova Lite when the prompt is simple or when the workload is high-volume and 
 
 Use Claude Sonnet 4.6 only for workloads where long-context reasoning or advanced technical analysis is worth the higher cost. Confirm regional model access before using it because Bedrock model IDs and inference profiles can vary by Region.
 
-## Why SageMaker Uses Llama 3.1 8B Instruct
+## Why SageMaker Has Two Tracks
 
 SageMaker is included to show the custom-model path. It should not be the default for this project because a real-time GPU endpoint can be expensive if left running.
 
-Meta Llama 3.1 8B Instruct is the recommended SageMaker model for this architecture because:
+For practical evidence, this project uses a custom smoke endpoint on `ml.m5.large`. It proves endpoint creation, SageMaker Runtime invocation, CloudWatch visibility, and cleanup without requiring GPU quota.
 
-- It is small enough to fit a practical single-GPU demo endpoint.
-- It is strong enough for instruction-following and enterprise assistant examples.
-- It can be deployed through SageMaker JumpStart or a Hugging Face/TGI container pattern.
+For LLM evidence after quota approval, use a supported JumpStart text-generation model in the target Region:
+
+- Gemma 3 1B Instruct on `ml.g5.2xlarge` for a smaller text-generation endpoint.
+- Llama3 8B SEA-Lion v2.1 Instruct on `ml.g5.4xlarge` for a stronger Llama-class endpoint.
+
+The SageMaker path demonstrates:
+
+- Customer-owned or open-weight model hosting.
+- Custom inference containers.
 - It demonstrates the SageMaker lifecycle: model artifact, endpoint config, endpoint, logs, scaling, Model Monitor, and Model Registry.
 - It gives a clear contrast against Bedrock: the organization owns more of the runtime and operations.
 
@@ -77,6 +85,7 @@ Deploy the ECS governance platform in this order:
 1. `AI_PROVIDER=demo` for safe local and architecture validation.
 2. `AI_PROVIDER=bedrock` with `apac.amazon.nova-pro-v1:0` for the primary enterprise GenAI demo.
 3. Optional: switch to `apac.amazon.nova-lite-v1:0` to show cost optimization.
-4. Optional: connect `AI_PROVIDER=sagemaker` to a Llama 3.1 8B Instruct endpoint to demonstrate custom-model governance.
+4. Optional: connect `AI_PROVIDER=sagemaker` to the `ml.m5.large` smoke endpoint for low-cost SageMaker Runtime evidence.
+5. After quota approval, replace the smoke endpoint with a supported JumpStart LLM endpoint.
 
 This keeps the project professional: Bedrock shows the managed GenAI governance path, and SageMaker shows the enterprise MLOps/custom-model path.

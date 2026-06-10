@@ -18,7 +18,7 @@ This project builds that governed access layer with AWS-native services.
 - ECS Fargate service running a FastAPI AI governance gateway.
 - Amazon Bedrock integration using Amazon Nova Pro as the baseline model.
 - Bedrock Guardrails for content filtering, prompt attack protection, sensitive information handling, and denied topics.
-- Optional SageMaker endpoint integration for a custom model path using Llama 3.1 8B Instruct.
+- Optional SageMaker endpoint integration for custom-model and runtime governance.
 - DynamoDB audit table for request-level governance records.
 - CloudWatch logs, dashboard, and alarms for operations.
 - CloudTrail and S3 evidence bucket for AWS API audit.
@@ -37,7 +37,7 @@ This project builds that governed access layer with AWS-native services.
 4. The container creates a `request_id` and evaluates application-side policy rules.
 5. The container invokes the selected provider:
    - `AI_PROVIDER=bedrock`: calls Amazon Bedrock Converse API using Nova Pro and Bedrock Guardrails.
-   - `AI_PROVIDER=sagemaker`: calls a SageMaker Runtime endpoint hosting Llama 3.1 8B Instruct.
+   - `AI_PROVIDER=sagemaker`: calls the configured SageMaker Runtime endpoint.
    - `AI_PROVIDER=demo`: returns deterministic local responses for safe validation.
 6. The app writes request metadata to DynamoDB.
 7. CloudWatch captures structured logs and platform metrics.
@@ -65,7 +65,9 @@ This project builds that governed access layer with AWS-native services.
 | Bedrock | Amazon Nova Pro | Default enterprise GenAI model for governed assistant responses |
 | Bedrock | Amazon Nova Lite | Cost-optimized model for simple/high-volume requests |
 | Bedrock | Claude Sonnet 4.6 | Advanced reasoning option through `anthropic.claude-sonnet-4-6` or an available regional inference profile |
-| SageMaker | Meta Llama 3.1 8B Instruct | Custom-model path for MLOps, Model Registry, endpoint operations, and model monitoring |
+| SageMaker | Custom smoke endpoint on `ml.m5.large` | Low-cost SageMaker Runtime integration evidence |
+| SageMaker | Gemma 3 1B Instruct on `ml.g5.2xlarge` | Quota-approved text-generation endpoint for custom-model operations |
+| SageMaker | Llama3 8B SEA-Lion v2.1 Instruct on `ml.g5.4xlarge` | Stronger Llama-class endpoint when GPU quota and budget are approved |
 
 ## Security Design
 
@@ -95,7 +97,8 @@ Expected latency depends mostly on the model path:
 - Bedrock Nova Lite: lower latency and lower cost for simple prompts.
 - Bedrock Nova Pro: stronger reasoning with moderate model latency.
 - Claude Sonnet 4.6: higher reasoning quality, typically higher token cost and potentially higher latency.
-- SageMaker Llama 3.1 8B endpoint: predictable endpoint latency when the GPU endpoint is warm, but endpoint cost is always-on for real-time inference.
+- SageMaker smoke endpoint: predictable low-latency endpoint behavior for runtime evidence.
+- SageMaker JumpStart LLM endpoint: predictable endpoint latency when the GPU endpoint is warm, but endpoint cost is always-on for real-time inference.
 
 ## Production Enhancements
 

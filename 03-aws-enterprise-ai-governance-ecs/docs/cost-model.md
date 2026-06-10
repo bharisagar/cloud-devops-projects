@@ -1,6 +1,6 @@
 # Cost Model
 
-Pricing changes over time and varies by region. The estimates below are for `ap-south-1` / Asia Pacific (Mumbai), calculated on June 9, 2026 from AWS Pricing API results and official AWS pricing pages. Use AWS Pricing Calculator before a real customer proposal.
+Pricing changes over time and varies by region. The estimates below are for `ap-south-1` / Asia Pacific (Mumbai), calculated on June 9-10, 2026 from AWS Pricing API results and official AWS pricing pages. Use AWS Pricing Calculator before a real customer proposal.
 
 ## Assumptions
 
@@ -28,7 +28,9 @@ Pricing changes over time and varies by region. The estimates below are for `ap-
 | Bedrock | Amazon Nova Pro | $0.80/1M input, $3.20/1M output | $28.00 |
 | Bedrock | Amazon Nova Lite | $0.06/1M input, $0.24/1M output | $2.10 |
 | Bedrock | Claude Sonnet 4.6 | $3.00/1M input, $15.00/1M output | $120.00 |
-| SageMaker | Llama 3.1 8B Instruct on `ml.g5.xlarge` | $1.691/hour | $1,234.43/month |
+| SageMaker | Custom smoke endpoint on `ml.m5.large` | $0.121/hour | $88.33/month |
+| SageMaker | Gemma 3 1B Instruct on `ml.g5.2xlarge` | $1.819/hour | $1,327.87/month |
+| SageMaker | Llama3 8B SEA-Lion v2.1 Instruct on `ml.g5.4xlarge` | $2.438/hour | $1,779.74/month |
 
 Bedrock calculation:
 
@@ -41,10 +43,12 @@ Claude Sonnet 4.6 = (15 * 3.00) + (5 * 15.00) = $120.00/month
 SageMaker calculation:
 
 ```text
-1 ml.g5.xlarge endpoint * 730 hours * $1.691/hour = $1,234.43/month
+Smoke endpoint = 1 ml.m5.large endpoint * 730 hours * $0.121/hour = $88.33/month
+Gemma 3 1B = 1 ml.g5.2xlarge endpoint * 730 hours * $1.819/hour = $1,327.87/month
+Llama3 8B SEA-Lion = 1 ml.g5.4xlarge endpoint * 730 hours * $2.438/hour = $1,779.74/month
 ```
 
-This is why the project defaults to Bedrock for the managed GenAI path and keeps SageMaker as an optional custom-model path.
+This is why the project defaults to Bedrock for the managed GenAI path and keeps SageMaker as an optional custom-model path. In the tested account, `ml.g5.2xlarge` and `ml.g5.4xlarge` endpoint quota was `0`, so the practical SageMaker evidence path used the `ml.m5.large` smoke endpoint.
 
 ## Bedrock Guardrails Cost
 
@@ -98,7 +102,9 @@ $18.93 + $23.29 + $0.01 + $94.90 + $0.01 + $0.01
 | Platform + Nova Lite + Guardrails | Cost-optimized GenAI path | $175.31 |
 | Platform + Nova Pro + Guardrails | Recommended Bedrock production baseline | $201.21 |
 | Platform + Claude Sonnet 4.6 + Guardrails | Advanced long-context/reasoning path | $293.21 |
-| Platform + SageMaker Llama 3.1 8B endpoint | Custom model path, one `ml.g5.xlarge` endpoint | $1,375.64 |
+| Platform + SageMaker smoke endpoint | Runtime evidence path, one `ml.m5.large` endpoint | $229.54 |
+| Platform + SageMaker Gemma 3 1B endpoint | Custom LLM path, one `ml.g5.2xlarge` endpoint | $1,469.08 |
+| Platform + SageMaker Llama3 8B endpoint | Stronger Llama-class path, one `ml.g5.4xlarge` endpoint | $1,920.95 |
 
 ## Short Demo Estimate
 
@@ -127,12 +133,22 @@ Guardrails for 100 requests at 8 text units/request:
 
 So a controlled 8-hour Bedrock demo should stay low, but the private networking resources should still be destroyed after screenshots.
 
+For a 30-minute SageMaker smoke test on `ml.m5.large`:
+
+```text
+0.5 hours * $0.121/hour = $0.0605
+```
+
+Delete the endpoint immediately after evidence capture. Endpoint config, model, ECR repository, and IAM role should also be removed when the smoke test is complete.
+
 ## Cost Optimization Decisions
 
 - Use Bedrock Nova Pro as the default model path.
 - Use Nova Lite for high-volume simple requests.
 - Use Claude Sonnet 4.6 only for long-context or advanced reasoning.
-- Do not leave SageMaker GPU endpoints running after testing.
+- Use the `ml.m5.large` SageMaker smoke endpoint for low-cost runtime evidence.
+- Request GPU endpoint quota before deploying JumpStart LLMs.
+- Do not leave SageMaker endpoints running after testing.
 - Keep `desired_count = 1` for sandbox.
 - Keep log retention short in sandbox.
 - Turn on Bedrock invocation logging only when evidence capture is required.
@@ -140,7 +156,7 @@ So a controlled 8-hour Bedrock demo should stay low, but the private networking 
 
 ## Pricing Sources
 
-- AWS Pricing API queried on June 9, 2026 for Fargate, ALB, API Gateway, VPC endpoints, DynamoDB, CloudWatch Logs, S3, and SageMaker `ml.g5.xlarge` in `ap-south-1`.
+- AWS Pricing API queried on June 9-10, 2026 for Fargate, ALB, API Gateway, VPC endpoints, DynamoDB, CloudWatch Logs, S3, and SageMaker endpoint hosting in `ap-south-1`.
 - AWS Pricing Calculator should be used again before customer sign-off: https://calculator.aws/
 - Amazon Bedrock pricing: https://aws.amazon.com/bedrock/pricing/
 - Amazon ECS Fargate pricing: https://aws.amazon.com/fargate/pricing/

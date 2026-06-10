@@ -11,7 +11,8 @@ Recommended model choices:
 - Bedrock baseline: Amazon Nova Pro through `apac.amazon.nova-pro-v1:0`.
 - Bedrock cost-optimized option: Amazon Nova Lite through `apac.amazon.nova-lite-v1:0`.
 - Bedrock advanced reasoning option: Claude Sonnet 4.6 through `anthropic.claude-sonnet-4-6` or the available regional inference profile when long-context analysis is required and the higher token cost is accepted.
-- SageMaker custom-model option: Meta Llama 3.1 8B Instruct on a SageMaker `ml.g5.xlarge` real-time endpoint.
+- SageMaker smoke-test option: a custom lightweight endpoint on `ml.m5.large` to prove SageMaker Runtime integration at low cost.
+- SageMaker LLM option after GPU quota approval: a supported JumpStart text-generation endpoint such as Gemma 3 1B Instruct on `ml.g5.2xlarge` or Llama3 8B SEA-Lion v2.1 Instruct on `ml.g5.4xlarge`.
 
 ## What This Builds
 
@@ -20,7 +21,7 @@ Recommended model choices:
 - Internal Application Load Balancer for ECS service routing.
 - ECS Fargate service running a containerized FastAPI AI governance gateway.
 - Amazon Bedrock Guardrail for prompt and response governance.
-- Optional SageMaker endpoint invocation path for custom model demos.
+- Optional SageMaker endpoint invocation path for custom model and runtime demos.
 - DynamoDB audit table for request, policy, model, latency, and outcome records.
 - CloudWatch Logs, dashboards, and alarms for application and platform monitoring.
 - CloudTrail and S3 evidence bucket for audit and governance proof.
@@ -72,6 +73,7 @@ Start with `demo` for a predictable walkthrough, then switch to `bedrock` after 
 ```text
 03-aws-enterprise-ai-governance-ecs/
   app/                 Containerized FastAPI governance service
+  sagemaker-smoke/     Low-cost SageMaker Runtime smoke-test container
   terraform/           AWS infrastructure as code
   tests/               API governance test runner
   docs/                Architecture, customer approach, cost, monitoring, and solution walkthrough
@@ -117,6 +119,8 @@ Recommended flow:
 - [Bedrock vs SageMaker](./docs/bedrock-vs-sagemaker.md)
 - [Security, monitoring, and latency](./docs/security-monitoring-latency.md)
 - [Cost model](./docs/cost-model.md)
+- [SageMaker runtime smoke test](./docs/sagemaker-smoke-test.md)
+- [Live validation notes - 2026-06-10](./docs/live-validation-2026-06-10.md)
 - [Solution walkthrough](./docs/solution-walkthrough.md)
 
 ## Cleanup

@@ -22,7 +22,9 @@ max_task_count = 4
 bedrock_model_id = "apac.amazon.nova-pro-v1:0"
 
 # Use this only when ai_provider = "sagemaker".
-# Recommended custom-model path: Meta Llama 3.1 8B Instruct deployed on a SageMaker ml.g5.xlarge real-time endpoint.
+# For low-cost evidence, use the custom smoke endpoint on ml.m5.large.
+# For LLM evidence, use a quota-approved JumpStart endpoint such as Gemma 3 1B on ml.g5.2xlarge
+# or Llama3 8B SEA-Lion v2.1 on ml.g5.4xlarge.
 sagemaker_endpoint_name = ""
 
 enable_bedrock_invocation_logging = false

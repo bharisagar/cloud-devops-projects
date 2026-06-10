@@ -54,7 +54,8 @@ Key points:
 - Bedrock Nova Pro is the recommended managed foundation model for this project.
 - Nova Lite is the lower-cost option for simple/high-volume requests.
 - Claude Sonnet 4.6 is the advanced reasoning option.
-- SageMaker with Llama 3.1 8B Instruct is the custom-model path.
+- SageMaker smoke endpoint proves SageMaker Runtime integration at low cost.
+- SageMaker JumpStart LLM endpoints are the custom-model path after GPU quota approval.
 
 ### 4. Governance Test
 
@@ -110,7 +111,8 @@ Key points:
 - 24/7 private ECS platform estimate: about `$141.21/month` before model calls.
 - Bedrock Nova Pro model estimate for 10,000 requests/month: about `$28/month`.
 - Bedrock Guardrails estimate for the same traffic pattern: about `$32/month`.
-- SageMaker `ml.g5.xlarge` real-time endpoint estimate: about `$1,234.43/month` if left running 24/7.
+- SageMaker `ml.m5.large` smoke endpoint estimate: about `$0.121/hour`.
+- SageMaker JumpStart LLM endpoints are materially more expensive and should be used only after quota and budget approval.
 
 ## Closing
 
