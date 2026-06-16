@@ -151,19 +151,6 @@ Test:
 python ..\tests\run_governance_tests.py --endpoint http://127.0.0.1:8080
 ```
 
-## Manager Demo Flow
-
-Use [docs/demo-guide.md](./docs/demo-guide.md) for a clean walkthrough.
-
-Short version:
-
-1. Open the chat console.
-2. Send a safe architecture question and show `governance_action=allowed`.
-3. Send a prompt injection or PII sample and show `governance_action=blocked`.
-4. Copy the `request_id`.
-5. Show the same request in CloudWatch logs or DynamoDB audit records.
-6. Open the CloudWatch dashboard and show request count, blocked prompts, failures, latency, ECS health, and ALB errors.
-
 ## AWS Deployment
 
 Start with the deployment guide:
