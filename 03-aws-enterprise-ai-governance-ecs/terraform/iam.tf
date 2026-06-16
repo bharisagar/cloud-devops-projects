@@ -53,6 +53,11 @@ resource "aws_iam_role_policy" "ecs_task" {
         Effect   = "Allow"
         Action   = ["sagemaker:InvokeEndpoint"]
         Resource = "arn:aws:sagemaker:${var.aws_region}:${data.aws_caller_identity.current.account_id}:endpoint/*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["s3:GetObject"]
+        Resource = "${aws_s3_bucket.governance_evidence.arn}/${local.governance_rules_key}"
       }
     ]
   })

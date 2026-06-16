@@ -59,6 +59,16 @@ Key points:
 
 ### 4. Governance Test
 
+Open the browser console:
+
+```text
+http://127.0.0.1:8080/
+```
+
+Use the chat console for the manager demo because it shows the answer, governance action, request ID, audit status, and monitoring lookup together.
+
+Show the active governance rules panel. The rules are loaded from `app/policies/governance-rules.json`, so the organization can review rule IDs, actions, and descriptions as part of change control.
+
 Run:
 
 ```bash
@@ -95,6 +105,9 @@ Show CloudWatch dashboard and logs.
 
 Operational signals:
 
+- Prompt request count from structured application logs.
+- Blocked prompt count from `governance_action=blocked`.
+- Failed prompt count from `prompt_failed`.
 - ALB target response time.
 - ALB 5xx count.
 - ECS CPU and memory.
@@ -117,3 +130,5 @@ Key points:
 ## Closing
 
 This is a governed AI platform pattern: model access, audit evidence, security controls, monitoring, latency tracking, and cost visibility are designed together.
+
+For operating guidance, use [Operational Runbooks](./runbooks.md).

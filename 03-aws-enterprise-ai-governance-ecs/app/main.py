@@ -7,11 +7,15 @@ import re
 import time
 import uuid
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import boto3
 from botocore.exceptions import ClientError
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 
@@ -28,6 +32,12 @@ BEDROCK_GUARDRAIL_ID = os.getenv("BEDROCK_GUARDRAIL_ID", "")
 BEDROCK_GUARDRAIL_VERSION = os.getenv("BEDROCK_GUARDRAIL_VERSION", "DRAFT")
 
 SAGEMAKER_ENDPOINT_NAME = os.getenv("SAGEMAKER_ENDPOINT_NAME", "")
+GOVERNANCE_POLICY_VERSION = os.getenv("GOVERNANCE_POLICY_VERSION", "2026-06-16-production-baseline")
+GOVERNANCE_RULES_S3_URI = os.getenv("GOVERNANCE_RULES_S3_URI", "")
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+POLICY_RULES_FILE = Path(
+    os.getenv("GOVERNANCE_RULES_FILE", str(Path(__file__).resolve().parent / "policies" / "governance-rules.json"))
+)
 
 logger = logging.getLogger(SERVICE_NAME)
 logging.basicConfig(
@@ -40,6 +50,9 @@ app = FastAPI(
     description="Governed AI API for Bedrock or SageMaker backends.",
     version="1.0.0",
 )
+
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 bedrock_runtime = boto3.client("bedrock-runtime", region_name=AWS_REGION)
 sagemaker_runtime = boto3.client("sagemaker-runtime", region_name=AWS_REGION)
@@ -60,24 +73,115 @@ class PromptResponse(BaseModel):
     provider: str
     model_id: str
     governance_action: str
+    policy_rule: str
+    policy_action: str
+    policy_version: str
+    rule_category: str
+    rule_severity: str
+    redaction_applied: bool
+    audit_status: str
+    monitoring_stream: str
+    evidence_lookup: str
     answer: str
     stop_reason: str
     latency_ms: int
 
 
-POLICY_RULES = [
+DEFAULT_POLICY_RULES = [
+    {
+        "name": "credential_exfiltration",
+        "description": "Blocks attempts to retrieve cloud credentials, passwords, tokens, API keys, or private keys.",
+        "action": "block",
+        "category": "secrets",
+        "severity": "critical",
+        "pattern": (
+            r"(give|show|share|print|reveal|send|provide|extract|dump).*(aws|iam|access key|secret key|"
+            r"credential|password|token|api key|private key|ssh key|session token)|"
+            r"(aws_access_key_id|aws_secret_access_key|aws_session_token|secret_access_key)"
+        ),
+    },
+    {
+        "name": "prompt_injection",
+        "description": "Detects attempts to bypass instructions, jailbreak the assistant, or reveal hidden prompts.",
+        "action": "policy_mode",
+        "category": "model_safety",
+        "severity": "high",
+        "pattern": r"(ignore|bypass).*(previous|system|developer|instruction)|jailbreak|reveal.*prompt",
+    },
+    {
+        "name": "restricted_professional_advice",
+        "description": "Detects risky legal, medical, or financial instructions that require professional review.",
+        "action": "policy_mode",
+        "category": "regulated_advice",
+        "severity": "medium",
+        "pattern": r"(guaranteed|exactly).*(legal|medical|financial)|avoid all taxes|prescribe medicine",
+    },
+    {
+        "name": "sensitive_identifier",
+        "description": "Detects common sensitive identifiers such as SSNs and payment card-like numbers.",
+        "action": "block",
+        "category": "data_protection",
+        "severity": "critical",
+        "pattern": r"\b\d{3}-\d{2}-\d{4}\b|\b(?:\d[ -]*?){13,16}\b",
+    },
+]
+
+
+REDACTION_PATTERNS = [
+    ("aws_access_key", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
+    ("ssn", re.compile(r"\b\d{3}-\d{2}-\d{4}\b")),
+    ("payment_card", re.compile(r"\b(?:\d[ -]*?){13,16}\b")),
+    ("email", re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I)),
     (
-        "prompt_injection",
-        re.compile(r"(ignore|bypass).*(previous|system|developer|instruction)|jailbreak|reveal.*prompt", re.I),
+        "secret_assignment",
+        re.compile(
+            r"(?i)\b(aws_secret_access_key|aws_session_token|secret_access_key|password|api[_ -]?key|token)\s*[:=]\s*['\"]?[^'\"\s]+"
+        ),
     ),
-    (
-        "restricted_professional_advice",
-        re.compile(r"(guaranteed|exactly).*(legal|medical|financial)|avoid all taxes|prescribe medicine", re.I),
-    ),
-    (
-        "sensitive_identifier",
-        re.compile(r"\b\d{3}-\d{2}-\d{4}\b|\b(?:\d[ -]*?){13,16}\b", re.I),
-    ),
+]
+
+
+def read_s3_json(uri: str) -> Any:
+    parsed = urlparse(uri)
+    if parsed.scheme != "s3" or not parsed.netloc or not parsed.path.strip("/"):
+        raise RuntimeError("GOVERNANCE_RULES_S3_URI must be an s3://bucket/key URI.")
+
+    s3 = boto3.client("s3", region_name=AWS_REGION)
+    result = s3.get_object(Bucket=parsed.netloc, Key=parsed.path.lstrip("/"))
+    return json.loads(result["Body"].read().decode("utf-8"))
+
+
+def load_policy_rules() -> list[dict[str, Any]]:
+    if GOVERNANCE_RULES_S3_URI:
+        loaded = read_s3_json(GOVERNANCE_RULES_S3_URI)
+    elif POLICY_RULES_FILE.exists():
+        with POLICY_RULES_FILE.open("r", encoding="utf-8") as rules_file:
+            loaded = json.load(rules_file)
+    else:
+        loaded = DEFAULT_POLICY_RULES
+
+    if isinstance(loaded, dict):
+        rules = loaded.get("rules", [])
+    else:
+        rules = loaded
+
+    if not isinstance(rules, list):
+        raise RuntimeError("Governance rules must be a JSON array or an object with a rules array.")
+
+    for rule in rules:
+        if not {"name", "pattern", "action"}.issubset(rule):
+            raise RuntimeError("Each governance rule must include name, pattern, and action.")
+
+    return rules
+
+
+POLICY_RULES = load_policy_rules()
+COMPILED_POLICY_RULES = [
+    {
+        **rule,
+        "compiled_pattern": re.compile(rule["pattern"], re.I),
+    }
+    for rule in POLICY_RULES
 ]
 
 
@@ -89,9 +193,21 @@ def ttl_epoch() -> int:
     return int((datetime.now(timezone.utc) + timedelta(days=AUDIT_TTL_DAYS)).timestamp())
 
 
-def preview(value: str, limit: int = 240) -> str:
-    cleaned = " ".join(value.split())
-    return cleaned[:limit]
+def redact_sensitive(value: str) -> tuple[str, bool]:
+    redacted = value
+    changed = False
+    for label, pattern in REDACTION_PATTERNS:
+        updated = pattern.sub(f"[REDACTED_{label.upper()}]", redacted)
+        if updated != redacted:
+            changed = True
+        redacted = updated
+    return redacted, changed
+
+
+def preview(value: str, limit: int = 240) -> tuple[str, bool]:
+    redacted, changed = redact_sensitive(value)
+    cleaned = " ".join(redacted.split())
+    return cleaned[:limit], changed
 
 
 def log_event(event_type: str, **fields: Any) -> None:
@@ -99,12 +215,44 @@ def log_event(event_type: str, **fields: Any) -> None:
     logger.info(json.dumps(payload, default=str))
 
 
+def monitoring_stream() -> str:
+    return f"/aws/ecs/{SERVICE_NAME}"
+
+
+def evidence_lookup(request_id: str) -> str:
+    if AUDIT_TABLE_NAME:
+        return f"DynamoDB table {AUDIT_TABLE_NAME}, key request_id={request_id}"
+    return f"CloudWatch structured logs, event request_id={request_id}"
+
+
+def resolve_rule_action(rule: dict[str, Any]) -> str:
+    configured_action = str(rule.get("action", "policy_mode")).lower()
+    if configured_action in {"block", "blocked"}:
+        return "blocked"
+    if configured_action in {"monitor", "monitored"}:
+        return "monitored"
+    if configured_action == "policy_mode":
+        return "blocked" if APP_POLICY_MODE == "enforce" else "monitored"
+    raise RuntimeError(f"Unsupported governance rule action: {configured_action}")
+
+
 def evaluate_local_policy(prompt: str) -> dict[str, str]:
-    for rule_name, pattern in POLICY_RULES:
-        if pattern.search(prompt):
-            action = "blocked" if APP_POLICY_MODE == "enforce" else "monitored"
-            return {"rule": rule_name, "action": action}
-    return {"rule": "none", "action": "allowed"}
+    for rule in COMPILED_POLICY_RULES:
+        if rule["compiled_pattern"].search(prompt):
+            return {
+                "rule": rule["name"],
+                "action": resolve_rule_action(rule),
+                "category": rule.get("category", "general"),
+                "severity": rule.get("severity", "medium"),
+                "description": rule.get("description", ""),
+            }
+    return {
+        "rule": "none",
+        "action": "allowed",
+        "category": "none",
+        "severity": "none",
+        "description": "No local governance rule matched.",
+    }
 
 
 def write_audit(item: dict[str, Any]) -> None:
@@ -227,7 +375,44 @@ def health() -> dict[str, Any]:
         "provider": AI_PROVIDER,
         "audit_enabled": bool(AUDIT_TABLE_NAME),
         "policy_mode": APP_POLICY_MODE,
+        "policy_version": GOVERNANCE_POLICY_VERSION,
+        "rules_source": GOVERNANCE_RULES_S3_URI or str(POLICY_RULES_FILE),
+        "rules_file": str(POLICY_RULES_FILE),
     }
+
+
+@app.get("/governance/rules")
+def governance_rules() -> dict[str, Any]:
+    return {
+        "rules_source": GOVERNANCE_RULES_S3_URI or str(POLICY_RULES_FILE),
+        "rules_file": str(POLICY_RULES_FILE),
+        "policy_mode": APP_POLICY_MODE,
+        "policy_version": GOVERNANCE_POLICY_VERSION,
+        "rules": [
+            {
+                "name": rule["name"],
+                "description": rule.get("description", ""),
+                "action": rule.get("action", "policy_mode"),
+                "category": rule.get("category", "general"),
+                "severity": rule.get("severity", "medium"),
+            }
+            for rule in POLICY_RULES
+        ],
+    }
+
+
+@app.get("/", response_class=HTMLResponse)
+@app.get("/chat", response_class=HTMLResponse)
+def chat_console() -> Any:
+    index_path = STATIC_DIR / "index.html"
+    if index_path.exists():
+        return FileResponse(index_path)
+
+    return HTMLResponse(
+        "<h1>Enterprise AI Governance Gateway</h1>"
+        "<p>Static chat console is not packaged. Use <a href='/docs'>/docs</a>.</p>",
+        status_code=200,
+    )
 
 
 @app.post("/prompt", response_model=PromptResponse)
@@ -235,6 +420,7 @@ def prompt(request: PromptRequest) -> PromptResponse:
     started = time.time()
     request_id = str(uuid.uuid4())
     policy = evaluate_local_policy(request.prompt)
+    prompt_preview, prompt_redacted = preview(request.prompt)
 
     audit_item: dict[str, Any] = {
         "request_id": request_id,
@@ -245,9 +431,13 @@ def prompt(request: PromptRequest) -> PromptResponse:
         "use_case": request.use_case,
         "sensitivity": request.sensitivity,
         "provider": AI_PROVIDER,
-        "prompt_preview": preview(request.prompt),
+        "policy_version": GOVERNANCE_POLICY_VERSION,
+        "prompt_preview": prompt_preview,
+        "redaction_applied": prompt_redacted,
         "policy_rule": policy["rule"],
         "policy_action": policy["action"],
+        "rule_category": policy["category"],
+        "rule_severity": policy["severity"],
         "status": "STARTED",
     }
 
@@ -255,13 +445,15 @@ def prompt(request: PromptRequest) -> PromptResponse:
         result = invoke_provider(request.prompt, policy)
         latency_ms = int((time.time() - started) * 1000)
 
+        answer_preview, answer_redacted = preview(result["answer"])
         audit_item.update(
             {
                 "status": "COMPLETED",
                 "model_id": result["model_id"],
                 "governance_action": result["governance_action"],
                 "stop_reason": result["stop_reason"],
-                "answer_preview": preview(result["answer"]),
+                "answer_preview": answer_preview,
+                "answer_redaction_applied": answer_redacted,
                 "latency_ms": latency_ms,
             }
         )
@@ -272,6 +464,10 @@ def prompt(request: PromptRequest) -> PromptResponse:
             tenant_id=request.tenant_id,
             provider=AI_PROVIDER,
             action=result["governance_action"],
+            policy_rule=policy["rule"],
+            rule_category=policy["category"],
+            rule_severity=policy["severity"],
+            policy_version=GOVERNANCE_POLICY_VERSION,
             latency_ms=latency_ms,
         )
 
@@ -280,6 +476,15 @@ def prompt(request: PromptRequest) -> PromptResponse:
             provider=AI_PROVIDER,
             model_id=result["model_id"],
             governance_action=result["governance_action"],
+            policy_rule=policy["rule"],
+            policy_action=policy["action"],
+            policy_version=GOVERNANCE_POLICY_VERSION,
+            rule_category=policy["category"],
+            rule_severity=policy["severity"],
+            redaction_applied=prompt_redacted or answer_redacted,
+            audit_status="stored" if audit_table else "cloudwatch_only",
+            monitoring_stream=monitoring_stream(),
+            evidence_lookup=evidence_lookup(request_id),
             answer=result["answer"],
             stop_reason=result["stop_reason"],
             latency_ms=latency_ms,
@@ -292,12 +497,20 @@ def prompt(request: PromptRequest) -> PromptResponse:
             {
                 "status": "FAILED",
                 "error_code": error_code,
-                "error_preview": preview(str(exc), 500),
+                "error_preview": preview(str(exc), 500)[0],
                 "latency_ms": latency_ms,
             }
         )
         write_audit(audit_item)
-        log_event("prompt_failed", request_id=request_id, error_code=error_code, latency_ms=latency_ms)
+        log_event(
+            "prompt_failed",
+            request_id=request_id,
+            error_code=error_code,
+            policy_rule=policy["rule"],
+            rule_category=policy["category"],
+            policy_version=GOVERNANCE_POLICY_VERSION,
+            latency_ms=latency_ms,
+        )
 
         if error_code in {"ThrottlingException", "TooManyRequestsException"}:
             raise HTTPException(
@@ -324,12 +537,20 @@ def prompt(request: PromptRequest) -> PromptResponse:
             {
                 "status": "FAILED",
                 "error_code": "ApplicationError",
-                "error_preview": preview(str(exc), 500),
+                "error_preview": preview(str(exc), 500)[0],
                 "latency_ms": latency_ms,
             }
         )
         write_audit(audit_item)
-        log_event("prompt_failed", request_id=request_id, error_code="ApplicationError", latency_ms=latency_ms)
+        log_event(
+            "prompt_failed",
+            request_id=request_id,
+            error_code="ApplicationError",
+            policy_rule=policy["rule"],
+            rule_category=policy["category"],
+            policy_version=GOVERNANCE_POLICY_VERSION,
+            latency_ms=latency_ms,
+        )
 
         raise HTTPException(
             status_code=500,

@@ -88,6 +88,54 @@ variable "app_policy_mode" {
   default     = "monitor"
 }
 
+variable "governance_policy_version" {
+  description = "Governance policy version shown in audit records and responses."
+  type        = string
+  default     = "2026-06-16-production-baseline"
+}
+
+variable "publish_governance_rules_to_s3" {
+  description = "Publish the local governance-rules.json file to the evidence bucket and load it from S3."
+  type        = bool
+  default     = false
+}
+
+variable "governance_rules_s3_uri" {
+  description = "Optional externally managed s3://bucket/key governance rules URI. If empty, Terraform can publish the bundled rules when publish_governance_rules_to_s3 is true."
+  type        = string
+  default     = ""
+}
+
+variable "enable_jwt_authorizer" {
+  description = "Require JWT authorization for non-health API routes."
+  type        = bool
+  default     = false
+}
+
+variable "jwt_issuer" {
+  description = "JWT issuer URL for API Gateway authorizer, for example a Cognito issuer."
+  type        = string
+  default     = ""
+}
+
+variable "jwt_audience" {
+  description = "JWT audience/client IDs accepted by API Gateway authorizer."
+  type        = list(string)
+  default     = []
+}
+
+variable "enable_waf" {
+  description = "Attach AWS WAF rate limiting to the API Gateway stage."
+  type        = bool
+  default     = true
+}
+
+variable "waf_rate_limit" {
+  description = "Maximum requests per five-minute window per source IP."
+  type        = number
+  default     = 1000
+}
+
 variable "bedrock_model_id" {
   description = "Bedrock model or inference profile ID."
   type        = string

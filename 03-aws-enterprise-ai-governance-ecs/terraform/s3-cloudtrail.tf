@@ -72,6 +72,16 @@ resource "aws_s3_bucket_policy" "governance_evidence" {
   })
 }
 
+resource "aws_s3_object" "governance_rules" {
+  count = var.publish_governance_rules_to_s3 ? 1 : 0
+
+  bucket       = aws_s3_bucket.governance_evidence.id
+  key          = local.governance_rules_key
+  source       = "${path.module}/../app/policies/governance-rules.json"
+  etag         = filemd5("${path.module}/../app/policies/governance-rules.json")
+  content_type = "application/json"
+}
+
 resource "aws_cloudtrail" "governance" {
   name                          = "${var.project_name}-trail"
   s3_bucket_name                = aws_s3_bucket.governance_evidence.id

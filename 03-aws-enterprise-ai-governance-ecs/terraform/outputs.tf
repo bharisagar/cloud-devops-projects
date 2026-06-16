@@ -37,3 +37,8 @@ output "evidence_bucket" {
   description = "S3 bucket used for CloudTrail and governance evidence."
   value       = aws_s3_bucket.governance_evidence.id
 }
+
+output "governance_rules_s3_uri" {
+  description = "Governance rules S3 URI used by ECS when enabled."
+  value       = local.governance_rules_s3_uri
+}

@@ -59,18 +59,22 @@ resource "aws_ecs_task_definition" "app" {
         }
       ]
 
-      environment = [
-        { name = "SERVICE_NAME", value = var.project_name },
-        { name = "AWS_REGION", value = var.aws_region },
-        { name = "AI_PROVIDER", value = var.ai_provider },
-        { name = "APP_POLICY_MODE", value = var.app_policy_mode },
-        { name = "AUDIT_TABLE_NAME", value = aws_dynamodb_table.audit.name },
-        { name = "AUDIT_TTL_DAYS", value = tostring(var.audit_ttl_days) },
-        { name = "BEDROCK_MODEL_ID", value = var.bedrock_model_id },
-        { name = "BEDROCK_GUARDRAIL_ID", value = aws_bedrock_guardrail.ai_governance.guardrail_id },
-        { name = "BEDROCK_GUARDRAIL_VERSION", value = aws_bedrock_guardrail_version.ai_governance.version },
-        { name = "SAGEMAKER_ENDPOINT_NAME", value = var.sagemaker_endpoint_name }
-      ]
+      environment = concat(
+        [
+          { name = "SERVICE_NAME", value = var.project_name },
+          { name = "AWS_REGION", value = var.aws_region },
+          { name = "AI_PROVIDER", value = var.ai_provider },
+          { name = "APP_POLICY_MODE", value = var.app_policy_mode },
+          { name = "GOVERNANCE_POLICY_VERSION", value = var.governance_policy_version },
+          { name = "AUDIT_TABLE_NAME", value = aws_dynamodb_table.audit.name },
+          { name = "AUDIT_TTL_DAYS", value = tostring(var.audit_ttl_days) },
+          { name = "BEDROCK_MODEL_ID", value = var.bedrock_model_id },
+          { name = "BEDROCK_GUARDRAIL_ID", value = aws_bedrock_guardrail.ai_governance.guardrail_id },
+          { name = "BEDROCK_GUARDRAIL_VERSION", value = aws_bedrock_guardrail_version.ai_governance.version },
+          { name = "SAGEMAKER_ENDPOINT_NAME", value = var.sagemaker_endpoint_name }
+        ],
+        local.governance_rules_s3_uri != "" ? [{ name = "GOVERNANCE_RULES_S3_URI", value = local.governance_rules_s3_uri }] : []
+      )
 
       logConfiguration = {
         logDriver = "awslogs"

@@ -41,4 +41,8 @@ locals {
 
   container_image = var.container_image != "" ? var.container_image : "${aws_ecr_repository.app.repository_url}:latest"
   alarm_actions   = [for topic in aws_sns_topic.alerts : topic.arn]
+
+  governance_rules_key    = "governance-policy/governance-rules.json"
+  managed_rules_s3_uri    = "s3://${aws_s3_bucket.governance_evidence.id}/${local.governance_rules_key}"
+  governance_rules_s3_uri = var.governance_rules_s3_uri != "" ? var.governance_rules_s3_uri : (var.publish_governance_rules_to_s3 ? local.managed_rules_s3_uri : "")
 }

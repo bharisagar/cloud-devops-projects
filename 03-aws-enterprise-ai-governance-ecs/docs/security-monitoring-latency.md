@@ -21,6 +21,10 @@
 | Target response time | ALB | Measures app and model path latency |
 | ECS CPU/memory | ECS/Container Insights | Detect scaling or sizing problems |
 | Application logs | CloudWatch Logs | Request ID, tenant, provider, action, latency |
+| Prompt request count | CloudWatch log metric filter | Shows chatbot traffic by environment |
+| Blocked prompt count | CloudWatch log metric filter | Shows prompt injection, PII, and restricted advice controls working |
+| Critical policy blocks | CloudWatch log metric filter | Alerts immediately for credentials, secrets, and high-risk data events |
+| Failed prompt count | CloudWatch log metric filter | Detects model, IAM, networking, and app failures |
 | Bedrock throttling | App logs and error responses | Detect quota or model capacity issue |
 | Guardrail interventions | App audit and Bedrock traces | Show governance controls working |
 | DynamoDB writes | DynamoDB metrics | Confirm audit records are being stored |
@@ -54,6 +58,8 @@ Use a latency budget before discussing tools. Example:
 - ALB target latency over threshold.
 - ALB target 5xx count.
 - ECS CPU utilization.
+- Blocked prompt spike from structured application logs.
+- Critical policy block from structured application logs.
 
 ## Production Additions
 

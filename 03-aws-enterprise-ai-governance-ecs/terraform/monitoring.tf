@@ -97,6 +97,86 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu" {
   }
 }
 
+resource "aws_cloudwatch_log_metric_filter" "prompt_requests" {
+  name           = "${var.project_name}-prompt-requests"
+  log_group_name = aws_cloudwatch_log_group.app.name
+  pattern        = "{ $.event_type = \"prompt_completed\" }"
+
+  metric_transformation {
+    name      = "PromptRequests"
+    namespace = "EnterpriseAIGovernance/${var.project_name}"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_log_metric_filter" "blocked_prompts" {
+  name           = "${var.project_name}-blocked-prompts"
+  log_group_name = aws_cloudwatch_log_group.app.name
+  pattern        = "{ $.event_type = \"prompt_completed\" && $.action = \"blocked\" }"
+
+  metric_transformation {
+    name      = "BlockedPrompts"
+    namespace = "EnterpriseAIGovernance/${var.project_name}"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_log_metric_filter" "failed_prompts" {
+  name           = "${var.project_name}-failed-prompts"
+  log_group_name = aws_cloudwatch_log_group.app.name
+  pattern        = "{ $.event_type = \"prompt_failed\" }"
+
+  metric_transformation {
+    name      = "FailedPrompts"
+    namespace = "EnterpriseAIGovernance/${var.project_name}"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_log_metric_filter" "critical_policy_blocks" {
+  name           = "${var.project_name}-critical-policy-blocks"
+  log_group_name = aws_cloudwatch_log_group.app.name
+  pattern        = "{ $.event_type = \"prompt_completed\" && $.action = \"blocked\" && $.rule_severity = \"critical\" }"
+
+  metric_transformation {
+    name      = "CriticalPolicyBlocks"
+    namespace = "EnterpriseAIGovernance/${var.project_name}"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "blocked_prompt_spike" {
+  alarm_name          = "${var.project_name}-blocked-prompt-spike"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "BlockedPrompts"
+  namespace           = "EnterpriseAIGovernance/${var.project_name}"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 10
+  treat_missing_data  = "notBreaching"
+  alarm_description   = "Blocked chatbot prompts exceeded the expected demo or production threshold."
+  alarm_actions       = local.alarm_actions
+
+  depends_on = [aws_cloudwatch_log_metric_filter.blocked_prompts]
+}
+
+resource "aws_cloudwatch_metric_alarm" "critical_policy_block" {
+  alarm_name          = "${var.project_name}-critical-policy-block"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "CriticalPolicyBlocks"
+  namespace           = "EnterpriseAIGovernance/${var.project_name}"
+  period              = 60
+  statistic           = "Sum"
+  threshold           = 0
+  treat_missing_data  = "notBreaching"
+  alarm_description   = "A critical governance policy blocked a chatbot prompt."
+  alarm_actions       = local.alarm_actions
+
+  depends_on = [aws_cloudwatch_log_metric_filter.critical_policy_blocks]
+}
+
 resource "aws_cloudwatch_dashboard" "governance" {
   dashboard_name = "${var.project_name}-dashboard"
 
@@ -120,8 +200,39 @@ resource "aws_cloudwatch_dashboard" "governance" {
       },
       {
         type   = "metric"
+        x      = 0
+        y      = 6
+        width  = 12
+        height = 6
+        properties = {
+          title  = "AI governance prompt decisions"
+          region = var.aws_region
+          metrics = [
+            ["EnterpriseAIGovernance/${var.project_name}", "PromptRequests"],
+            [".", "BlockedPrompts"],
+            [".", "FailedPrompts"],
+            [".", "CriticalPolicyBlocks"]
+          ]
+          stat   = "Sum"
+          period = 300
+        }
+      },
+      {
+        type   = "log"
         x      = 12
-        y      = 0
+        y      = 6
+        width  = 12
+        height = 6
+        properties = {
+          title  = "Latest governed chatbot requests"
+          region = var.aws_region
+          query  = "SOURCE '${aws_cloudwatch_log_group.app.name}' | fields @timestamp, request_id, tenant_id, provider, action, latency_ms | filter event_type = 'prompt_completed' | sort @timestamp desc | limit 20"
+        }
+      },
+      {
+        type   = "metric"
+        x      = 12
+        y      = 12
         width  = 12
         height = 6
         properties = {

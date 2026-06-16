@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enterprise AI Governance Console</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace" aria-label="AI governance chat console">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">AWS AI Governance</p>
+            <h1>Enterprise Chat Monitoring Console</h1>
+          </div>
+          <div id="health" class="health">Checking service</div>
+        </header>
+
+        <section class="status-grid" aria-label="Platform status">
+          <article>
+            <span>Provider</span>
+            <strong id="provider">-</strong>
+          </article>
+          <article>
+            <span>Policy Mode</span>
+            <strong id="policyMode">-</strong>
+          </article>
+          <article>
+            <span>Audit Path</span>
+            <strong id="auditPath">-</strong>
+          </article>
+          <article>
+            <span>Region</span>
+            <strong id="region">-</strong>
+          </article>
+        </section>
+
+        <section class="conversation" aria-label="Conversation">
+          <div id="messages" class="messages"></div>
+        </section>
+
+        <form id="promptForm" class="composer">
+          <label for="prompt">Prompt</label>
+          <textarea id="prompt" rows="4" placeholder="Ask an architecture, policy, or operations question..." required></textarea>
+          <div class="actions">
+            <button type="button" data-sample="safe">Safe question</button>
+            <button type="button" data-sample="injection">Prompt injection</button>
+            <button type="button" data-sample="pii">PII test</button>
+            <button id="sendButton" type="submit">Send</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel" aria-label="Governance evidence">
+        <div class="panel-block">
+          <h2>Latest Decision</h2>
+          <dl class="decision">
+            <div><dt>Action</dt><dd id="decisionAction">-</dd></div>
+            <div><dt>Rule</dt><dd id="decisionRule">-</dd></div>
+            <div><dt>Category</dt><dd id="decisionCategory">-</dd></div>
+            <div><dt>Severity</dt><dd id="decisionSeverity">-</dd></div>
+            <div><dt>Policy Version</dt><dd id="policyVersion">-</dd></div>
+            <div><dt>Stop Reason</dt><dd id="decisionStop">-</dd></div>
+            <div><dt>Latency</dt><dd id="decisionLatency">-</dd></div>
+            <div><dt>Request ID</dt><dd id="decisionRequest">-</dd></div>
+          </dl>
+        </div>
+
+        <div class="panel-block">
+          <h2>Evidence Trail</h2>
+          <dl class="decision">
+            <div><dt>Audit Status</dt><dd id="auditStatus">-</dd></div>
+            <div><dt>Redaction Applied</dt><dd id="redactionApplied">-</dd></div>
+            <div><dt>Monitoring Stream</dt><dd id="monitoringStream">-</dd></div>
+            <div><dt>Lookup</dt><dd id="evidenceLookup">-</dd></div>
+          </dl>
+        </div>
+
+        <div class="panel-block">
+          <h2>Active Governance Rules</h2>
+          <ul id="rulesList" class="rules-list">
+            <li>Loading rules</li>
+          </ul>
+        </div>
+
+        <div class="panel-block">
+          <h2>Demo Script</h2>
+          <ol class="script">
+            <li>Send a safe architecture question and show it is allowed.</li>
+            <li>Send the prompt injection sample and show it is blocked.</li>
+            <li>Copy the request ID into CloudWatch or DynamoDB to prove traceability.</li>
+            <li>Open the CloudWatch dashboard for latency, errors, ECS health, and policy events.</li>
+          </ol>
+        </div>
+      </aside>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

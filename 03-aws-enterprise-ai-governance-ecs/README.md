@@ -17,6 +17,7 @@ Recommended model choices:
 ## What This Builds
 
 - Public Amazon API Gateway HTTP API for controlled customer/app access.
+- Browser-based governance chat console for manager and operations demos.
 - API Gateway VPC Link into a private VPC.
 - Internal Application Load Balancer for ECS service routing.
 - ECS Fargate service running a containerized FastAPI AI governance gateway.
@@ -31,18 +32,22 @@ Recommended model choices:
 
 ## Architecture
 
-![Enterprise AI Governance ECS Architecture](./assets/enterprise-ai-governance-ecs.svg)
+![Production AWS AI Governance Architecture](./assets/production-ai-governance-architecture.svg)
 
 ```mermaid
 flowchart LR
-  user["Customer App / Internal User"] --> api["Amazon API Gateway HTTP API"]
+  user["Chat UI / Client App"] --> identity["OIDC / Cognito JWT"]
+  identity --> waf["AWS WAF rate limits"]
+  waf --> api["Amazon API Gateway HTTP API"]
   api --> vpclink["API Gateway VPC Link"]
   vpclink --> alb["Internal Application Load Balancer"]
-  alb --> ecs["ECS Fargate AI Governance Service"]
+  alb --> ecs["ECS Fargate AI Governance Gateway"]
+  ecs --> rules["Governance rules JSON / S3 policy"]
+  ecs --> redact["Redaction and audit preview"]
   ecs --> bedrock["Amazon Bedrock + Guardrails"]
   ecs --> sm["Optional SageMaker Endpoint"]
   ecs --> ddb["DynamoDB Audit Table"]
-  ecs --> logs["CloudWatch Logs and Metrics"]
+  ecs --> logs["CloudWatch Logs, Metrics, Alarms, Dashboard"]
   cloudtrail["CloudTrail"] --> s3["S3 Governance Evidence Bucket"]
   bedrocklogs["Bedrock Invocation Logging"] --> s3
 ```
@@ -88,14 +93,76 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 $env:AI_PROVIDER="demo"
+$env:APP_POLICY_MODE="enforce"
 uvicorn main:app --host 0.0.0.0 --port 8080
 ```
+
+Open the local governance chat console:
+
+[http://127.0.0.1:8080/](http://127.0.0.1:8080/)
+
+The console lets a reviewer send a safe question, prompt injection attempt, or PII test and immediately see:
+
+- `governance_action`
+- `policy_rule`
+- `stop_reason`
+- `request_id`
+- audit status
+- monitoring stream
+- evidence lookup path
+- active governance rules loaded from `app/policies/governance-rules.json`
+
+## Governance Rule Configuration
+
+Organization-specific rules live in:
+
+[app/policies/governance-rules.json](./app/policies/governance-rules.json)
+
+Each rule has:
+
+- `name`: stable rule ID written to logs and audit records
+- `description`: human-readable purpose
+- `action`: `block`, `monitor`, or `policy_mode`
+- `pattern`: case-insensitive regular expression used by the gateway
+
+`policy_mode` follows `APP_POLICY_MODE`:
+
+- `APP_POLICY_MODE=enforce` returns `blocked`
+- `APP_POLICY_MODE=monitor` returns `monitored`
+
+Rules such as credential exfiltration and sensitive identifiers use `action=block` so they are blocked even when the wider environment is in monitor mode.
+
+The active rule list is available from:
+
+```text
+GET /governance/rules
+```
+
+For production, set one of these:
+
+- `publish_governance_rules_to_s3 = true` to publish the bundled policy to the encrypted evidence bucket.
+- `governance_rules_s3_uri = "s3://central-policy-bucket/path/governance-rules.json"` to load an externally managed policy object.
+
+Use `enable_jwt_authorizer = true` with `jwt_issuer` and `jwt_audience` before exposing the API to users. Keep `enable_waf = true` for rate limiting and common managed protections.
 
 Test:
 
 ```bash
 python ..\tests\run_governance_tests.py --endpoint http://127.0.0.1:8080
 ```
+
+## Manager Demo Flow
+
+Use [docs/demo-guide.md](./docs/demo-guide.md) for a clean walkthrough.
+
+Short version:
+
+1. Open the chat console.
+2. Send a safe architecture question and show `governance_action=allowed`.
+3. Send a prompt injection or PII sample and show `governance_action=blocked`.
+4. Copy the `request_id`.
+5. Show the same request in CloudWatch logs or DynamoDB audit records.
+6. Open the CloudWatch dashboard and show request count, blocked prompts, failures, latency, ECS health, and ALB errors.
 
 ## AWS Deployment
 
@@ -126,6 +193,9 @@ The evidence covers ECS Fargate service health, running tasks, ECR image deliver
 - [Customer approach](./docs/customer-approach.md)
 - [Bedrock vs SageMaker](./docs/bedrock-vs-sagemaker.md)
 - [Security, monitoring, and latency](./docs/security-monitoring-latency.md)
+- [Manager demo guide](./docs/demo-guide.md)
+- [Operational runbooks](./docs/runbooks.md)
+- [Production readiness guide](./docs/production-readiness.md)
 - [Cost model](./docs/cost-model.md)
 - [Deployment evidence](./docs/evidence.md)
 - [SageMaker runtime smoke test](./docs/sagemaker-smoke-test.md)

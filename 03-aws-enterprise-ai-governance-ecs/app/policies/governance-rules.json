@@ -1,0 +1,38 @@
+{
+  "version": "2026-06-16-production-baseline",
+  "owner": "cloud-platform-security",
+  "rules": [
+    {
+      "name": "credential_exfiltration",
+      "description": "Blocks attempts to retrieve cloud credentials, passwords, tokens, API keys, or private keys.",
+      "action": "block",
+      "category": "secrets",
+      "severity": "critical",
+      "pattern": "(give|show|share|print|reveal|send|provide|extract|dump).*(aws|iam|access key|secret key|credential|password|token|api key|private key|ssh key|session token)|(aws_access_key_id|aws_secret_access_key|aws_session_token|secret_access_key)"
+    },
+    {
+      "name": "prompt_injection",
+      "description": "Detects attempts to bypass instructions, jailbreak the assistant, or reveal hidden prompts.",
+      "action": "policy_mode",
+      "category": "model_safety",
+      "severity": "high",
+      "pattern": "(ignore|bypass).*(previous|system|developer|instruction)|jailbreak|reveal.*prompt"
+    },
+    {
+      "name": "restricted_professional_advice",
+      "description": "Detects risky legal, medical, or financial instructions that require professional review.",
+      "action": "policy_mode",
+      "category": "regulated_advice",
+      "severity": "medium",
+      "pattern": "(guaranteed|exactly).*(legal|medical|financial)|avoid all taxes|prescribe medicine"
+    },
+    {
+      "name": "sensitive_identifier",
+      "description": "Detects common sensitive identifiers such as SSNs and payment card-like numbers.",
+      "action": "block",
+      "category": "data_protection",
+      "severity": "critical",
+      "pattern": "\\b\\d{3}-\\d{2}-\\d{4}\\b|\\b(?:\\d[ -]*?){13,16}\\b"
+    }
+  ]
+}
