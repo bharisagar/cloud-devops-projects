@@ -17,7 +17,8 @@ I created this repo for learners who want project-based practice across Linux, G
 | Day 5 | Nginx Reverse Proxy with Docker | Complete | Reverse proxy, upstreams, containers |
 | Day 6 | GitHub Actions CI for Docker App | Complete | CI pipeline, test, Docker build |
 | Day 7 | Push Docker Image to Registry | Complete | DockerHub/ECR publishing, tags |
-| Day 8-30 | Coming next | Planned | AWS, Terraform, Kubernetes, security, monitoring |
+| Day 8 | AWS Cloud Foundation Setup | Complete | AWS IAM, CLI, S3 evidence, budget guardrails |
+| Day 9-30 | Coming next | Planned | EC2, RDS, VPC, Terraform, ECS, Kubernetes, security, monitoring |
 
 ## Repository Structure
 
@@ -30,7 +31,8 @@ cloud-devops-projects/
 |   |-- day-04-docker-compose-app-with-db/
 |   |-- day-05-nginx-reverse-proxy-docker/
 |   |-- day-06-github-actions-docker-ci/
-|   `-- day-07-push-docker-image-to-registry/
+|   |-- day-07-push-docker-image-to-registry/
+|   `-- day-08-aws-cloud-foundation-setup/
 |-- .github/
 |   `-- workflows/
 |       |-- day-06-docker-ci.yml
@@ -72,7 +74,7 @@ Do not upload secrets, access keys, private IPs from office systems, customer na
 
 ## Safety Notes
 
-- Days 1-7 are designed to run locally.
+- Days 1-7 are designed to run locally. Day 8 begins the AWS foundation with IAM identity verification, budget guardrails, and secure S3 evidence storage.
 - Docker-based days require Docker Desktop on Windows or Docker Engine on Linux.
 - AWS/Terraform days should be run in a personal sandbox AWS account only.
 - Always destroy paid cloud resources after testing.
@@ -86,3 +88,4 @@ Do not upload secrets, access keys, private IPs from office systems, customer na
 | [AWS Enterprise AI Governance Platform on ECS](./03-aws-enterprise-ai-governance-ecs/README.md) | API Gateway, ECS Fargate, private VPC Link, Bedrock, SageMaker-ready provider design, audit, monitoring, security, cost governance |
 
 The private VPC ECS Fargate project solves a real-world class of `ResourceInitializationError` issues where tasks in private subnets cannot reach ECR, CloudWatch Logs, S3, or Secrets Manager.
+

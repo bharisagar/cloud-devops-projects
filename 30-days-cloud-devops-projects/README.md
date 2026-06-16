@@ -1,8 +1,8 @@
 # 30 Days Cloud DevOps Projects
 
-This is the day-by-day learning path. The first 7 days build a strong local foundation before touching cloud services.
+This is the day-by-day learning path. The first 7 days build a strong local foundation. Day 8 begins the AWS cloud foundation with identity, cost, and evidence controls.
 
-## Days 1-7
+## Days 1-8
 
 | Day | Project | Outcome |
 | --- | --- | --- |
@@ -13,6 +13,7 @@ This is the day-by-day learning path. The first 7 days build a strong local foun
 | [Day 5](./day-05-nginx-reverse-proxy-docker/README.md) | Nginx Reverse Proxy with Docker | Route traffic through Nginx to backend containers. |
 | [Day 6](./day-06-github-actions-docker-ci/README.md) | GitHub Actions CI for Docker App | Run test and Docker build checks automatically on GitHub. |
 | [Day 7](./day-07-push-docker-image-to-registry/README.md) | Push Docker Image to Registry | Tag and publish a Docker image to DockerHub or AWS ECR. |
+| [Day 8](./day-08-aws-cloud-foundation-setup/README.md) | AWS Cloud Foundation Setup | Verify AWS identity, create cost guardrails, and store evidence in a private encrypted S3 bucket. |
 
 ## Learning Rule
 
@@ -25,3 +26,4 @@ Every project should leave proof:
 - A short explanation in your own words.
 
 That is how a project becomes interview evidence instead of just another folder in GitHub.
+
