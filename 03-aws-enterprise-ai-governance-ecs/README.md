@@ -169,6 +169,10 @@ Start with the deployment guide:
 
 [docs/deployment-guide.md](./docs/deployment-guide.md)
 
+For the June 17, 2026 production-like Bedrock/enforce deployment, use:
+
+[PRODUCTION-README.md](./PRODUCTION-README.md)
+
 Recommended flow:
 
 1. Create the ECR repository with Terraform.
@@ -184,7 +188,7 @@ Live AWS evidence from the June 10, 2026 sandbox deployment is captured in:
 
 [docs/evidence.md](./docs/evidence.md)
 
-The evidence covers ECS Fargate service health, running tasks, ECR image delivery, internal ALB routing, Bedrock Guardrail readiness, and the SageMaker Runtime smoke-test path.
+The evidence covers ECS Fargate service health, running tasks, ECR image delivery, internal ALB routing, Bedrock Guardrail readiness, the SageMaker Runtime smoke-test path, and the June 17, 2026 production-like Bedrock/enforce validation.
 
 ## Solution Documents
 
@@ -198,6 +202,8 @@ The evidence covers ECS Fargate service health, running tasks, ECR image deliver
 - [Production readiness guide](./docs/production-readiness.md)
 - [Cost model](./docs/cost-model.md)
 - [Deployment evidence](./docs/evidence.md)
+- [Production deployment runbook](./PRODUCTION-README.md)
+- [Git Bash production deployment steps](./docs/aws-ai-governance-prod-deployment-steps.md)
 - [SageMaker runtime smoke test](./docs/sagemaker-smoke-test.md)
 - [Live validation notes - 2026-06-10](./docs/live-validation-2026-06-10.md)
 - [Solution walkthrough](./docs/solution-walkthrough.md)
