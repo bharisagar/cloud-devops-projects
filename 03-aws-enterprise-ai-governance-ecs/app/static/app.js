@@ -16,14 +16,19 @@ const els = {
   region: document.querySelector("#region"),
   decisionAction: document.querySelector("#decisionAction"),
   decisionRule: document.querySelector("#decisionRule"),
+  decisionStage: document.querySelector("#decisionStage"),
   decisionCategory: document.querySelector("#decisionCategory"),
   decisionSeverity: document.querySelector("#decisionSeverity"),
+  humanReview: document.querySelector("#humanReview"),
+  reviewRoute: document.querySelector("#reviewRoute"),
   policyVersion: document.querySelector("#policyVersion"),
   decisionStop: document.querySelector("#decisionStop"),
   decisionLatency: document.querySelector("#decisionLatency"),
   decisionRequest: document.querySelector("#decisionRequest"),
   auditStatus: document.querySelector("#auditStatus"),
   redactionApplied: document.querySelector("#redactionApplied"),
+  raiDimensions: document.querySelector("#raiDimensions"),
+  guardrailTypes: document.querySelector("#guardrailTypes"),
   monitoringStream: document.querySelector("#monitoringStream"),
   evidenceLookup: document.querySelector("#evidenceLookup"),
   rulesList: document.querySelector("#rulesList")
@@ -59,14 +64,19 @@ function addMessage(role, text, action) {
 function updateDecision(body) {
   setText("decisionAction", body.governance_action);
   setText("decisionRule", body.policy_rule);
+  setText("decisionStage", body.policy_stage);
   setText("decisionCategory", body.rule_category);
   setText("decisionSeverity", body.rule_severity);
+  setText("humanReview", body.human_review_required ? "yes" : "no");
+  setText("reviewRoute", body.reviewer_route);
   setText("policyVersion", body.policy_version);
   setText("decisionStop", body.stop_reason);
   setText("decisionLatency", `${body.latency_ms} ms`);
   setText("decisionRequest", body.request_id);
   setText("auditStatus", body.audit_status);
   setText("redactionApplied", body.redaction_applied ? "yes" : "no");
+  setText("raiDimensions", (body.responsible_ai_dimensions || []).join(", "));
+  setText("guardrailTypes", (body.guardrail_policy_types || []).join(", "));
   setText("monitoringStream", body.monitoring_stream);
   setText("evidenceLookup", body.evidence_lookup);
 }
@@ -94,7 +104,9 @@ async function loadRules() {
     els.rulesList.innerHTML = "";
     body.rules.forEach((rule) => {
       const item = document.createElement("li");
-      item.innerHTML = `<strong>${rule.name} (${rule.action}, ${rule.severity})</strong><span>${rule.category}: ${rule.description}</span>`;
+      const dimensions = (rule.responsible_ai_dimensions || []).join(", ") || "none";
+      const guardrails = (rule.guardrail_policy_types || []).join(", ") || "none";
+      item.innerHTML = `<strong>${rule.name} (${rule.action}, ${rule.severity})</strong><span>${rule.category}: ${rule.description}</span><span>RAI: ${dimensions}</span><span>Guardrails: ${guardrails}</span>`;
       els.rulesList.appendChild(item);
     });
   } catch {

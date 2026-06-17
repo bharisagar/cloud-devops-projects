@@ -8,6 +8,10 @@
       "action": "block",
       "category": "secrets",
       "severity": "critical",
+      "responsible_ai_dimensions": ["privacy_and_security", "safety", "governance"],
+      "guardrail_policy_types": ["sensitive_information_filters", "word_filters"],
+      "human_review_required": true,
+      "reviewer_route": "security-incident",
       "pattern": "(give|show|share|print|reveal|send|provide|extract|dump|fetch|get|retrieve|return|display|list).*(aws|iam|access key|secret key|credential|password|token|api key|private key|ssh key|session token)|(aws_access_key_id|aws_secret_access_key|aws_session_token|secret_access_key)"
     },
     {
@@ -16,6 +20,10 @@
       "action": "policy_mode",
       "category": "model_safety",
       "severity": "high",
+      "responsible_ai_dimensions": ["safety", "controllability", "veracity_and_robustness"],
+      "guardrail_policy_types": ["content_filters", "prompt_attack_filters"],
+      "human_review_required": false,
+      "reviewer_route": "ai-platform-security",
       "pattern": "(ignore|bypass).*(previous|system|developer|instruction)|jailbreak|reveal.*prompt"
     },
     {
@@ -24,6 +32,10 @@
       "action": "policy_mode",
       "category": "regulated_advice",
       "severity": "medium",
+      "responsible_ai_dimensions": ["safety", "transparency", "governance"],
+      "guardrail_policy_types": ["denied_topics"],
+      "human_review_required": true,
+      "reviewer_route": "risk-and-compliance",
       "pattern": "(guaranteed|exactly).*(legal|medical|financial)|avoid all taxes|prescribe medicine"
     },
     {
@@ -32,7 +44,23 @@
       "action": "block",
       "category": "data_protection",
       "severity": "critical",
+      "responsible_ai_dimensions": ["privacy_and_security", "governance", "transparency"],
+      "guardrail_policy_types": ["sensitive_information_filters"],
+      "human_review_required": true,
+      "reviewer_route": "privacy-review",
       "pattern": "\\b\\d{3}-\\d{2}-\\d{4}\\b|\\b(?:\\d[ -]*?){13,16}\\b"
+    },
+    {
+      "name": "cyber_abuse",
+      "description": "Blocks requests for malware, credential theft, phishing, ransomware, or unauthorized exploitation.",
+      "action": "block",
+      "category": "misconduct",
+      "severity": "critical",
+      "responsible_ai_dimensions": ["safety", "privacy_and_security", "governance"],
+      "guardrail_policy_types": ["content_filters", "denied_topics"],
+      "human_review_required": true,
+      "reviewer_route": "security-incident",
+      "pattern": "(write|create|build|generate|help).*(malware|ransomware|phishing|credential theft|keylogger|steal credentials|exploit a server)"
     }
   ]
 }

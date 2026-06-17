@@ -75,9 +75,14 @@ class PromptResponse(BaseModel):
     governance_action: str
     policy_rule: str
     policy_action: str
+    policy_stage: str
     policy_version: str
     rule_category: str
     rule_severity: str
+    responsible_ai_dimensions: list[str]
+    guardrail_policy_types: list[str]
+    human_review_required: bool
+    reviewer_route: str
     redaction_applied: bool
     audit_status: str
     monitoring_stream: str
@@ -94,6 +99,10 @@ DEFAULT_POLICY_RULES = [
         "action": "block",
         "category": "secrets",
         "severity": "critical",
+        "responsible_ai_dimensions": ["privacy_and_security", "safety", "governance"],
+        "guardrail_policy_types": ["sensitive_information_filters", "word_filters"],
+        "human_review_required": True,
+        "reviewer_route": "security-incident",
         "pattern": (
             r"(give|show|share|print|reveal|send|provide|extract|dump|fetch|get|retrieve|return|display|list).*(aws|iam|access key|secret key|"
             r"credential|password|token|api key|private key|ssh key|session token)|"
@@ -106,6 +115,10 @@ DEFAULT_POLICY_RULES = [
         "action": "policy_mode",
         "category": "model_safety",
         "severity": "high",
+        "responsible_ai_dimensions": ["safety", "controllability", "veracity_and_robustness"],
+        "guardrail_policy_types": ["content_filters", "prompt_attack_filters"],
+        "human_review_required": False,
+        "reviewer_route": "ai-platform-security",
         "pattern": r"(ignore|bypass).*(previous|system|developer|instruction)|jailbreak|reveal.*prompt",
     },
     {
@@ -114,6 +127,10 @@ DEFAULT_POLICY_RULES = [
         "action": "policy_mode",
         "category": "regulated_advice",
         "severity": "medium",
+        "responsible_ai_dimensions": ["safety", "transparency", "governance"],
+        "guardrail_policy_types": ["denied_topics"],
+        "human_review_required": True,
+        "reviewer_route": "risk-and-compliance",
         "pattern": r"(guaranteed|exactly).*(legal|medical|financial)|avoid all taxes|prescribe medicine",
     },
     {
@@ -122,7 +139,23 @@ DEFAULT_POLICY_RULES = [
         "action": "block",
         "category": "data_protection",
         "severity": "critical",
+        "responsible_ai_dimensions": ["privacy_and_security", "governance", "transparency"],
+        "guardrail_policy_types": ["sensitive_information_filters"],
+        "human_review_required": True,
+        "reviewer_route": "privacy-review",
         "pattern": r"\b\d{3}-\d{2}-\d{4}\b|\b(?:\d[ -]*?){13,16}\b",
+    },
+    {
+        "name": "cyber_abuse",
+        "description": "Blocks requests for malware, credential theft, phishing, ransomware, or unauthorized exploitation.",
+        "action": "block",
+        "category": "misconduct",
+        "severity": "critical",
+        "responsible_ai_dimensions": ["safety", "privacy_and_security", "governance"],
+        "guardrail_policy_types": ["content_filters", "denied_topics"],
+        "human_review_required": True,
+        "reviewer_route": "security-incident",
+        "pattern": r"(write|create|build|generate|help).*(malware|ransomware|phishing|credential theft|keylogger|steal credentials|exploit a server)",
     },
 ]
 
@@ -236,22 +269,32 @@ def resolve_rule_action(rule: dict[str, Any]) -> str:
     raise RuntimeError(f"Unsupported governance rule action: {configured_action}")
 
 
-def evaluate_local_policy(prompt: str) -> dict[str, str]:
+def evaluate_local_policy(value: str, stage: str = "input") -> dict[str, Any]:
     for rule in COMPILED_POLICY_RULES:
-        if rule["compiled_pattern"].search(prompt):
+        if rule["compiled_pattern"].search(value):
             return {
                 "rule": rule["name"],
                 "action": resolve_rule_action(rule),
+                "stage": stage,
                 "category": rule.get("category", "general"),
                 "severity": rule.get("severity", "medium"),
                 "description": rule.get("description", ""),
+                "responsible_ai_dimensions": rule.get("responsible_ai_dimensions", []),
+                "guardrail_policy_types": rule.get("guardrail_policy_types", []),
+                "human_review_required": bool(rule.get("human_review_required", False)),
+                "reviewer_route": rule.get("reviewer_route", "none"),
             }
     return {
         "rule": "none",
         "action": "allowed",
+        "stage": stage,
         "category": "none",
         "severity": "none",
         "description": "No local governance rule matched.",
+        "responsible_ai_dimensions": [],
+        "guardrail_policy_types": [],
+        "human_review_required": False,
+        "reviewer_route": "none",
     }
 
 
@@ -263,7 +306,7 @@ def write_audit(item: dict[str, Any]) -> None:
     audit_table.put_item(Item=item)
 
 
-def call_bedrock(prompt: str) -> dict[str, str]:
+def call_bedrock(prompt: str, request_metadata: dict[str, str] | None = None) -> dict[str, str]:
     guardrail_config = None
     if BEDROCK_GUARDRAIL_ID:
         guardrail_config = {
@@ -277,6 +320,8 @@ def call_bedrock(prompt: str) -> dict[str, str]:
         "messages": [{"role": "user", "content": [{"text": prompt}]}],
         "inferenceConfig": {"maxTokens": 600, "temperature": 0.2},
     }
+    if request_metadata:
+        request["requestMetadata"] = request_metadata
     if guardrail_config:
         request["guardrailConfig"] = guardrail_config
 
@@ -352,12 +397,12 @@ def call_demo_provider(prompt: str, policy: dict[str, str]) -> dict[str, str]:
     }
 
 
-def invoke_provider(prompt: str, policy: dict[str, str]) -> dict[str, str]:
+def invoke_provider(prompt: str, policy: dict[str, Any], request_metadata: dict[str, str]) -> dict[str, str]:
     if policy["action"] == "blocked":
         return call_demo_provider(prompt, policy)
 
     if AI_PROVIDER == "bedrock":
-        return call_bedrock(prompt)
+        return call_bedrock(prompt, request_metadata)
     if AI_PROVIDER == "sagemaker":
         return call_sagemaker(prompt)
     if AI_PROVIDER == "demo":
@@ -395,6 +440,10 @@ def governance_rules() -> dict[str, Any]:
                 "action": rule.get("action", "policy_mode"),
                 "category": rule.get("category", "general"),
                 "severity": rule.get("severity", "medium"),
+                "responsible_ai_dimensions": rule.get("responsible_ai_dimensions", []),
+                "guardrail_policy_types": rule.get("guardrail_policy_types", []),
+                "human_review_required": bool(rule.get("human_review_required", False)),
+                "reviewer_route": rule.get("reviewer_route", "none"),
             }
             for rule in POLICY_RULES
         ],
@@ -419,8 +468,14 @@ def chat_console() -> Any:
 def prompt(request: PromptRequest) -> PromptResponse:
     started = time.time()
     request_id = str(uuid.uuid4())
-    policy = evaluate_local_policy(request.prompt)
+    policy = evaluate_local_policy(request.prompt, "input")
     prompt_preview, prompt_redacted = preview(request.prompt)
+    request_metadata = {
+        "request_id": request_id,
+        "tenant_id": request.tenant_id,
+        "use_case": request.use_case,
+        "policy_version": GOVERNANCE_POLICY_VERSION,
+    }
 
     audit_item: dict[str, Any] = {
         "request_id": request_id,
@@ -436,13 +491,33 @@ def prompt(request: PromptRequest) -> PromptResponse:
         "redaction_applied": prompt_redacted,
         "policy_rule": policy["rule"],
         "policy_action": policy["action"],
+        "policy_stage": policy["stage"],
         "rule_category": policy["category"],
         "rule_severity": policy["severity"],
+        "responsible_ai_dimensions": policy["responsible_ai_dimensions"],
+        "guardrail_policy_types": policy["guardrail_policy_types"],
+        "human_review_required": policy["human_review_required"],
+        "reviewer_route": policy["reviewer_route"],
         "status": "STARTED",
     }
 
     try:
-        result = invoke_provider(request.prompt, policy)
+        result = invoke_provider(request.prompt, policy, request_metadata)
+        final_policy = policy
+        if result["governance_action"] != "blocked":
+            output_policy = evaluate_local_policy(result["answer"], "output")
+            if output_policy["action"] == "blocked":
+                final_policy = output_policy
+                result = {
+                    **result,
+                    "answer": "The model response was stopped by the enterprise AI governance policy.",
+                    "stop_reason": output_policy["rule"],
+                    "governance_action": output_policy["action"],
+                }
+            elif output_policy["action"] == "monitored":
+                final_policy = output_policy
+                result = {**result, "governance_action": "monitored"}
+
         latency_ms = int((time.time() - started) * 1000)
 
         answer_preview, answer_redacted = preview(result["answer"])
@@ -452,6 +527,15 @@ def prompt(request: PromptRequest) -> PromptResponse:
                 "model_id": result["model_id"],
                 "governance_action": result["governance_action"],
                 "stop_reason": result["stop_reason"],
+                "policy_rule": final_policy["rule"],
+                "policy_action": final_policy["action"],
+                "policy_stage": final_policy["stage"],
+                "rule_category": final_policy["category"],
+                "rule_severity": final_policy["severity"],
+                "responsible_ai_dimensions": final_policy["responsible_ai_dimensions"],
+                "guardrail_policy_types": final_policy["guardrail_policy_types"],
+                "human_review_required": final_policy["human_review_required"],
+                "reviewer_route": final_policy["reviewer_route"],
                 "answer_preview": answer_preview,
                 "answer_redaction_applied": answer_redacted,
                 "latency_ms": latency_ms,
@@ -464,10 +548,13 @@ def prompt(request: PromptRequest) -> PromptResponse:
             tenant_id=request.tenant_id,
             provider=AI_PROVIDER,
             action=result["governance_action"],
-            policy_rule=policy["rule"],
-            rule_category=policy["category"],
-            rule_severity=policy["severity"],
+            policy_rule=final_policy["rule"],
+            policy_stage=final_policy["stage"],
+            rule_category=final_policy["category"],
+            rule_severity=final_policy["severity"],
             policy_version=GOVERNANCE_POLICY_VERSION,
+            human_review_required=final_policy["human_review_required"],
+            reviewer_route=final_policy["reviewer_route"],
             latency_ms=latency_ms,
         )
 
@@ -476,11 +563,16 @@ def prompt(request: PromptRequest) -> PromptResponse:
             provider=AI_PROVIDER,
             model_id=result["model_id"],
             governance_action=result["governance_action"],
-            policy_rule=policy["rule"],
-            policy_action=policy["action"],
+            policy_rule=final_policy["rule"],
+            policy_action=final_policy["action"],
+            policy_stage=final_policy["stage"],
             policy_version=GOVERNANCE_POLICY_VERSION,
-            rule_category=policy["category"],
-            rule_severity=policy["severity"],
+            rule_category=final_policy["category"],
+            rule_severity=final_policy["severity"],
+            responsible_ai_dimensions=final_policy["responsible_ai_dimensions"],
+            guardrail_policy_types=final_policy["guardrail_policy_types"],
+            human_review_required=final_policy["human_review_required"],
+            reviewer_route=final_policy["reviewer_route"],
             redaction_applied=prompt_redacted or answer_redacted,
             audit_status="stored" if audit_table else "cloudwatch_only",
             monitoring_stream=monitoring_stream(),

@@ -105,6 +105,10 @@ The console lets a reviewer send a safe question, prompt injection attempt, or P
 
 - `governance_action`
 - `policy_rule`
+- `policy_stage`
+- Responsible AI dimensions
+- Bedrock Guardrails policy mapping
+- human review route
 - `stop_reason`
 - `request_id`
 - audit status
@@ -123,6 +127,12 @@ Each rule has:
 - `name`: stable rule ID written to logs and audit records
 - `description`: human-readable purpose
 - `action`: `block`, `monitor`, or `policy_mode`
+- `category`: governance domain such as `secrets`, `model_safety`, or `data_protection`
+- `severity`: operational severity such as `medium`, `high`, or `critical`
+- `responsible_ai_dimensions`: AWS Responsible AI dimensions covered by the rule
+- `guardrail_policy_types`: Bedrock Guardrails policy families the rule maps to
+- `human_review_required`: whether a blocked or monitored request needs human review
+- `reviewer_route`: security, privacy, compliance, or AI platform owner route
 - `pattern`: case-insensitive regular expression used by the gateway
 
 `policy_mode` follows `APP_POLICY_MODE`:
@@ -131,6 +141,8 @@ Each rule has:
 - `APP_POLICY_MODE=monitor` returns `monitored`
 
 Rules such as credential exfiltration and sensitive identifiers use `action=block` so they are blocked even when the wider environment is in monitor mode.
+
+The gateway evaluates both input prompts and output responses. If a model response matches a blocked policy, the response is stopped before it is returned to the caller and the API reports `policy_stage=output`.
 
 The active rule list is available from:
 
@@ -181,6 +193,7 @@ The evidence covers ECS Fargate service health, running tasks, ECR image deliver
 - [Bedrock vs SageMaker](./docs/bedrock-vs-sagemaker.md)
 - [Security, monitoring, and latency](./docs/security-monitoring-latency.md)
 - [AWS governance references](./docs/aws-governance-references.md)
+- [Production governance policy](./docs/production-governance-policy.md)
 - [Operational runbooks](./docs/runbooks.md)
 - [Production readiness guide](./docs/production-readiness.md)
 - [Cost model](./docs/cost-model.md)

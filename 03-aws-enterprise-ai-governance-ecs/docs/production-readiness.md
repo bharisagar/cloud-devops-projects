@@ -32,6 +32,21 @@ This production pattern is intentionally mapped to official AWS guidance:
 
 See [AWS governance references](./aws-governance-references.md) for the full mapping.
 
+## What AWS Guidance Means For This Project
+
+For organization adoption, implement governance across the full AI lifecycle:
+
+- Define the use case, users, data classes, benefits, risks, and release criteria before production.
+- Use application policy rules for organization-specific controls and Bedrock Guardrails for model-level safeguards.
+- Evaluate both user input and model output before returning a response.
+- Redact sensitive previews before audit storage.
+- Keep caller, request, policy, model, and reviewer metadata searchable through CloudWatch and DynamoDB.
+- Enable Bedrock invocation logging only after privacy, retention, and access-review approval.
+- Use CloudTrail and an S3 evidence bucket for AWS API auditability.
+- Run automated and human evaluations for high-risk use cases.
+- Route sensitive, regulated, or security-relevant events to human review.
+- Maintain post-release monitoring, incident runbooks, and decommissioning criteria.
+
 ## Required Production Settings
 
 Recommended Terraform settings:
@@ -78,6 +93,8 @@ Use this flow:
 6. Publish the policy object or deploy the new container.
 7. Capture evidence: request IDs, CloudWatch logs, DynamoDB audit records, dashboard screenshot.
 
+Each rule must also include responsible AI dimensions, Bedrock Guardrails policy mappings, and human-review routing where appropriate. See [production governance policy](./production-governance-policy.md).
+
 ## Logging And Redaction
 
 The gateway stores prompt and answer previews only after redaction. Current redaction covers:
@@ -98,6 +115,7 @@ CloudWatch includes:
 - blocked prompts
 - failed prompts
 - critical policy blocks
+- human review required events
 - ALB latency
 - ALB 5xx
 - ECS CPU and memory
@@ -134,8 +152,13 @@ For every high-risk request, capture:
 - `use_case`
 - `policy_version`
 - `policy_rule`
+- `policy_stage`
 - `rule_category`
 - `rule_severity`
+- responsible AI dimensions
+- Bedrock Guardrails policy types
+- human review requirement
+- reviewer route
 - `governance_action`
 - `latency_ms`
 - redaction status

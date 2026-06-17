@@ -19,11 +19,21 @@ This implementation is aligned with AWS guidance for responsible AI, Bedrock Gua
 | --- | --- |
 | Infrastructure controls | API Gateway, optional JWT authorizer, AWS WAF, private VPC Link, internal ALB, ECS Fargate in private subnets, VPC endpoints, least-privilege IAM. |
 | Application policy controls | JSON governance rules with `block`, `monitor`, and `policy_mode` actions; policy versioning; rule category and severity. |
-| Guardrails | Bedrock Guardrail Terraform resource and runtime support through `AI_PROVIDER=bedrock`. |
+| Responsible AI metadata | Each rule can declare responsible AI dimensions, Bedrock Guardrails policy mappings, human-review requirement, and reviewer route. |
+| Guardrails | Bedrock Guardrail Terraform resource and runtime support through `AI_PROVIDER=bedrock`; local input and output policy checks mirror the guardrail pattern for demo and preflight enforcement. |
 | Sensitive data handling | Prompt and answer preview redaction before audit/log storage. |
 | Audit evidence | Request IDs, DynamoDB audit records, CloudWatch structured logs, CloudTrail, and S3 evidence bucket. |
 | Monitoring | CloudWatch logs, metric filters, dashboard, blocked prompt metrics, critical policy block alarm, latency and ECS health alarms. |
-| Evaluation and accountability | Automated governance tests today; next production maturity step is Bedrock Evaluations and human review for high-risk use cases. |
+| Evaluation and accountability | Automated governance tests, policy-stage assertions, human-review routing metadata, and a production path for Bedrock Evaluations. |
+
+## Rule-Level AWS Mapping
+
+Each rule in `app/policies/governance-rules.json` includes these production metadata fields:
+
+- `responsible_ai_dimensions` maps the rule to AWS responsible AI dimensions such as privacy and security, safety, controllability, robustness, transparency, and governance.
+- `guardrail_policy_types` maps the rule to Bedrock Guardrails controls such as content filters, denied topics, word filters, sensitive information filters, prompt attack filters, contextual grounding, or automated reasoning.
+- `human_review_required` and `reviewer_route` identify whether security, privacy, compliance, or the AI platform team must review the event.
+- `policy_stage` in the API response shows whether the input prompt or output response triggered the policy.
 
 ## Production Gap Checklist
 
@@ -33,5 +43,5 @@ Before using this for real organization traffic, validate these items:
 - Enable Bedrock model invocation logging only after reviewing data-retention and privacy requirements.
 - Use CloudTrail trails and S3 evidence storage for ongoing audit records.
 - Add continuous model evaluation jobs for output quality, robustness, toxicity, correctness, and RAG grounding.
-- Add human-in-the-loop review for high-risk prompts, regulated advice, or sensitive business workflows.
+- Connect `human_review_required=true` events to a ticketing or approval workflow such as EventBridge, Security Hub, ServiceNow, Jira, or Slack.
 - Keep governance rules under pull-request approval with automated tests and release evidence.

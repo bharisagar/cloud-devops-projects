@@ -145,6 +145,18 @@ resource "aws_cloudwatch_log_metric_filter" "critical_policy_blocks" {
   }
 }
 
+resource "aws_cloudwatch_log_metric_filter" "human_review_required" {
+  name           = "${var.project_name}-human-review-required"
+  log_group_name = aws_cloudwatch_log_group.app.name
+  pattern        = "{ $.event_type = \"prompt_completed\" && $.human_review_required = true }"
+
+  metric_transformation {
+    name      = "HumanReviewRequired"
+    namespace = "EnterpriseAIGovernance/${var.project_name}"
+    value     = "1"
+  }
+}
+
 resource "aws_cloudwatch_metric_alarm" "blocked_prompt_spike" {
   alarm_name          = "${var.project_name}-blocked-prompt-spike"
   comparison_operator = "GreaterThanThreshold"
@@ -175,6 +187,22 @@ resource "aws_cloudwatch_metric_alarm" "critical_policy_block" {
   alarm_actions       = local.alarm_actions
 
   depends_on = [aws_cloudwatch_log_metric_filter.critical_policy_blocks]
+}
+
+resource "aws_cloudwatch_metric_alarm" "human_review_required" {
+  alarm_name          = "${var.project_name}-human-review-required"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "HumanReviewRequired"
+  namespace           = "EnterpriseAIGovernance/${var.project_name}"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 0
+  treat_missing_data  = "notBreaching"
+  alarm_description   = "A governed AI request requires human review."
+  alarm_actions       = local.alarm_actions
+
+  depends_on = [aws_cloudwatch_log_metric_filter.human_review_required]
 }
 
 resource "aws_cloudwatch_dashboard" "governance" {
@@ -211,7 +239,8 @@ resource "aws_cloudwatch_dashboard" "governance" {
             ["EnterpriseAIGovernance/${var.project_name}", "PromptRequests"],
             [".", "BlockedPrompts"],
             [".", "FailedPrompts"],
-            [".", "CriticalPolicyBlocks"]
+            [".", "CriticalPolicyBlocks"],
+            [".", "HumanReviewRequired"]
           ]
           stat   = "Sum"
           period = 300
@@ -226,7 +255,7 @@ resource "aws_cloudwatch_dashboard" "governance" {
         properties = {
           title  = "Latest governed chatbot requests"
           region = var.aws_region
-          query  = "SOURCE '${aws_cloudwatch_log_group.app.name}' | fields @timestamp, request_id, tenant_id, provider, action, latency_ms | filter event_type = 'prompt_completed' | sort @timestamp desc | limit 20"
+          query  = "SOURCE '${aws_cloudwatch_log_group.app.name}' | fields @timestamp, request_id, tenant_id, provider, action, policy_rule, policy_stage, human_review_required, reviewer_route, latency_ms | filter event_type = 'prompt_completed' | sort @timestamp desc | limit 20"
         }
       },
       {

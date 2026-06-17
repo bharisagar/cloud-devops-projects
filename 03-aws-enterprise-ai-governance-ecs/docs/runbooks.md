@@ -33,6 +33,55 @@ Rule action guidance:
 - `monitor`: allows the response path but records the governance match. Use only for low-risk discovery.
 - `policy_mode`: follows `APP_POLICY_MODE`; use for rules that may start in monitor mode before enforcement.
 
+Rule metadata guidance:
+
+- `responsible_ai_dimensions`: maps the rule to AWS Responsible AI dimensions.
+- `guardrail_policy_types`: maps the rule to Amazon Bedrock Guardrails policy families.
+- `human_review_required`: marks events that need a person to review the request.
+- `reviewer_route`: identifies the security, privacy, compliance, or AI platform owner route.
+
+## Runbook: Human Review Required
+
+Trigger:
+
+- API response or audit record shows `human_review_required=true`
+- CloudWatch structured log includes `reviewer_route`
+
+Impact:
+
+- A request matched a sensitive, security, privacy, or regulated workflow that should not be handled only by automation.
+
+Checks:
+
+```powershell
+aws logs tail /aws/ecs/enterprise-ai-governance-ecs --since 30m
+aws dynamodb scan --table-name enterprise-ai-governance-ecs-audit --limit 20
+```
+
+Actions:
+
+- Use `request_id` to locate the audit record.
+- Confirm `policy_stage` to understand whether the user prompt or model output triggered the review.
+- Route by `reviewer_route`:
+  - `security-incident`: security operations or cloud security.
+  - `privacy-review`: privacy, data protection, or security owner.
+  - `risk-and-compliance`: legal, risk, compliance, or business owner.
+  - `ai-platform-security`: AI platform or model safety owner.
+- Review only redacted previews in normal operational channels.
+- If full payload review is required, use the approved privacy/security access path and record approval.
+- Update governance rules or Bedrock Guardrails if this was a missed or noisy classification.
+
+Evidence:
+
+- `request_id`
+- `policy_rule`
+- `policy_stage`
+- responsible AI dimensions
+- Bedrock Guardrails policy types
+- reviewer route
+- reviewer decision
+- follow-up ticket or incident link
+
 ## Runbook: Prompt Injection Spike
 
 Trigger:
