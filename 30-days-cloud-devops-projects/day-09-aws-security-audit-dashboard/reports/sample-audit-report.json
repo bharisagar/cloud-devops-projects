@@ -1,0 +1,131 @@
+{
+  "project": "Day 9 - AWS Security Audit Dashboard",
+  "generatedAt": "2026-06-17T08:45:00.0000000+05:30",
+  "region": "ap-south-1",
+  "identity": {
+    "UserId": "AIDAEXAMPLE",
+    "Account": "123456789012",
+    "Arn": "arn:aws:iam::123456789012:user/devops-auditor"
+  },
+  "riskScore": 40,
+  "summary": {
+    "totalFindings": 5,
+    "critical": 1,
+    "high": 2,
+    "medium": 1,
+    "low": 1
+  },
+  "checks": {
+    "iamAccountSummary": {
+      "Users": 4,
+      "MFADevices": 2,
+      "AccountMFAEnabled": 1
+    },
+    "passwordPolicyExists": false,
+    "users": [
+      {
+        "userName": "devops-admin",
+        "createDate": "2026-01-05T09:15:00Z",
+        "hasMfa": false,
+        "accessKeys": [
+          {
+            "accessKeyId": "AKIAEXAMPLE111",
+            "status": "Active",
+            "ageDays": 121
+          }
+        ],
+        "attachedPolicies": [
+          "AdministratorAccess"
+        ]
+      },
+      {
+        "userName": "ci-deploy-user",
+        "createDate": "2026-02-12T10:30:00Z",
+        "hasMfa": true,
+        "accessKeys": [
+          {
+            "accessKeyId": "AKIAEXAMPLE222",
+            "status": "Active",
+            "ageDays": 44
+          }
+        ],
+        "attachedPolicies": [
+          "AmazonEC2ContainerRegistryPowerUser"
+        ]
+      }
+    ],
+    "cloudTrail": [
+      {
+        "name": "management-events",
+        "trailArn": "arn:aws:cloudtrail:ap-south-1:123456789012:trail/management-events",
+        "isMultiRegionTrail": true,
+        "isLogging": true
+      }
+    ],
+    "openSecurityGroups": [
+      {
+        "groupId": "sg-0123456789abcdef0",
+        "groupName": "default-web",
+        "protocol": "tcp",
+        "portRange": "22-22"
+      }
+    ],
+    "s3Buckets": [
+      {
+        "name": "devops-public-demo-bucket",
+        "creationDate": "2026-06-01T08:00:00Z",
+        "hasPublicAccessBlock": false,
+        "hasPublicAclGrant": true
+      },
+      {
+        "name": "devops-private-evidence-bucket",
+        "creationDate": "2026-06-02T08:00:00Z",
+        "hasPublicAccessBlock": true,
+        "hasPublicAclGrant": false
+      }
+    ],
+    "budgetCount": 0
+  },
+  "findings": [
+    {
+      "id": "S3-PUBLIC-RISK",
+      "title": "S3 bucket has public exposure signal or missing public access block",
+      "severity": "Critical",
+      "resource": "devops-public-demo-bucket",
+      "recommendation": "Enable S3 Block Public Access and review ACL/policy.",
+      "scoreImpact": 25
+    },
+    {
+      "id": "IAM-NO-MFA",
+      "title": "IAM user does not have MFA enabled",
+      "severity": "High",
+      "resource": "devops-admin",
+      "recommendation": "Enable MFA for every human IAM user.",
+      "scoreImpact": 12
+    },
+    {
+      "id": "EC2-OPEN-SG",
+      "title": "Security group allows inbound access from the internet",
+      "severity": "High",
+      "resource": "sg-0123456789abcdef0",
+      "recommendation": "Restrict inbound CIDR ranges to trusted networks.",
+      "scoreImpact": 15
+    },
+    {
+      "id": "IAM-PASSWORD-POLICY",
+      "title": "Account password policy was not found",
+      "severity": "Medium",
+      "resource": "AWS Account",
+      "recommendation": "Configure a strong IAM account password policy.",
+      "scoreImpact": 8
+    },
+    {
+      "id": "BUDGET-MISSING",
+      "title": "No AWS Budget found",
+      "severity": "Low",
+      "resource": "AWS Account",
+      "recommendation": "Create a monthly AWS Budget for cost guardrails.",
+      "scoreImpact": 5
+    }
+  ]
+}
