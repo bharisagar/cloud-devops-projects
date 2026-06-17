@@ -95,7 +95,7 @@ DEFAULT_POLICY_RULES = [
         "category": "secrets",
         "severity": "critical",
         "pattern": (
-            r"(give|show|share|print|reveal|send|provide|extract|dump).*(aws|iam|access key|secret key|"
+            r"(give|show|share|print|reveal|send|provide|extract|dump|fetch|get|retrieve|return|display|list).*(aws|iam|access key|secret key|"
             r"credential|password|token|api key|private key|ssh key|session token)|"
             r"(aws_access_key_id|aws_secret_access_key|aws_session_token|secret_access_key)"
         ),

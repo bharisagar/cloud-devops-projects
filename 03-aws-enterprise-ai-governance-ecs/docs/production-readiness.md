@@ -20,6 +20,18 @@ Authenticated user or application
   -> CloudTrail and S3 evidence
 ```
 
+## AWS Reference Alignment
+
+This production pattern is intentionally mapped to official AWS guidance:
+
+- [AWS Responsible AI](https://aws.amazon.com/ai/responsible-ai/) for responsible AI dimensions such as privacy and security, safety, controllability, governance, explainability, robustness, and transparency.
+- [Amazon Bedrock Guardrails](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html) for configurable safeguards, sensitive information filters, denied topics, contextual grounding, automated reasoning, and guardrail versioning.
+- [Amazon Bedrock Evaluations](https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html) for automatic evaluation, human evaluation, LLM-as-judge, and RAG quality checks.
+- [Bedrock model invocation logging](https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html) for CloudWatch Logs and S3 model invocation records.
+- [Bedrock CloudTrail logging](https://docs.aws.amazon.com/bedrock/latest/userguide/logging-using-cloudtrail.html) for API audit events and caller identity.
+
+See [AWS governance references](./aws-governance-references.md) for the full mapping.
+
 ## Required Production Settings
 
 Recommended Terraform settings:

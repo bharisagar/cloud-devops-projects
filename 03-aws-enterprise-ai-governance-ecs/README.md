@@ -180,7 +180,7 @@ The evidence covers ECS Fargate service health, running tasks, ECR image deliver
 - [Customer approach](./docs/customer-approach.md)
 - [Bedrock vs SageMaker](./docs/bedrock-vs-sagemaker.md)
 - [Security, monitoring, and latency](./docs/security-monitoring-latency.md)
-- [Manager demo guide](./docs/demo-guide.md)
+- [AWS governance references](./docs/aws-governance-references.md)
 - [Operational runbooks](./docs/runbooks.md)
 - [Production readiness guide](./docs/production-readiness.md)
 - [Cost model](./docs/cost-model.md)
