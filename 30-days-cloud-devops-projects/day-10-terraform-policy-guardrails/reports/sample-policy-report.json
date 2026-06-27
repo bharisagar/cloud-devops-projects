@@ -1,0 +1,119 @@
+{
+  "project": "Day 10 - Terraform Policy-as-Code Guardrail Platform",
+  "generatedAt": "2026-06-27T05:38:20.594508+00:00",
+  "planSource": "terraform\\sample-risky-plan.json",
+  "riskScore": 0,
+  "decision": "blocked",
+  "deploymentGate": {
+    "minimumScore": 80,
+    "blockOnCritical": true
+  },
+  "summary": {
+    "totalFindings": 11,
+    "critical": 3,
+    "high": 3,
+    "medium": 5,
+    "low": 0
+  },
+  "findings": [
+    {
+      "id": "MISSING_REQUIRED_TAGS",
+      "title": "Resource is missing required governance tags",
+      "severity": "Medium",
+      "resource": "aws_s3_bucket.logs",
+      "detail": "Missing tags: CostCenter, Owner",
+      "recommendation": "Add Project, Owner, Environment, and CostCenter tags.",
+      "scoreImpact": 8
+    },
+    {
+      "id": "S3_PUBLIC_ACCESS_BLOCK_MISSING",
+      "title": "S3 bucket does not have strong public access block settings",
+      "severity": "Critical",
+      "resource": "aws_s3_bucket.logs",
+      "detail": "Bucket day-10-risky-logs-demo does not have a strong public access block resource in this plan.",
+      "recommendation": "Add aws_s3_bucket_public_access_block with all block/restrict settings enabled.",
+      "scoreImpact": 25
+    },
+    {
+      "id": "MISSING_REQUIRED_TAGS",
+      "title": "Resource is missing required governance tags",
+      "severity": "Medium",
+      "resource": "aws_security_group.web",
+      "detail": "Missing tags: CostCenter, Environment, Owner",
+      "recommendation": "Add Project, Owner, Environment, and CostCenter tags.",
+      "scoreImpact": 8
+    },
+    {
+      "id": "EC2_SECURITY_GROUP_OPEN_INTERNET",
+      "title": "Security group allows inbound access from the internet",
+      "severity": "High",
+      "resource": "aws_security_group.web",
+      "detail": "Ingress allows 0.0.0.0/0 on ports 22-22.",
+      "recommendation": "Restrict inbound CIDR ranges to a trusted network or remove the rule.",
+      "scoreImpact": 15
+    },
+    {
+      "id": "EC2_SECURITY_GROUP_OPEN_SENSITIVE_PORT",
+      "title": "Security group exposes a sensitive port to the internet",
+      "severity": "Critical",
+      "resource": "aws_security_group.web",
+      "detail": "Sensitive port 22-22 is exposed to the internet.",
+      "recommendation": "Do not expose SSH, RDP, databases, or admin ports to 0.0.0.0/0.",
+      "scoreImpact": 25
+    },
+    {
+      "id": "MISSING_REQUIRED_TAGS",
+      "title": "Resource is missing required governance tags",
+      "severity": "Medium",
+      "resource": "aws_iam_policy.wildcard_admin",
+      "detail": "Missing tags: CostCenter, Environment, Owner, Project",
+      "recommendation": "Add Project, Owner, Environment, and CostCenter tags.",
+      "scoreImpact": 8
+    },
+    {
+      "id": "IAM_WILDCARD_ADMIN",
+      "title": "IAM policy grants wildcard admin permissions",
+      "severity": "Critical",
+      "resource": "aws_iam_policy.wildcard_admin",
+      "detail": "Policy allows Action '*' on Resource '*'.",
+      "recommendation": "Replace Action '*' and Resource '*' with least-privilege permissions.",
+      "scoreImpact": 25
+    },
+    {
+      "id": "MISSING_REQUIRED_TAGS",
+      "title": "Resource is missing required governance tags",
+      "severity": "Medium",
+      "resource": "aws_db_instance.demo",
+      "detail": "Missing tags: CostCenter, Environment, Owner, Project",
+      "recommendation": "Add Project, Owner, Environment, and CostCenter tags.",
+      "scoreImpact": 8
+    },
+    {
+      "id": "RDS_STORAGE_NOT_ENCRYPTED",
+      "title": "RDS storage encryption is disabled",
+      "severity": "High",
+      "resource": "aws_db_instance.demo",
+      "detail": "RDS storage_encrypted is false.",
+      "recommendation": "Set storage_encrypted = true and use a managed KMS key where appropriate.",
+      "scoreImpact": 15
+    },
+    {
+      "id": "EBS_VOLUME_NOT_ENCRYPTED",
+      "title": "EBS or root volume encryption is disabled",
+      "severity": "Medium",
+      "resource": "aws_instance.legacy",
+      "detail": "Root block device encryption is false.",
+      "recommendation": "Enable encryption for all block storage.",
+      "scoreImpact": 8
+    },
+    {
+      "id": "TERRAFORM_DELETE_ACTION",
+      "title": "Terraform plan contains a delete action",
+      "severity": "High",
+      "resource": "aws_instance.legacy",
+      "detail": "Plan action contains delete: delete.",
+      "recommendation": "Require human approval before destructive infrastructure changes.",
+      "scoreImpact": 15
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Day 10 Terraform Policy-as-Code Guardrail Platform Architecture</title>
+  <desc id="desc">Architecture showing Terraform plan JSON flowing through policy guardrails, reports, dashboard, and deployment gate.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#061014"/>
+      <stop offset="52%" stop-color="#102b31"/>
+      <stop offset="100%" stop-color="#15271f"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#17393e"/>
+      <stop offset="100%" stop-color="#0d2024"/>
+    </linearGradient>
+    <linearGradient id="aws" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffb454"/>
+      <stop offset="100%" stop-color="#ff7a45"/>
+    </linearGradient>
+    <linearGradient id="ai" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#76f4d2"/>
+      <stop offset="100%" stop-color="#72a7ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#76f4d2"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <g opacity="0.14" stroke="#76f4d2" stroke-width="2">
+    <path d="M60 0 L-190 1000"/>
+    <path d="M310 0 L60 1000"/>
+    <path d="M560 0 L310 1000"/>
+    <path d="M810 0 L560 1000"/>
+    <path d="M1060 0 L810 1000"/>
+    <path d="M1310 0 L1060 1000"/>
+    <path d="M1560 0 L1310 1000"/>
+  </g>
+
+  <text x="90" y="95" fill="#76f4d2" font-family="Arial" font-size="34" font-weight="800" letter-spacing="3">DAY 10 CLOUD DEVOPS PROJECT</text>
+  <text x="90" y="165" fill="#f6fffc" font-family="Arial" font-size="58" font-weight="900">Terraform Policy-as-Code Guardrail Platform</text>
+  <text x="90" y="215" fill="#b7d5cf" font-family="Arial" font-size="28">Scan Terraform plans before deployment, score risk, and create review evidence.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="90" y="300" width="250" height="160" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.12"/>
+    <path d="M157 345 L220 312 L283 345 L220 378 Z" fill="#7b61ff"/>
+    <path d="M157 345 L220 378 L220 438 L157 405 Z" fill="#5d46c7"/>
+    <path d="M283 345 L220 378 L220 438 L283 405 Z" fill="#9a82ff"/>
+    <text x="215" y="495" fill="#f6fffc" font-family="Arial" font-size="25" font-weight="800" text-anchor="middle">Terraform Code</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="420" y="300" width="250" height="160" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.12"/>
+    <rect x="500" y="332" width="90" height="90" rx="14" fill="#263b44" stroke="#76f4d2" stroke-width="4"/>
+    <path d="M520 358 H570 M520 382 H570 M520 406 H552" stroke="#76f4d2" stroke-width="8" stroke-linecap="round"/>
+    <text x="545" y="495" fill="#f6fffc" font-family="Arial" font-size="25" font-weight="800" text-anchor="middle">Plan JSON</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="750" y="300" width="300" height="160" rx="22" fill="url(#ai)" stroke="#ffffff" stroke-opacity="0.18"/>
+    <circle cx="900" cy="372" r="46" fill="#061014" opacity="0.95"/>
+    <path d="M872 370 H928 M900 342 V398 M880 350 L920 390 M920 350 L880 390" stroke="#76f4d2" stroke-width="8" stroke-linecap="round"/>
+    <text x="900" y="495" fill="#f6fffc" font-family="Arial" font-size="25" font-weight="800" text-anchor="middle">Policy Evaluator</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1130" y="300" width="330" height="160" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.12"/>
+    <rect x="1190" y="332" width="210" height="78" rx="12" fill="#071214"/>
+    <circle cx="1222" cy="371" r="12" fill="#ff5f6d"/>
+    <circle cx="1260" cy="371" r="12" fill="#ffb454"/>
+    <circle cx="1298" cy="371" r="12" fill="#76f4d2"/>
+    <text x="1295" y="495" fill="#f6fffc" font-family="Arial" font-size="25" font-weight="800" text-anchor="middle">Dashboard + Reports</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="750" y="610" width="300" height="180" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="900" y="665" fill="#76f4d2" font-family="Arial" font-size="24" font-weight="900" text-anchor="middle">DEPLOYMENT GATE</text>
+    <text x="900" y="725" fill="#f6fffc" font-family="Arial" font-size="46" font-weight="900" text-anchor="middle">Score ≥ 80?</text>
+    <text x="900" y="765" fill="#b7d5cf" font-family="Arial" font-size="24" text-anchor="middle">approve or block</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="90" y="610" width="520" height="180" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="130" y="665" fill="#76f4d2" font-family="Arial" font-size="24" font-weight="900">GUARDRAILS</text>
+    <text x="130" y="715" fill="#f6fffc" font-family="Arial" font-size="27" font-weight="800">S3 public risk • Open SSH • IAM wildcard</text>
+    <text x="130" y="755" fill="#f6fffc" font-family="Arial" font-size="27" font-weight="800">Missing encryption • Missing tags • Deletes</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1190" y="610" width="270" height="180" rx="22" fill="url(#aws)" stroke="#ffffff" stroke-opacity="0.18"/>
+    <text x="1325" y="675" fill="#061014" font-family="Arial" font-size="27" font-weight="900" text-anchor="middle">AWS</text>
+    <text x="1325" y="720" fill="#061014" font-family="Arial" font-size="31" font-weight="900" text-anchor="middle">Safe Apply</text>
+    <text x="1325" y="760" fill="#061014" font-family="Arial" font-size="22" font-weight="700" text-anchor="middle">only after approval</text>
+  </g>
+
+  <g fill="none" stroke="#76f4d2" stroke-width="6" marker-end="url(#arrow)">
+    <path d="M340 380 H410"/>
+    <path d="M670 380 H735"/>
+    <path d="M1050 380 H1118"/>
+    <path d="M900 460 V595"/>
+    <path d="M610 700 H735"/>
+    <path d="M1050 700 H1175"/>
+  </g>
+
+  <text x="90" y="910" fill="#b7d5cf" font-family="Arial" font-size="25">Beginner-friendly: run sample plan locally. Pro-ready: evolve into CI/CD policy gate with OPA and AI explanations.</text>
+</svg>

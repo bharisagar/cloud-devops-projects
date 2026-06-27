@@ -1,0 +1,76 @@
+{
+  "deploymentGate": {
+    "minimumScore": 80,
+    "blockOnCritical": true
+  },
+  "requiredTags": [
+    "Project",
+    "Owner",
+    "Environment",
+    "CostCenter"
+  ],
+  "severityScoreImpact": {
+    "Critical": 25,
+    "High": 15,
+    "Medium": 8,
+    "Low": 4
+  },
+  "sensitivePorts": [
+    22,
+    3389,
+    3306,
+    5432,
+    6379,
+    9200
+  ],
+  "rules": [
+    {
+      "id": "S3_PUBLIC_ACCESS_BLOCK_MISSING",
+      "title": "S3 bucket does not have strong public access block settings",
+      "severity": "Critical",
+      "recommendation": "Add aws_s3_bucket_public_access_block with all block/restrict settings enabled."
+    },
+    {
+      "id": "EC2_SECURITY_GROUP_OPEN_INTERNET",
+      "title": "Security group allows inbound access from the internet",
+      "severity": "High",
+      "recommendation": "Restrict inbound CIDR ranges to a trusted network or remove the rule."
+    },
+    {
+      "id": "EC2_SECURITY_GROUP_OPEN_SENSITIVE_PORT",
+      "title": "Security group exposes a sensitive port to the internet",
+      "severity": "Critical",
+      "recommendation": "Do not expose SSH, RDP, databases, or admin ports to 0.0.0.0/0."
+    },
+    {
+      "id": "IAM_WILDCARD_ADMIN",
+      "title": "IAM policy grants wildcard admin permissions",
+      "severity": "Critical",
+      "recommendation": "Replace Action '*' and Resource '*' with least-privilege permissions."
+    },
+    {
+      "id": "RDS_STORAGE_NOT_ENCRYPTED",
+      "title": "RDS storage encryption is disabled",
+      "severity": "High",
+      "recommendation": "Set storage_encrypted = true and use a managed KMS key where appropriate."
+    },
+    {
+      "id": "EBS_VOLUME_NOT_ENCRYPTED",
+      "title": "EBS or root volume encryption is disabled",
+      "severity": "Medium",
+      "recommendation": "Enable encryption for all block storage."
+    },
+    {
+      "id": "MISSING_REQUIRED_TAGS",
+      "title": "Resource is missing required governance tags",
+      "severity": "Medium",
+      "recommendation": "Add Project, Owner, Environment, and CostCenter tags."
+    },
+    {
+      "id": "TERRAFORM_DELETE_ACTION",
+      "title": "Terraform plan contains a delete action",
+      "severity": "High",
+      "recommendation": "Require human approval before destructive infrastructure changes."
+    }
+  ]
+}

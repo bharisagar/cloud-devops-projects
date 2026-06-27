@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Terraform Policy Guardrail Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Day 10 Cloud DevOps Project</p>
+        <h1>Terraform Policy Guardrail Dashboard</h1>
+      </div>
+      <label class="upload-button">
+        Load Policy Report
+        <input id="reportUpload" type="file" accept="application/json">
+      </label>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="score-panel">
+          <p class="eyebrow">Deployment Gate</p>
+          <h2 id="riskScore">--</h2>
+          <p id="decisionText">Loading report...</p>
+        </div>
+        <div class="gate-panel">
+          <span>Decision</span>
+          <strong id="decision">--</strong>
+          <span>Minimum Score</span>
+          <strong id="minimumScore">--</strong>
+          <span>Block On Critical</span>
+          <strong id="blockOnCritical">--</strong>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <article>
+          <span>Total Findings</span>
+          <strong id="totalFindings">0</strong>
+        </article>
+        <article class="critical">
+          <span>Critical</span>
+          <strong id="criticalFindings">0</strong>
+        </article>
+        <article class="high">
+          <span>High</span>
+          <strong id="highFindings">0</strong>
+        </article>
+        <article class="medium">
+          <span>Medium</span>
+          <strong id="mediumFindings">0</strong>
+        </article>
+        <article class="low">
+          <span>Low</span>
+          <strong id="lowFindings">0</strong>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Policy Findings</h3>
+            <p>Prioritized issues from the Terraform plan.</p>
+          </div>
+          <div id="findings" class="findings"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Review Workflow</h3>
+            <p>How this becomes a real CI/CD guardrail.</p>
+          </div>
+          <ol class="workflow">
+            <li>Generate Terraform plan JSON</li>
+            <li>Evaluate plan against guardrails</li>
+            <li>Block critical or low-score plans</li>
+            <li>Attach report to pull request</li>
+            <li>Require human approval before apply</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

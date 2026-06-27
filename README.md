@@ -19,7 +19,8 @@ I created this repo for learners who want project-based practice across Linux, G
 | Day 7 | Push Docker Image to Registry | Complete | DockerHub/ECR publishing, tags |
 | Day 8 | AWS Cloud Foundation Setup | Complete | AWS IAM, CLI, S3 evidence, budget guardrails |
 | Day 9 | AWS Security Audit Dashboard | Complete | IAM audit, S3 risk, security groups, CloudTrail, dashboard evidence |
-| Day 10-30 | Coming next | Planned | EC2, RDS, VPC, Terraform, ECS, Kubernetes, monitoring |
+| Day 10 | Terraform Policy-as-Code Guardrail Platform | Complete | Terraform plans, policy-as-code, risk scoring, deployment gates |
+| Day 11-30 | Coming next | Planned | Observability, AI incident summary, EvalOps, RAG, Kubernetes, monitoring |
 
 ## Repository Structure
 
@@ -34,7 +35,8 @@ cloud-devops-projects/
 |   |-- day-06-github-actions-docker-ci/
 |   |-- day-07-push-docker-image-to-registry/
 |   |-- day-08-aws-cloud-foundation-setup/
-|   `-- day-09-aws-security-audit-dashboard/
+|   |-- day-09-aws-security-audit-dashboard/
+|   `-- day-10-terraform-policy-guardrails/
 |-- .github/
 |   `-- workflows/
 |       |-- day-06-docker-ci.yml
@@ -76,7 +78,7 @@ Do not upload secrets, access keys, private IPs from office systems, customer na
 
 ## Safety Notes
 
-- Days 1-7 are designed to run locally. Day 8 begins the AWS foundation with IAM identity verification, budget guardrails, and secure S3 evidence storage. Day 9 adds read-only security audit reporting.
+- Days 1-7 are designed to run locally. Day 8 begins the AWS foundation with IAM identity verification, budget guardrails, and secure S3 evidence storage. Day 9 adds read-only security audit reporting. Day 10 reviews Terraform plans locally before any cloud changes are applied.
 - Docker-based days require Docker Desktop on Windows or Docker Engine on Linux.
 - AWS/Terraform days should be run in a personal sandbox AWS account only.
 - Always destroy paid cloud resources after testing.
@@ -90,4 +92,3 @@ Do not upload secrets, access keys, private IPs from office systems, customer na
 | [AWS Enterprise AI Governance Platform on ECS](./03-aws-enterprise-ai-governance-ecs/README.md) | API Gateway, ECS Fargate, private VPC Link, Bedrock, SageMaker-ready provider design, audit, monitoring, security, cost governance |
 
 The private VPC ECS Fargate project solves a real-world class of `ResourceInitializationError` issues where tasks in private subnets cannot reach ECR, CloudWatch Logs, S3, or Secrets Manager.
-
