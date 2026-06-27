@@ -203,11 +203,6 @@ Save screenshots in `screenshots/evidence/`:
 - Findings list
 - Blocked deployment decision
 
-## Portfolio Summary
-
-```text
-Built a Terraform Policy-as-Code Guardrail Platform that scans Terraform plans for public exposure, weak IAM, missing encryption, missing tags, and destructive changes, then generates a risk score, dashboard, and evidence report before deployment.
-```
 
 ## Troubleshooting
 
