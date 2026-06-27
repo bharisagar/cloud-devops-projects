@@ -1,0 +1,94 @@
+{
+  "traces": [
+    {
+      "trace_id": "trace-201",
+      "status": "slow",
+      "duration_ms": 980,
+      "spans": [
+        {
+          "span_id": "a1",
+          "service": "api-gateway",
+          "operation": "POST /checkout",
+          "duration_ms": 110,
+          "status": "ok"
+        },
+        {
+          "span_id": "b1",
+          "parent_span_id": "a1",
+          "service": "checkout-service",
+          "operation": "create_order",
+          "duration_ms": 870,
+          "status": "slow"
+        },
+        {
+          "span_id": "c1",
+          "parent_span_id": "b1",
+          "service": "postgres",
+          "operation": "db.query insert orders",
+          "duration_ms": 760,
+          "status": "slow"
+        }
+      ]
+    },
+    {
+      "trace_id": "trace-202",
+      "status": "error",
+      "duration_ms": 1430,
+      "spans": [
+        {
+          "span_id": "a2",
+          "service": "api-gateway",
+          "operation": "POST /checkout",
+          "duration_ms": 80,
+          "status": "error"
+        },
+        {
+          "span_id": "b2",
+          "parent_span_id": "a2",
+          "service": "checkout-service",
+          "operation": "create_order",
+          "duration_ms": 1350,
+          "status": "error"
+        },
+        {
+          "span_id": "c2",
+          "parent_span_id": "b2",
+          "service": "postgres",
+          "operation": "db.connection.acquire",
+          "duration_ms": 1200,
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "trace_id": "trace-203",
+      "status": "error",
+      "duration_ms": 1510,
+      "spans": [
+        {
+          "span_id": "a3",
+          "service": "api-gateway",
+          "operation": "POST /checkout",
+          "duration_ms": 90,
+          "status": "error"
+        },
+        {
+          "span_id": "b3",
+          "parent_span_id": "a3",
+          "service": "checkout-service",
+          "operation": "create_order",
+          "duration_ms": 1420,
+          "status": "error"
+        },
+        {
+          "span_id": "c3",
+          "parent_span_id": "b3",
+          "service": "postgres",
+          "operation": "db.query insert orders",
+          "duration_ms": 1320,
+          "status": "error"
+        }
+      ]
+    }
+  ]
+}

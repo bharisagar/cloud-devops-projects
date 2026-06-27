@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Incident Summary Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Day 11 Cloud DevOps Project</p>
+        <h1>Observability Pipeline with AI Incident Summary</h1>
+      </div>
+      <label class="upload-button">
+        Load Incident Report
+        <input id="reportUpload" type="file" accept="application/json">
+      </label>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="summary-card">
+          <p class="eyebrow">Incident Summary</p>
+          <h2 id="title">Loading...</h2>
+          <p id="summary"></p>
+        </div>
+        <div class="status-card">
+          <span>Severity</span>
+          <strong id="severity">--</strong>
+          <span>Status</span>
+          <strong id="status">--</strong>
+          <span>SLO</span>
+          <strong id="sloStatus">--</strong>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <article><span>Log Events</span><strong id="logEvents">0</strong></article>
+        <article><span>Metric Points</span><strong id="metricPoints">0</strong></article>
+        <article><span>Traces</span><strong id="traceCount">0</strong></article>
+        <article class="critical"><span>Failed Traces</span><strong id="failedTraceCount">0</strong></article>
+        <article class="high"><span>Peak Error Rate</span><strong id="peakErrorRate">0%</strong></article>
+      </section>
+
+      <section class="grid">
+        <article class="panel root-cause">
+          <div class="panel-heading">
+            <h3>Probable Root Cause</h3>
+            <p>AI-style summary generated from correlated telemetry.</p>
+          </div>
+          <p id="rootCause"></p>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Supporting Evidence</h3>
+            <p>Signals that support the incident hypothesis.</p>
+          </div>
+          <ul id="evidence" class="clean-list"></ul>
+        </article>
+      </section>
+
+      <section class="grid wide-left">
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Timeline</h3>
+            <p>Warning and error events reconstructed from logs.</p>
+          </div>
+          <div id="timeline" class="timeline"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Recommended Commands</h3>
+            <p>Human-approved next checks before remediation.</p>
+          </div>
+          <div id="commands" class="commands"></div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Remediation Plan</h3>
+            <p>Actions to mitigate and prevent repeat failures.</p>
+          </div>
+          <ol id="remediation" class="steps"></ol>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Verification Checklist</h3>
+            <p>Signals that prove recovery is real.</p>
+          </div>
+          <ul id="verification" class="check-list"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

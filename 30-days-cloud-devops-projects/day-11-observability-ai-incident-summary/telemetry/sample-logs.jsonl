@@ -1,0 +1,8 @@
+{"timestamp": "2026-06-27T10:00:00+00:00", "severity": "INFO", "service": "api-gateway", "message": "release 2026.06.27-1 started", "trace_id": "trace-100"}
+{"timestamp": "2026-06-27T10:02:00+00:00", "severity": "INFO", "service": "checkout-service", "message": "deployment completed", "trace_id": "trace-101"}
+{"timestamp": "2026-06-27T10:05:00+00:00", "severity": "WARN", "service": "checkout-service", "message": "database connection pool wait time above threshold", "trace_id": "trace-201"}
+{"timestamp": "2026-06-27T10:07:00+00:00", "severity": "ERROR", "service": "checkout-service", "message": "checkout failed: db connection pool exhausted", "trace_id": "trace-202"}
+{"timestamp": "2026-06-27T10:08:00+00:00", "severity": "ERROR", "service": "api-gateway", "message": "POST /checkout returned 503 from checkout-service", "trace_id": "trace-202"}
+{"timestamp": "2026-06-27T10:10:00+00:00", "severity": "ERROR", "service": "checkout-service", "message": "payment authorization skipped because order write failed", "trace_id": "trace-203"}
+{"timestamp": "2026-06-27T10:12:00+00:00", "severity": "WARN", "service": "postgres", "message": "active connections near max_connections", "trace_id": "trace-204"}
+{"timestamp": "2026-06-27T10:15:00+00:00", "severity": "INFO", "service": "checkout-service", "message": "temporary scale-out started for checkout workers", "trace_id": "trace-205"}

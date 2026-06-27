@@ -1,8 +1,8 @@
 # 30 Days Cloud DevOps Projects
 
-This is the day-by-day learning path. The first 7 days build a strong local foundation. Day 8 begins the AWS cloud foundation with identity, cost, and evidence controls. Day 9 adds cloud security audit automation and dashboard reporting. Day 10 introduces policy-as-code guardrails for Terraform plans.
+This is the day-by-day learning path. The first 7 days build a strong local foundation. Day 8 begins the AWS cloud foundation with identity, cost, and evidence controls. Day 9 adds cloud security audit automation and dashboard reporting. Day 10 introduces policy-as-code guardrails for Terraform plans. Day 11 adds observability and AI-style incident intelligence.
 
-## Days 1-10
+## Days 1-11
 
 | Day | Project | Outcome |
 | --- | --- | --- |
@@ -16,6 +16,7 @@ This is the day-by-day learning path. The first 7 days build a strong local foun
 | [Day 8](./day-08-aws-cloud-foundation-setup/README.md) | AWS Cloud Foundation Setup | Verify AWS identity, create cost guardrails, and store evidence in a private encrypted S3 bucket. |
 | [Day 9](./day-09-aws-security-audit-dashboard/README.md) | AWS Security Audit Dashboard | Audit IAM, S3, security groups, CloudTrail, and budget guardrails with a local dashboard and evidence reports. |
 | [Day 10](./day-10-terraform-policy-guardrails/README.md) | Terraform Policy-as-Code Guardrail Platform | Scan Terraform plans for risky infrastructure and block unsafe deployments with reports and a dashboard. |
+| [Day 11](./day-11-observability-ai-incident-summary/README.md) | Observability Pipeline with AI Incident Summary | Correlate logs, metrics, and traces into an incident summary with root cause, evidence, and next actions. |
 
 ## Learning Rule
 
