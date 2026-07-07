@@ -1,0 +1,261 @@
+{
+  "project": "Day 12 - EvalOps Quality Gate for AI Incident Summaries",
+  "generatedAt": "2026-07-07T16:46:16.325483+00:00",
+  "summarySource": "summaries\\sample-generated-incident-summary.json",
+  "goldenSource": "evals\\golden-incidents.json",
+  "qualityGate": {
+    "minimumScore": 80,
+    "blockOnCriticalFailures": true
+  },
+  "score": 100.0,
+  "decision": "passed",
+  "totals": {
+    "totalChecks": 8,
+    "passed": 8,
+    "partial": 0,
+    "failed": 0,
+    "criticalFailures": 0
+  },
+  "testCases": [
+    {
+      "id": "checkout-db-pool-saturation",
+      "title": "Checkout outage caused by database connection pool saturation",
+      "summaryTitle": "Checkout latency and 503 errors after release",
+      "score": 100.0,
+      "decision": "passed",
+      "checks": [
+        {
+          "id": "severity",
+          "title": "Severity classification",
+          "status": "pass",
+          "critical": true,
+          "points": 10,
+          "maxPoints": 10,
+          "expected": "SEV1",
+          "observed": "SEV1",
+          "recommendation": "Set the incident severity to match the measured customer impact."
+        },
+        {
+          "id": "impacted_services",
+          "title": "Impacted services",
+          "status": "pass",
+          "critical": false,
+          "points": 12.0,
+          "maxPoints": 12,
+          "expected": [
+            "checkout-service",
+            "postgres"
+          ],
+          "observed": [
+            "checkout-service",
+            "postgres"
+          ],
+          "recommendation": "All required services are present."
+        },
+        {
+          "id": "root_cause",
+          "title": "Probable root cause",
+          "status": "pass",
+          "critical": true,
+          "points": 20.0,
+          "maxPoints": 20,
+          "expected": [
+            [
+              "database",
+              "db",
+              "postgres"
+            ],
+            [
+              "connection pool",
+              "pool saturation",
+              "exhausted"
+            ],
+            [
+              "checkout",
+              "order creation"
+            ]
+          ],
+          "observed": {
+            "matchedGroups": [
+              [
+                "database",
+                "db",
+                "postgres"
+              ],
+              [
+                "connection pool",
+                "pool saturation",
+                "exhausted"
+              ],
+              [
+                "checkout",
+                "order creation"
+              ]
+            ],
+            "missedGroups": []
+          },
+          "recommendation": "Explain the database connection pool saturation and connect it to checkout failures."
+        },
+        {
+          "id": "slo",
+          "title": "SLO impact",
+          "status": "pass",
+          "critical": false,
+          "points": 12.0,
+          "maxPoints": 12,
+          "expected": {
+            "status": "violated",
+            "minimumPeakErrorRatePercent": 20,
+            "minimumPeakP95LatencyMs": 1000
+          },
+          "observed": {
+            "status": "violated",
+            "peakErrorRatePercent": 24.76,
+            "peakP95LatencyMs": 1320
+          },
+          "recommendation": "Include the violated SLO status, peak error rate, and peak p95 latency."
+        },
+        {
+          "id": "evidence",
+          "title": "Supporting evidence",
+          "status": "pass",
+          "critical": false,
+          "points": 16.0,
+          "maxPoints": 16,
+          "expected": [
+            [
+              "error log",
+              "error log events"
+            ],
+            [
+              "p95 latency",
+              "latency"
+            ],
+            [
+              "failed traces",
+              "traces ended with error"
+            ],
+            [
+              "postgres spans",
+              "slow postgres"
+            ]
+          ],
+          "observed": {
+            "matchedGroups": [
+              [
+                "error log",
+                "error log events"
+              ],
+              [
+                "p95 latency",
+                "latency"
+              ],
+              [
+                "failed traces",
+                "traces ended with error"
+              ],
+              [
+                "postgres spans",
+                "slow postgres"
+              ]
+            ],
+            "missedGroups": []
+          },
+          "recommendation": "Cite concrete log, metric, and trace evidence in the summary."
+        },
+        {
+          "id": "actionability",
+          "title": "Actionability",
+          "status": "pass",
+          "critical": false,
+          "points": 16.0,
+          "maxPoints": 16,
+          "expected": [
+            [
+              "kubectl logs",
+              "logs deploy"
+            ],
+            [
+              "connection pool",
+              "pool size",
+              "pgbouncer"
+            ],
+            [
+              "rollback",
+              "roll back"
+            ],
+            [
+              "alert",
+              "alerts"
+            ]
+          ],
+          "observed": {
+            "matchedGroups": [
+              [
+                "kubectl logs",
+                "logs deploy"
+              ],
+              [
+                "connection pool",
+                "pool size",
+                "pgbouncer"
+              ],
+              [
+                "rollback",
+                "roll back"
+              ],
+              [
+                "alert",
+                "alerts"
+              ]
+            ],
+            "missedGroups": []
+          },
+          "recommendation": "Include commands, mitigation steps, rollback criteria, and alert follow-up work."
+        },
+        {
+          "id": "structure",
+          "title": "Required structure",
+          "status": "pass",
+          "critical": false,
+          "points": 8.0,
+          "maxPoints": 8,
+          "expected": [
+            "title",
+            "severity",
+            "summary",
+            "probableRootCause",
+            "impactedServices",
+            "slo",
+            "evidence",
+            "timeline",
+            "recommendedCommands",
+            "remediationPlan",
+            "verificationChecklist"
+          ],
+          "observed": {
+            "missingFields": []
+          },
+          "recommendation": "All required fields are populated."
+        },
+        {
+          "id": "hallucination_control",
+          "title": "Unsupported claim control",
+          "status": "pass",
+          "critical": true,
+          "points": 6,
+          "maxPoints": 6,
+          "expected": "No forbidden unsupported claims",
+          "observed": {
+            "forbiddenClaimsFound": []
+          },
+          "recommendation": "Remove unsupported claims that are not present in the telemetry."
+        }
+      ],
+      "failedCriticalChecks": []
+    }
+  ],
+  "nextActions": [
+    "No fixes required. Keep the golden test case in regression coverage."
+  ]
+}

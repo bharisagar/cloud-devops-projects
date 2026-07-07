@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EvalOps Quality Gate Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Day 12 Cloud DevOps Project</p>
+        <h1>EvalOps Quality Gate</h1>
+      </div>
+      <label class="upload-button">
+        Load Eval Report
+        <input id="reportUpload" type="file" accept="application/json">
+      </label>
+    </header>
+
+    <main>
+      <section class="status-band">
+        <div class="score-block">
+          <span>Score</span>
+          <strong id="score">--</strong>
+          <small id="gate">Gate: --</small>
+        </div>
+        <div class="decision-block">
+          <span>Decision</span>
+          <strong id="decision">Loading</strong>
+          <p id="summaryLine"></p>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Eval totals">
+        <article><span>Total Checks</span><strong id="totalChecks">0</strong></article>
+        <article class="ok"><span>Passed</span><strong id="passed">0</strong></article>
+        <article class="warn"><span>Partial</span><strong id="partial">0</strong></article>
+        <article class="bad"><span>Failed</span><strong id="failed">0</strong></article>
+        <article class="bad"><span>Critical Fails</span><strong id="criticalFailures">0</strong></article>
+      </section>
+
+      <section class="grid wide-left">
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Rubric Checks</h2>
+            <p id="caseTitle">No report loaded.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Check</th>
+                  <th>Status</th>
+                  <th>Points</th>
+                  <th>Recommendation</th>
+                </tr>
+              </thead>
+              <tbody id="checks"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Next Actions</h2>
+            <p>Items generated from failed or partial checks.</p>
+          </div>
+          <ul id="nextActions" class="clean-list"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

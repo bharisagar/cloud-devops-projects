@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Day 12 EvalOps Quality Gate Architecture</title>
+  <desc id="desc">Generated incident summaries are evaluated against golden expectations and a quality rubric before a pass or block decision is reported.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f4f6f3; }
+      .box { fill: #ffffff; stroke: #cbd5d1; stroke-width: 2; rx: 12; }
+      .gate { fill: #fff7ed; stroke: #f59e0b; stroke-width: 2; }
+      .pass { fill: #ecfdf5; stroke: #10b981; stroke-width: 2; rx: 12; }
+      .block { fill: #fff1f2; stroke: #e11d48; stroke-width: 2; rx: 12; }
+      .text { fill: #17211f; font-family: Arial, Helvetica, sans-serif; font-size: 22px; font-weight: 700; }
+      .small { fill: #54615e; font-family: Arial, Helvetica, sans-serif; font-size: 15px; }
+      .arrow { stroke: #66756f; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#66756f" />
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="620" />
+  <text x="60" y="62" class="text" style="font-size: 34px;">Day 12 - EvalOps Quality Gate</text>
+  <text x="60" y="92" class="small">Score AI incident summaries before they are trusted by responders or CI/CD.</text>
+
+  <rect x="60" y="150" width="260" height="120" class="box" />
+  <text x="88" y="198" class="text">AI Incident Summary</text>
+  <text x="88" y="228" class="small">Generated from logs, metrics, traces</text>
+
+  <rect x="60" y="350" width="260" height="120" class="box" />
+  <text x="88" y="398" class="text">Golden Expectations</text>
+  <text x="88" y="428" class="small">Severity, services, evidence, actions</text>
+
+  <rect x="420" y="250" width="260" height="140" class="box" />
+  <text x="470" y="304" class="text">Rubric Evaluator</text>
+  <text x="456" y="334" class="small">Scores pass, partial, and fail checks</text>
+
+  <polygon points="840,210 980,320 840,430 700,320" class="gate" />
+  <text x="778" y="306" class="text">Quality Gate</text>
+  <text x="772" y="336" class="small">Score >= 80 and no critical fail</text>
+
+  <rect x="1010" y="120" width="150" height="100" class="pass" />
+  <text x="1044" y="165" class="text">Passed</text>
+  <text x="1028" y="194" class="small">Ready for review</text>
+
+  <rect x="1010" y="430" width="150" height="100" class="block" />
+  <text x="1040" y="475" class="text">Blocked</text>
+  <text x="1024" y="504" class="small">Fix and rerun</text>
+
+  <rect x="420" y="470" width="260" height="90" class="box" />
+  <text x="472" y="510" class="text">Evidence Reports</text>
+  <text x="464" y="538" class="small">JSON, Markdown, dashboard</text>
+
+  <path d="M320 210 C370 210 382 290 420 300" class="arrow" />
+  <path d="M320 410 C370 410 382 350 420 340" class="arrow" />
+  <path d="M680 320 L700 320" class="arrow" />
+  <path d="M980 300 C1010 260 1035 230 1068 220" class="arrow" />
+  <path d="M980 340 C1010 380 1035 410 1068 430" class="arrow" />
+  <path d="M550 390 L550 470" class="arrow" />
+</svg>

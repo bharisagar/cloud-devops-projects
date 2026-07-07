@@ -1,0 +1,71 @@
+{
+  "project": "Day 11 - Observability Pipeline with AI Incident Summary",
+  "generatedAt": "2026-07-07T00:00:00Z",
+  "title": "Checkout latency and 503 errors after release",
+  "severity": "SEV1",
+  "status": "mitigating",
+  "summary": "The checkout path is degraded after a release. Telemetry shows elevated p95 latency, increased 503 errors, and failed traces concentrated around checkout-service and postgres. The incident should be treated as customer-impacting until checkout success rate recovers.",
+  "probableRootCause": "Checkout failures are most likely caused by database connection pool saturation. Logs mention exhausted database connections, metrics show elevated checkout latency and errors, and traces show slow or failed postgres spans during order creation.",
+  "impactedServices": [
+    "checkout-service",
+    "postgres"
+  ],
+  "slo": {
+    "targetAvailabilityPercent": 99.5,
+    "peakErrorRatePercent": 24.76,
+    "peakP95LatencyMs": 1320,
+    "status": "violated"
+  },
+  "signals": {
+    "logEvents": 8,
+    "metricPoints": 24,
+    "traceCount": 4,
+    "failedTraceCount": 2
+  },
+  "evidence": [
+    "3 error log events and 2 warning log events detected.",
+    "Top error source: checkout-service.",
+    "Peak checkout p95 latency reached 1320 ms.",
+    "Peak checkout error rate reached 24.76%.",
+    "2 traces ended with error status.",
+    "3 slow postgres spans exceeded 700 ms."
+  ],
+  "timeline": [
+    {
+      "timestamp": "2026-07-07T09:10:00Z",
+      "service": "checkout-service",
+      "message": "p95 latency above SLO for POST /checkout",
+      "trace_id": "trace-1002"
+    },
+    {
+      "timestamp": "2026-07-07T09:13:00Z",
+      "service": "checkout-service",
+      "message": "database connection pool exhausted while creating order",
+      "trace_id": "trace-1003"
+    },
+    {
+      "timestamp": "2026-07-07T09:14:00Z",
+      "service": "postgres",
+      "message": "active connections near configured maximum",
+      "trace_id": "trace-1003"
+    }
+  ],
+  "recommendedCommands": [
+    "kubectl logs deploy/checkout-service --since=30m",
+    "kubectl describe deploy checkout-service",
+    "kubectl top pods -l app=checkout-service",
+    "psql -c 'select count(*) from pg_stat_activity;'"
+  ],
+  "remediationPlan": [
+    "Confirm whether the checkout release changed database connection settings.",
+    "Reduce connection pool size or enable pooling through PgBouncer if saturation is confirmed.",
+    "Rollback the release if error rate remains above SLO after mitigation.",
+    "Create a follow-up action to add alerts for connection pool wait time."
+  ],
+  "verificationChecklist": [
+    "Checkout p95 latency is below 500 ms for 15 minutes.",
+    "Checkout error rate is below 2% for 15 minutes.",
+    "No new database connection pool exhausted errors appear in logs.",
+    "Failed traces for POST /checkout return to baseline."
+  ]
+}

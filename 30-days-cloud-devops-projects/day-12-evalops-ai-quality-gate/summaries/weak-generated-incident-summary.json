@@ -1,0 +1,37 @@
+{
+  "project": "Day 11 - Observability Pipeline with AI Incident Summary",
+  "generatedAt": "2026-07-07T00:00:00Z",
+  "title": "Checkout warning after release",
+  "severity": "SEV3",
+  "status": "investigating",
+  "summary": "There may be a small checkout slowdown. The issue looks related to a DNS outage or Redis cache behavior, but more checks are needed.",
+  "probableRootCause": "The most likely cause is a DNS outage affecting service discovery.",
+  "impactedServices": [
+    "checkout-service"
+  ],
+  "slo": {
+    "targetAvailabilityPercent": 99.5,
+    "peakErrorRatePercent": 3.2,
+    "peakP95LatencyMs": 420,
+    "status": "healthy"
+  },
+  "signals": {
+    "logEvents": 8,
+    "metricPoints": 24,
+    "traceCount": 4,
+    "failedTraceCount": 2
+  },
+  "evidence": [
+    "Some requests were slow."
+  ],
+  "timeline": [],
+  "recommendedCommands": [
+    "ping checkout.example.com"
+  ],
+  "remediationPlan": [
+    "Wait and monitor for one hour."
+  ],
+  "verificationChecklist": [
+    "Check whether users still report issues."
+  ]
+}

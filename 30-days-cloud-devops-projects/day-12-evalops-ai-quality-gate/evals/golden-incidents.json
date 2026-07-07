@@ -1,0 +1,107 @@
+{
+  "project": "Day 12 - EvalOps Quality Gate for AI Incident Summaries",
+  "qualityGate": {
+    "minimumScore": 80,
+    "blockOnCriticalFailures": true
+  },
+  "rubric": {
+    "severity": 10,
+    "impactedServices": 12,
+    "rootCause": 20,
+    "slo": 12,
+    "evidence": 16,
+    "actionability": 16,
+    "structure": 8,
+    "hallucinationControl": 6
+  },
+  "testCases": [
+    {
+      "id": "checkout-db-pool-saturation",
+      "title": "Checkout outage caused by database connection pool saturation",
+      "expected": {
+        "severity": "SEV1",
+        "impactedServices": [
+          "checkout-service",
+          "postgres"
+        ],
+        "sloStatus": "violated",
+        "minimumPeakErrorRatePercent": 20,
+        "minimumPeakP95LatencyMs": 1000,
+        "rootCauseMustMention": [
+          [
+            "database",
+            "db",
+            "postgres"
+          ],
+          [
+            "connection pool",
+            "pool saturation",
+            "exhausted"
+          ],
+          [
+            "checkout",
+            "order creation"
+          ]
+        ],
+        "evidenceMustMention": [
+          [
+            "error log",
+            "error log events"
+          ],
+          [
+            "p95 latency",
+            "latency"
+          ],
+          [
+            "failed traces",
+            "traces ended with error"
+          ],
+          [
+            "postgres spans",
+            "slow postgres"
+          ]
+        ],
+        "actionMustMention": [
+          [
+            "kubectl logs",
+            "logs deploy"
+          ],
+          [
+            "connection pool",
+            "pool size",
+            "pgbouncer"
+          ],
+          [
+            "rollback",
+            "roll back"
+          ],
+          [
+            "alert",
+            "alerts"
+          ]
+        ],
+        "requiredFields": [
+          "title",
+          "severity",
+          "summary",
+          "probableRootCause",
+          "impactedServices",
+          "slo",
+          "evidence",
+          "timeline",
+          "recommendedCommands",
+          "remediationPlan",
+          "verificationChecklist"
+        ],
+        "forbiddenClaims": [
+          "dns outage",
+          "redis cache",
+          "payment gateway",
+          "regional aws outage",
+          "cloud provider outage",
+          "network partition"
+        ]
+      }
+    }
+  ]
+}
