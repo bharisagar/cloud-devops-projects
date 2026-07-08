@@ -1,8 +1,8 @@
 # 30 Days Cloud DevOps Projects
 
-This is the day-by-day learning path. The first 7 days build a strong local foundation. Day 8 begins the AWS cloud foundation with identity, cost, and evidence controls. Day 9 adds cloud security audit automation and dashboard reporting. Day 10 introduces policy-as-code guardrails for Terraform plans. Day 11 adds observability and AI-style incident intelligence. Day 12 adds EvalOps quality gates for AI-generated incident summaries.
+This is the day-by-day learning path. The first 7 days build a strong local foundation. Day 8 begins the AWS cloud foundation with identity, cost, and evidence controls. Day 9 adds cloud security audit automation and dashboard reporting. Day 10 introduces policy-as-code guardrails for Terraform plans. Day 11 adds observability and AI-style incident intelligence. Day 12 adds EvalOps quality gates for AI-generated incident summaries. Day 13 introduces a local RAG-style DevOps runbook assistant.
 
-## Days 1-12
+## Days 1-13
 
 | Day | Project | Outcome |
 | --- | --- | --- |
@@ -18,6 +18,7 @@ This is the day-by-day learning path. The first 7 days build a strong local foun
 | [Day 10](./day-10-terraform-policy-guardrails/README.md) | Terraform Policy-as-Code Guardrail Platform | Scan Terraform plans for risky infrastructure and block unsafe deployments with reports and a dashboard. |
 | [Day 11](./day-11-observability-ai-incident-summary/README.md) | Observability Pipeline with AI Incident Summary | Correlate logs, metrics, and traces into an incident summary with root cause, evidence, and next actions. |
 | [Day 12](./day-12-evalops-ai-quality-gate/README.md) | EvalOps Quality Gate for AI Incident Summaries | Score AI-generated incident summaries against golden expectations and block low-quality output before it reaches responders. |
+| [Day 13](./day-13-rag-devops-runbook-assistant/README.md) | Local RAG DevOps Runbook Assistant | Retrieve cited runbook guidance from local markdown knowledge and produce an evidence-backed incident response plan. |
 
 ## Learning Rule
 

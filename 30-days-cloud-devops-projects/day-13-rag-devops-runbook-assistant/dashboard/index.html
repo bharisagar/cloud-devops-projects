@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Local RAG Runbook Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Day 13 Cloud DevOps Project</p>
+        <h1>Local RAG Runbook Assistant</h1>
+      </div>
+      <label class="upload-button">
+        Load RAG Report
+        <input id="reportUpload" type="file" accept="application/json">
+      </label>
+    </header>
+
+    <main>
+      <section class="status-band">
+        <div class="decision-card">
+          <span>Decision</span>
+          <strong id="decision">Loading</strong>
+          <small id="confidence">Confidence: --</small>
+        </div>
+        <div class="incident-card">
+          <span>Incident</span>
+          <h2 id="incidentTitle">--</h2>
+          <p id="answerSummary"></p>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="RAG metrics">
+        <article><span>Top Score</span><strong id="topScore">0</strong></article>
+        <article><span>Retrieved</span><strong id="retrievedCount">0</strong></article>
+        <article><span>Runbooks</span><strong id="runbookCount">0</strong></article>
+        <article class="warn"><span>Missing Context</span><strong id="missingCount">0</strong></article>
+      </section>
+
+      <section class="grid wide-left">
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Retrieved Citations</h2>
+            <p>Ranked chunks from the local runbook knowledge base.</p>
+          </div>
+          <div id="citations" class="citation-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Recommended Runbooks</h2>
+            <p>Sources used to shape the response plan.</p>
+          </div>
+          <ul id="runbooks" class="clean-list"></ul>
+        </article>
+      </section>
+
+      <section class="grid three">
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Immediate Checks</h2>
+          </div>
+          <ul id="checks" class="clean-list"></ul>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Mitigation</h2>
+          </div>
+          <ul id="mitigation" class="clean-list"></ul>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>Verification</h2>
+          </div>
+          <ul id="verification" class="clean-list"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

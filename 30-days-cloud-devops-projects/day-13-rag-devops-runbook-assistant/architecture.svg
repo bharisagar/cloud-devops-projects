@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Day 13 Local RAG DevOps Runbook Assistant Architecture</title>
+  <desc id="desc">Incident context and markdown runbooks flow into a retriever, ranked citations, a response builder, and a confidence decision.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f7f2; }
+      .box { fill: #ffffff; stroke: #cfd8d0; stroke-width: 2; rx: 12; }
+      .accent { fill: #eef8f2; stroke: #159957; stroke-width: 2; rx: 12; }
+      .gate { fill: #fff7ed; stroke: #d97706; stroke-width: 2; }
+      .ready { fill: #ecfdf5; stroke: #059669; stroke-width: 2; rx: 12; }
+      .review { fill: #fff1f2; stroke: #e11d48; stroke-width: 2; rx: 12; }
+      .text { fill: #17211f; font-family: Arial, Helvetica, sans-serif; font-size: 22px; font-weight: 700; }
+      .small { fill: #5d6964; font-family: Arial, Helvetica, sans-serif; font-size: 15px; }
+      .arrow { stroke: #65726d; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#65726d" />
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="620" />
+  <text x="60" y="62" class="text" style="font-size: 34px;">Day 13 - Local RAG DevOps Runbook Assistant</text>
+  <text x="60" y="92" class="small">Retrieve local runbook evidence, then build a cited incident response plan.</text>
+
+  <rect x="60" y="145" width="250" height="115" class="box" />
+  <text x="88" y="192" class="text">Incident Context</text>
+  <text x="88" y="222" class="small">Services, symptoms, metrics, traces</text>
+
+  <rect x="60" y="360" width="250" height="115" class="box" />
+  <text x="88" y="407" class="text">Markdown Runbooks</text>
+  <text x="88" y="437" class="small">Internal operational knowledge</text>
+
+  <rect x="410" y="245" width="250" height="130" class="accent" />
+  <text x="470" y="298" class="text">Retriever</text>
+  <text x="442" y="328" class="small">Chunk, score, rank citations</text>
+
+  <rect x="760" y="245" width="250" height="130" class="box" />
+  <text x="816" y="298" class="text">Response Builder</text>
+  <text x="802" y="328" class="small">Answer with source citations</text>
+
+  <polygon points="910,425 1040,500 910,575 780,500" class="gate" />
+  <text x="850" y="494" class="text">Confidence</text>
+  <text x="852" y="522" class="small">ready or review</text>
+
+  <rect x="1015" y="145" width="140" height="90" class="ready" />
+  <text x="1042" y="184" class="text">Ready</text>
+  <text x="1034" y="210" class="small">Cited plan</text>
+
+  <rect x="1015" y="335" width="140" height="90" class="review" />
+  <text x="1040" y="374" class="text">Review</text>
+  <text x="1030" y="400" class="small">Need context</text>
+
+  <rect x="410" y="455" width="250" height="90" class="box" />
+  <text x="464" y="494" class="text">Reports</text>
+  <text x="448" y="522" class="small">JSON, Markdown, dashboard</text>
+
+  <path d="M310 202 C360 205 365 278 410 292" class="arrow" />
+  <path d="M310 418 C360 415 365 342 410 328" class="arrow" />
+  <path d="M660 310 L760 310" class="arrow" />
+  <path d="M885 375 L895 425" class="arrow" />
+  <path d="M1010 286 C1040 255 1050 235 1075 235" class="arrow" />
+  <path d="M1010 334 C1040 350 1050 360 1075 360" class="arrow" />
+  <path d="M535 375 L535 455" class="arrow" />
+</svg>

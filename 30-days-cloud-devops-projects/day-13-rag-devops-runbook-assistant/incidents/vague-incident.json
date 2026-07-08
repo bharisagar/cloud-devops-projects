@@ -1,0 +1,14 @@
+{
+  "id": "INC-2026-07-08-002",
+  "title": "Application seems slow",
+  "severity": "unknown",
+  "services": [],
+  "summary": "A few users said the application feels slow. There are not enough details yet.",
+  "symptoms": [
+    "slow app",
+    "some user reports"
+  ],
+  "signals": {},
+  "recentChanges": [],
+  "question": "What should we do?"
+}

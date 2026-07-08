@@ -1,0 +1,29 @@
+{
+  "id": "INC-2026-07-08-001",
+  "title": "Checkout latency and 503 errors after release",
+  "severity": "SEV1",
+  "services": [
+    "checkout-service",
+    "postgres"
+  ],
+  "summary": "Checkout requests are failing after a release. Error rate is above SLO, p95 latency is elevated, and traces show slow postgres spans during order creation.",
+  "symptoms": [
+    "POST /checkout returns 503",
+    "p95 latency reached 1320 ms",
+    "checkout error rate reached 24.76 percent",
+    "database connection pool exhausted",
+    "postgres active connections near maximum",
+    "failed traces around order creation"
+  ],
+  "signals": {
+    "peakErrorRatePercent": 24.76,
+    "peakP95LatencyMs": 1320,
+    "failedTraceCount": 2,
+    "sloStatus": "violated"
+  },
+  "recentChanges": [
+    "checkout-service release changed database connection settings",
+    "worker count increased from 4 to 8"
+  ],
+  "question": "Which runbooks should responders use, and what are the first safe actions?"
+}

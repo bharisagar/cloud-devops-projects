@@ -22,7 +22,8 @@ I created this repo for learners who want project-based practice across Linux, G
 | Day 10 | Terraform Policy-as-Code Guardrail Platform | Complete | Terraform plans, policy-as-code, risk scoring, deployment gates |
 | Day 11 | Observability Pipeline with AI Incident Summary | Complete | Logs, metrics, traces, SLOs, incident intelligence |
 | Day 12 | EvalOps Quality Gate for AI Incident Summaries | Complete | EvalOps, AI output scoring, quality gates, hallucination checks |
-| Day 13-30 | Coming next | Planned | RAG, AI PR review, Kubernetes, monitoring |
+| Day 13 | Local RAG DevOps Runbook Assistant | Complete | RAG, runbook retrieval, citations, incident response |
+| Day 14-30 | Coming next | Planned | AI PR review, Kubernetes, monitoring |
 
 ## Repository Structure
 
@@ -40,7 +41,8 @@ cloud-devops-projects/
 |   |-- day-09-aws-security-audit-dashboard/
 |   |-- day-10-terraform-policy-guardrails/
 |   |-- day-11-observability-ai-incident-summary/
-|   `-- day-12-evalops-ai-quality-gate/
+|   |-- day-12-evalops-ai-quality-gate/
+|   `-- day-13-rag-devops-runbook-assistant/
 |-- .github/
 |   `-- workflows/
 |       |-- day-06-docker-ci.yml
@@ -82,7 +84,7 @@ Do not upload secrets, access keys, private IPs from office systems, customer na
 
 ## Safety Notes
 
-- Days 1-7 are designed to run locally. Day 8 begins the AWS foundation with IAM identity verification, budget guardrails, and secure S3 evidence storage. Day 9 adds read-only security audit reporting. Day 10 reviews Terraform plans locally before any cloud changes are applied. Day 11 uses local synthetic telemetry to teach observability and incident response without cloud cost. Day 12 evaluates local AI incident summaries without cloud cost.
+- Days 1-7 are designed to run locally. Day 8 begins the AWS foundation with IAM identity verification, budget guardrails, and secure S3 evidence storage. Day 9 adds read-only security audit reporting. Day 10 reviews Terraform plans locally before any cloud changes are applied. Day 11 uses local synthetic telemetry to teach observability and incident response without cloud cost. Day 12 evaluates local AI incident summaries without cloud cost. Day 13 retrieves local runbook guidance without cloud cost.
 - Docker-based days require Docker Desktop on Windows or Docker Engine on Linux.
 - AWS/Terraform days should be run in a personal sandbox AWS account only.
 - Always destroy paid cloud resources after testing.

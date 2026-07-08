@@ -1,0 +1,353 @@
+{
+  "project": "Day 13 - Local RAG DevOps Runbook Assistant",
+  "generatedAt": "2026-07-08T17:15:31.593913+00:00",
+  "incident": {
+    "id": "INC-2026-07-08-001",
+    "title": "Checkout latency and 503 errors after release",
+    "severity": "SEV1",
+    "services": [
+      "checkout-service",
+      "postgres"
+    ],
+    "question": "Which runbooks should responders use, and what are the first safe actions?"
+  },
+  "knowledgeBase": "knowledge-base\\runbooks",
+  "decision": "answer_ready",
+  "confidence": "high",
+  "topScore": 146.72,
+  "missingContext": [],
+  "queryTerms": [
+    "checkout",
+    "latency",
+    "release",
+    "postgres",
+    "503",
+    "checkout-service",
+    "error",
+    "rate",
+    "p95",
+    "traces",
+    "order",
+    "creation",
+    "reached",
+    "1320",
+    "24",
+    "76",
+    "database",
+    "connection",
+    "errors",
+    "sev1",
+    "requests",
+    "failing",
+    "above",
+    "slo",
+    "elevated"
+  ],
+  "retrievedChunks": [
+    {
+      "id": "database-connection-pool-saturation.md#immediate-checks",
+      "source": "database-connection-pool-saturation.md",
+      "title": "Database Connection Pool Saturation",
+      "heading": "Immediate Checks",
+      "text": "- Check application logs for connection pool exhausted errors.\n- Check database active connections and wait events.\n- Compare release time with the start of errors.\n- Check whether worker count, pool size, or connection timeout changed.\n- Review failed traces for slow database spans.",
+      "score": 146.72,
+      "matchedTerms": [
+        "active",
+        "changed",
+        "connection",
+        "connections",
+        "count",
+        "database",
+        "errors",
+        "exhausted",
+        "failed",
+        "pool",
+        "release",
+        "slow",
+        "spans",
+        "traces",
+        "worker"
+      ],
+      "matchedPhrases": [
+        "connection pool",
+        "pool exhausted",
+        "database",
+        "failed traces",
+        "release",
+        "slo"
+      ],
+      "excerpt": "- Check application logs for connection pool exhausted errors. - Check database active connections and wait events. - Compare release time with the start of errors. - Check whether worker count, pool size, or connection timeout changed. - Review failed traces "
+    },
+    {
+      "id": "database-connection-pool-saturation.md#when-to-use",
+      "source": "database-connection-pool-saturation.md",
+      "title": "Database Connection Pool Saturation",
+      "heading": "When To Use",
+      "text": "Use this runbook when an application shows elevated latency, 503 responses, checkout failures, slow database spans, or log messages such as `connection pool exhausted`, `too many clients`, or `active connections near maximum`.",
+      "score": 145.52,
+      "matchedTerms": [
+        "503",
+        "active",
+        "checkout",
+        "connection",
+        "connections",
+        "database",
+        "elevated",
+        "exhausted",
+        "latency",
+        "maximum",
+        "near",
+        "pool",
+        "slow",
+        "spans"
+      ],
+      "matchedPhrases": [
+        "connection pool",
+        "pool exhausted",
+        "database",
+        "checkout",
+        "503",
+        "slo"
+      ],
+      "excerpt": "Use this runbook when an application shows elevated latency, 503 responses, checkout failures, slow database spans, or log messages such as `connection pool exhausted`, `too many clients`, or `active connections near maximum`."
+    },
+    {
+      "id": "database-connection-pool-saturation.md#symptoms",
+      "source": "database-connection-pool-saturation.md",
+      "title": "Database Connection Pool Saturation",
+      "heading": "Symptoms",
+      "text": "- Application p95 latency rises above the SLO threshold.\n- Error rate increases during write-heavy requests.\n- Logs mention database connection pool exhaustion or timeout waiting for a connection.\n- Traces show slow `postgres`, `db.query`, or `order creation` spans.\n- Database active connections approach the configured maximum.",
+      "score": 139.31,
+      "matchedTerms": [
+        "above",
+        "active",
+        "connection",
+        "connections",
+        "creation",
+        "database",
+        "during",
+        "error",
+        "latency",
+        "maximum",
+        "order",
+        "p95",
+        "pool",
+        "postgres",
+        "rate",
+        "requests",
+        "show",
+        "slo"
+      ],
+      "matchedPhrases": [
+        "connection pool",
+        "postgres",
+        "database",
+        "p95 latency",
+        "order creation",
+        "slo"
+      ],
+      "excerpt": "- Application p95 latency rises above the SLO threshold. - Error rate increases during write-heavy requests. - Logs mention database connection pool exhaustion or timeout waiting for a connection. - Traces show slow `postgres`, `db.query`, or `order creation` "
+    },
+    {
+      "id": "checkout-latency-triage.md#symptoms",
+      "source": "checkout-latency-triage.md",
+      "title": "Checkout Latency Triage",
+      "heading": "Symptoms",
+      "text": "- Checkout p95 latency crosses the service objective.\n- 503 or 500 errors appear after a release.\n- Failed traces are concentrated around checkout-service.\n- Order creation spans are slower than normal.\n- Payment, inventory, or database calls create a downstream bottleneck.",
+      "score": 121.85,
+      "matchedTerms": [
+        "503",
+        "around",
+        "checkout",
+        "checkout-service",
+        "creation",
+        "database",
+        "errors",
+        "failed",
+        "latency",
+        "order",
+        "p95",
+        "release",
+        "spans",
+        "traces"
+      ],
+      "matchedPhrases": [
+        "database",
+        "checkout",
+        "p95 latency",
+        "503",
+        "failed traces",
+        "order creation",
+        "release",
+        "slo"
+      ],
+      "excerpt": "- Checkout p95 latency crosses the service objective. - 503 or 500 errors appear after a release. - Failed traces are concentrated around checkout-service. - Order creation spans are slower than normal. - Payment, inventory, or database calls create a downstre"
+    },
+    {
+      "id": "database-connection-pool-saturation.md#verification",
+      "source": "database-connection-pool-saturation.md",
+      "title": "Database Connection Pool Saturation",
+      "heading": "Verification",
+      "text": "- Error rate stays below 2 percent for at least 15 minutes.\n- p95 latency returns below 500 ms.\n- Database active connections remain below 80 percent of maximum.\n- New traces show normal `db.query` duration.\n- No new pool exhausted messages appear in logs.",
+      "score": 118.37,
+      "matchedTerms": [
+        "active",
+        "connection",
+        "connections",
+        "database",
+        "error",
+        "exhausted",
+        "latency",
+        "maximum",
+        "ms",
+        "p95",
+        "percent",
+        "pool",
+        "rate",
+        "returns",
+        "show",
+        "traces"
+      ],
+      "matchedPhrases": [
+        "connection pool",
+        "pool exhausted",
+        "database",
+        "p95 latency"
+      ],
+      "excerpt": "- Error rate stays below 2 percent for at least 15 minutes. - p95 latency returns below 500 ms. - Database active connections remain below 80 percent of maximum. - New traces show normal `db.query` duration. - No new pool exhausted messages appear in logs."
+    },
+    {
+      "id": "checkout-latency-triage.md#mitigation",
+      "source": "checkout-latency-triage.md",
+      "title": "Checkout Latency Triage",
+      "heading": "Mitigation",
+      "text": "- If a recent release changed dependency behavior, roll back or disable the feature flag.\n- If one downstream dependency is slow, reduce retry pressure and protect the dependency.\n- If database queries are slow, inspect indexes and connection pool behavior.\n- If payment provider errors are rising, fail gracefully and notify support.",
+      "score": 87.13,
+      "matchedTerms": [
+        "changed",
+        "checkout",
+        "connection",
+        "database",
+        "errors",
+        "latency",
+        "pool",
+        "release",
+        "slow"
+      ],
+      "matchedPhrases": [
+        "connection pool",
+        "database",
+        "checkout",
+        "release",
+        "slo"
+      ],
+      "excerpt": "- If a recent release changed dependency behavior, roll back or disable the feature flag. - If one downstream dependency is slow, reduce retry pressure and protect the dependency. - If database queries are slow, inspect indexes and connection pool behavior. - "
+    }
+  ],
+  "answer": {
+    "summary": "The best matching runbook is Database Connection Pool Saturation for incident INC-2026-07-08-001. Use the retrieved citations as responder guidance, not as fully automated remediation.",
+    "recommendedRunbooks": [
+      {
+        "source": "database-connection-pool-saturation.md",
+        "title": "Database Connection Pool Saturation",
+        "score": 146.72
+      },
+      {
+        "source": "checkout-latency-triage.md",
+        "title": "Checkout Latency Triage",
+        "score": 121.85
+      }
+    ],
+    "immediateChecks": [
+      {
+        "text": "Check application logs for connection pool exhausted errors.",
+        "citation": "database-connection-pool-saturation.md#immediate-checks"
+      },
+      {
+        "text": "Check database active connections and wait events.",
+        "citation": "database-connection-pool-saturation.md#immediate-checks"
+      },
+      {
+        "text": "Compare release time with the start of errors.",
+        "citation": "database-connection-pool-saturation.md#immediate-checks"
+      },
+      {
+        "text": "Check whether worker count, pool size, or connection timeout changed.",
+        "citation": "database-connection-pool-saturation.md#immediate-checks"
+      },
+      {
+        "text": "Review failed traces for slow database spans.",
+        "citation": "database-connection-pool-saturation.md#immediate-checks"
+      },
+      {
+        "text": "Inspect `checkout-service` logs for errors in the last 30 minutes.",
+        "citation": "checkout-latency-triage.md#immediate-checks"
+      },
+      {
+        "text": "Compare the error start time with deployments and configuration changes.",
+        "citation": "checkout-latency-triage.md#immediate-checks"
+      }
+    ],
+    "mitigationPlan": [
+      {
+        "text": "Reduce application connection pool size if every replica opens too many connections.",
+        "citation": "database-connection-pool-saturation.md#mitigation"
+      },
+      {
+        "text": "Scale application replicas only when database capacity supports the extra connections.",
+        "citation": "database-connection-pool-saturation.md#mitigation"
+      },
+      {
+        "text": "Add PgBouncer or another connection pooler for high-concurrency workloads.",
+        "citation": "database-connection-pool-saturation.md#mitigation"
+      },
+      {
+        "text": "Roll back the release if the pool settings changed and customer impact continues.",
+        "citation": "database-connection-pool-saturation.md#mitigation"
+      },
+      {
+        "text": "Avoid restarting every application replica at once because reconnection storms can worsen saturation.",
+        "citation": "database-connection-pool-saturation.md#mitigation"
+      },
+      {
+        "text": "If a recent release changed dependency behavior, roll back or disable the feature flag.",
+        "citation": "checkout-latency-triage.md#mitigation"
+      },
+      {
+        "text": "If one downstream dependency is slow, reduce retry pressure and protect the dependency.",
+        "citation": "checkout-latency-triage.md#mitigation"
+      }
+    ],
+    "verificationSteps": [
+      {
+        "text": "Error rate stays below 2 percent for at least 15 minutes.",
+        "citation": "database-connection-pool-saturation.md#verification"
+      },
+      {
+        "text": "p95 latency returns below 500 ms.",
+        "citation": "database-connection-pool-saturation.md#verification"
+      },
+      {
+        "text": "Database active connections remain below 80 percent of maximum.",
+        "citation": "database-connection-pool-saturation.md#verification"
+      },
+      {
+        "text": "New traces show normal `db.query` duration.",
+        "citation": "database-connection-pool-saturation.md#verification"
+      },
+      {
+        "text": "No new pool exhausted messages appear in logs.",
+        "citation": "database-connection-pool-saturation.md#verification"
+      },
+      {
+        "text": "Checkout success rate returns to normal.",
+        "citation": "checkout-latency-triage.md#verification"
+      }
+    ],
+    "escalationNote": "Escalate to the service owner and incident lead if customer impact continues, if rollback risk is unclear, or if the retrieved runbooks do not explain the observed telemetry.",
+    "sourceCoverage": [
+      "Database Connection Pool Saturation",
+      "Checkout Latency Triage"
+    ]
+  }
+}
