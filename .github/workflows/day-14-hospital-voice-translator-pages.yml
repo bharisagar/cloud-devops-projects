@@ -1,0 +1,73 @@
+name: Day 14 Hospital Voice Translator CI/CD
+
+on:
+  push:
+    paths:
+      - "30-days-cloud-devops-projects/day-14-hospital-voice-translator/**"
+      - ".github/workflows/day-14-hospital-voice-translator-pages.yml"
+  pull_request:
+    paths:
+      - "30-days-cloud-devops-projects/day-14-hospital-voice-translator/**"
+      - ".github/workflows/day-14-hospital-voice-translator-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: day-14-hospital-voice-translator-pages
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate static app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Day 14 validation
+        working-directory: 30-days-cloud-devops-projects/day-14-hospital-voice-translator
+        run: |
+          python scripts/validate_app.py --strict \
+            --output-json reports/validation-report.json \
+            --output-md reports/validation-report.md
+
+      - name: Upload validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: day-14-validation-report
+          path: |
+            30-days-cloud-devops-projects/day-14-hospital-voice-translator/reports/validation-report.json
+            30-days-cloud-devops-projects/day-14-hospital-voice-translator/reports/validation-report.md
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Day 14 static app
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 30-days-cloud-devops-projects/day-14-hospital-voice-translator/app
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

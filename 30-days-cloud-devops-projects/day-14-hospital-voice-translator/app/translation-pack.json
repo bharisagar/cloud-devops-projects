@@ -1,0 +1,158 @@
+{
+  "project": "Day 14 - Hospital Voice Translation Assistant",
+  "sourceLanguage": {
+    "code": "kn-IN",
+    "name": "Kannada"
+  },
+  "targetLanguages": [
+    { "code": "en-IN", "key": "english", "name": "English", "voiceHint": "en" },
+    { "code": "ta-IN", "key": "tamil", "name": "Tamil", "voiceHint": "ta" },
+    { "code": "te-IN", "key": "telugu", "name": "Telugu", "voiceHint": "te" }
+  ],
+  "safetyNotice": {
+    "english": "Use this for basic communication support only. Emergency symptoms, consent, diagnosis, and treatment decisions require a clinician and a qualified human interpreter.",
+    "tamil": "இது அடிப்படை தொடர்புக்கு மட்டும். அவசர அறிகுறிகள், சம்மதம், நோயறிதல், சிகிச்சை முடிவுகள் மருத்துவர் மற்றும் தகுதியான மொழிபெயர்ப்பாளர் மூலம் உறுதிப்படுத்தப்பட வேண்டும்.",
+    "telugu": "ఇది ప్రాథమిక సంభాషణకు మాత్రమే. అత్యవసర లక్షణాలు, సమ్మతి, నిర్ధారణ మరియు చికిత్స నిర్ణయాలకు వైద్యుడు మరియు అర్హత కలిగిన మానవ అనువాదకుడు అవసరం."
+  },
+  "fallback": {
+    "intent": "human_interpreter_needed",
+    "severity": "review",
+    "english": "I need a human interpreter or nurse to understand this safely.",
+    "tamil": "இதைக் பாதுகாப்பாகப் புரிந்துகொள்ள எனக்கு மனித மொழிபெயர்ப்பாளர் அல்லது செவிலியர் தேவை.",
+    "telugu": "దీనిని సురక్షితంగా అర్థం చేసుకోవడానికి నాకు మానవ అనువాదకుడు లేదా నర్స్ అవసరం."
+  },
+  "phrases": [
+    {
+      "id": "stomach_pain",
+      "intent": "pain_report",
+      "severity": "routine",
+      "kannada": "ನನಗೆ ಹೊಟ್ಟೆ ನೋವು ಇದೆ",
+      "keywords": ["ಹೊಟ್ಟೆ", "ನೋವು"],
+      "english": "I have stomach pain.",
+      "tamil": "எனக்கு வயிற்று வலி உள்ளது.",
+      "telugu": "నాకు కడుపు నొప్పి ఉంది.",
+      "clinicalNote": "Ask pain score, duration, vomiting, fever, pregnancy status when relevant."
+    },
+    {
+      "id": "headache",
+      "intent": "pain_report",
+      "severity": "routine",
+      "kannada": "ನನಗೆ ತಲೆ ನೋವು ಇದೆ",
+      "keywords": ["ತಲೆ", "ನೋವು"],
+      "english": "I have a headache.",
+      "tamil": "எனக்கு தலைவலி உள்ளது.",
+      "telugu": "నాకు తలనొప్పి ఉంది.",
+      "clinicalNote": "Check severity, vision changes, weakness, injury, fever, and blood pressure."
+    },
+    {
+      "id": "fever",
+      "intent": "symptom_report",
+      "severity": "routine",
+      "kannada": "ನನಗೆ ಜ್ವರ ಇದೆ",
+      "keywords": ["ಜ್ವರ"],
+      "english": "I have a fever.",
+      "tamil": "எனக்கு காய்ச்சல் உள்ளது.",
+      "telugu": "నాకు జ్వరం ఉంది.",
+      "clinicalNote": "Measure temperature and ask duration, chills, cough, travel, and medicines taken."
+    },
+    {
+      "id": "chest_pain",
+      "intent": "emergency_symptom",
+      "severity": "urgent",
+      "kannada": "ನನಗೆ ಎದೆ ನೋವು ಇದೆ",
+      "keywords": ["ಎದೆ", "ನೋವು"],
+      "english": "I have chest pain. Please call a doctor immediately.",
+      "tamil": "எனக்கு மார்பு வலி உள்ளது. தயவுசெய்து உடனே மருத்துவரை அழைக்கவும்.",
+      "telugu": "నాకు ఛాతి నొప్పి ఉంది. దయచేసి వెంటనే డాక్టర్ను పిలవండి.",
+      "clinicalNote": "Treat as urgent until assessed. Notify clinician immediately."
+    },
+    {
+      "id": "breathing_problem",
+      "intent": "emergency_symptom",
+      "severity": "urgent",
+      "kannada": "ನನಗೆ ಉಸಿರಾಟ ಕಷ್ಟ ಆಗುತ್ತಿದೆ",
+      "keywords": ["ಉಸಿರಾಟ", "ಕಷ್ಟ"],
+      "english": "I am having difficulty breathing. Please help immediately.",
+      "tamil": "எனக்கு மூச்சு விட சிரமமாக உள்ளது. தயவுசெய்து உடனே உதவுங்கள்.",
+      "telugu": "నాకు శ్వాస తీసుకోవడం కష్టంగా ఉంది. దయచేసి వెంటనే సహాయం చేయండి.",
+      "clinicalNote": "Escalate immediately and check oxygen saturation per hospital protocol."
+    },
+    {
+      "id": "need_doctor",
+      "intent": "care_request",
+      "severity": "routine",
+      "kannada": "ನನಗೆ ವೈದ್ಯರನ್ನು ನೋಡಬೇಕು",
+      "keywords": ["ವೈದ್ಯ", "ನೋಡಬೇಕು"],
+      "english": "I need to see a doctor.",
+      "tamil": "நான் மருத்துவரை பார்க்க வேண்டும்.",
+      "telugu": "నేను డాక్టర్ను చూడాలి.",
+      "clinicalNote": "Confirm department, urgency, and registration status."
+    },
+    {
+      "id": "need_nurse",
+      "intent": "care_request",
+      "severity": "routine",
+      "kannada": "ನರ್ಸ್ ಅವರನ್ನು ಕರೆಸಿ",
+      "keywords": ["ನರ್ಸ್", "ಕರೆಸಿ"],
+      "english": "Please call the nurse.",
+      "tamil": "தயவுசெய்து செவிலியரை அழைக்கவும்.",
+      "telugu": "దయచేసి నర్సును పిలవండి.",
+      "clinicalNote": "Route to nurse station or ward staff."
+    },
+    {
+      "id": "allergy",
+      "intent": "safety_information",
+      "severity": "urgent",
+      "kannada": "ನನಗೆ ಈ ಔಷಧಿಗೆ ಅಲರ್ಜಿ ಇದೆ",
+      "keywords": ["ಔಷಧಿ", "ಅಲರ್ಜಿ"],
+      "english": "I am allergic to this medicine.",
+      "tamil": "இந்த மருந்துக்கு எனக்கு அலர்ஜி உள்ளது.",
+      "telugu": "ఈ మందుకు నాకు అలర్జీ ఉంది.",
+      "clinicalNote": "Stop non-emergency administration until allergy is verified by clinical staff."
+    },
+    {
+      "id": "medicine_time",
+      "intent": "medicine_question",
+      "severity": "routine",
+      "kannada": "ನನ್ನ ಔಷಧಿ ಯಾವಾಗ ತೆಗೆದುಕೊಳ್ಳಬೇಕು",
+      "keywords": ["ಔಷಧಿ", "ಯಾವಾಗ", "ತೆಗೆದುಕೊಳ್ಳಬೇಕು"],
+      "english": "When should I take my medicine?",
+      "tamil": "என் மருந்தை எப்போது எடுத்துக்கொள்ள வேண்டும்?",
+      "telugu": "నా మందు ఎప్పుడు తీసుకోవాలి?",
+      "clinicalNote": "Medication instructions must be confirmed by nurse, doctor, or pharmacist."
+    },
+    {
+      "id": "water",
+      "intent": "comfort_request",
+      "severity": "routine",
+      "kannada": "ನನಗೆ ನೀರು ಬೇಕು",
+      "keywords": ["ನೀರು", "ಬೇಕು"],
+      "english": "I need water.",
+      "tamil": "எனக்கு தண்ணீர் வேண்டும்.",
+      "telugu": "నాకు నీరు కావాలి.",
+      "clinicalNote": "Check nil-by-mouth or procedure restrictions before giving water."
+    },
+    {
+      "id": "restroom",
+      "intent": "comfort_request",
+      "severity": "routine",
+      "kannada": "ಶೌಚಾಲಯ ಎಲ್ಲಿದೆ",
+      "keywords": ["ಶೌಚಾಲಯ", "ಎಲ್ಲಿದೆ"],
+      "english": "Where is the restroom?",
+      "tamil": "கழிப்பறை எங்கே உள்ளது?",
+      "telugu": "మరుగుదొడ్డి ఎక్కడ ఉంది?",
+      "clinicalNote": "Offer mobility help if the patient is weak, dizzy, or post-procedure."
+    },
+    {
+      "id": "dizzy",
+      "intent": "symptom_report",
+      "severity": "urgent",
+      "kannada": "ನನಗೆ ತಲೆ ಸುತ್ತುತ್ತಿದೆ",
+      "keywords": ["ತಲೆ", "ಸುತ್ತುತ್ತಿದೆ"],
+      "english": "I feel dizzy.",
+      "tamil": "எனக்கு தலைசுற்றல் உள்ளது.",
+      "telugu": "నాకు తల తిరుగుతోంది.",
+      "clinicalNote": "Prevent falls and notify staff for vitals assessment."
+    }
+  ]
+}

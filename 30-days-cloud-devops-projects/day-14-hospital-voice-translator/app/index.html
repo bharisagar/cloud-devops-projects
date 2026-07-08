@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hospital Voice Translation Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Day 14 Cloud DevOps Project</p>
+        <h1>Hospital Voice Translation Assistant</h1>
+      </div>
+      <div class="deploy-badge">Static app + GitHub Actions CI/CD</div>
+    </header>
+
+    <main>
+      <section class="safety-strip" aria-live="polite">
+        <strong>Clinical safety:</strong>
+        <span id="safetyNotice">Loading safety notice...</span>
+      </section>
+
+      <section class="workspace">
+        <article class="console-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Kannada input</p>
+              <h2>Patient message</h2>
+            </div>
+            <span id="speechSupport" class="status-pill">Checking voice</span>
+          </div>
+
+          <div class="mic-row">
+            <button id="micButton" class="primary-action" type="button">Start Kannada voice</button>
+            <button id="stopButton" type="button">Stop</button>
+            <button id="clearButton" type="button">Clear</button>
+          </div>
+
+          <label class="input-label" for="sourceText">Kannada text</label>
+          <textarea id="sourceText" rows="7" spellcheck="false" placeholder="ನನಗೆ ಹೊಟ್ಟೆ ನೋವು ಇದೆ"></textarea>
+
+          <div class="match-row">
+            <div>
+              <span>Match</span>
+              <strong id="matchLabel">Waiting</strong>
+            </div>
+            <div>
+              <span>Severity</span>
+              <strong id="severityLabel">--</strong>
+            </div>
+            <div>
+              <span>Confidence</span>
+              <strong id="confidenceLabel">--</strong>
+            </div>
+          </div>
+
+          <div class="phrase-area">
+            <div class="panel-heading compact">
+              <h3>Common hospital phrases</h3>
+              <button id="shuffleButton" type="button">Show all</button>
+            </div>
+            <div id="phraseButtons" class="phrase-grid"></div>
+          </div>
+        </article>
+
+        <article class="translation-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">English, Tamil, Telugu</p>
+              <h2>Live response</h2>
+            </div>
+            <button id="speakAllButton" type="button">Speak all</button>
+          </div>
+
+          <div id="translationGrid" class="translation-grid"></div>
+
+          <div class="clinical-note">
+            <span>Staff note</span>
+            <p id="clinicalNote">Select or speak a phrase to see staff guidance.</p>
+          </div>
+
+          <div class="handoff-actions">
+            <button id="saveExchangeButton" class="primary-action" type="button">Add to handoff</button>
+            <button id="copyButton" type="button">Copy handoff</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="handoff-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Shift handoff</p>
+            <h2>Recent exchanges</h2>
+          </div>
+          <span id="exchangeCount" class="status-pill">0 saved</span>
+        </div>
+        <div id="handoffLog" class="handoff-log"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

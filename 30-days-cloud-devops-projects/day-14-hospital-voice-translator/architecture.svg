@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="640" viewBox="0 0 1220 640" role="img" aria-labelledby="title desc">
+  <title id="title">Day 14 Hospital Voice Translation Assistant Architecture</title>
+  <desc id="desc">Kannada voice or text flows into a browser app, local phrase matcher, multilingual output, text-to-speech, validation, and GitHub Pages deployment.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f5f7f8; }
+      .box { fill: #ffffff; stroke: #cfdbe2; stroke-width: 2; rx: 12; }
+      .accent { fill: #eef9fa; stroke: #067a83; stroke-width: 2; rx: 12; }
+      .safe { fill: #f0fbf4; stroke: #237348; stroke-width: 2; rx: 12; }
+      .warn { fill: #fff7ed; stroke: #b45309; stroke-width: 2; rx: 12; }
+      .text { fill: #15232b; font-family: Arial, Helvetica, sans-serif; font-size: 21px; font-weight: 700; }
+      .small { fill: #5f6f78; font-family: Arial, Helvetica, sans-serif; font-size: 15px; }
+      .arrow { stroke: #64747d; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64747d" />
+    </marker>
+  </defs>
+  <rect class="bg" width="1220" height="640" />
+  <text x="56" y="62" class="text" style="font-size: 34px;">Day 14 - Hospital Voice Translation Assistant</text>
+  <text x="56" y="92" class="small">Kannada input becomes English, Tamil, and Telugu output with browser TTS and CI/CD deployment.</text>
+
+  <rect x="56" y="140" width="250" height="105" class="box" />
+  <text x="86" y="184" class="text">Kannada Voice</text>
+  <text x="86" y="214" class="small">SpeechRecognition kn-IN</text>
+
+  <rect x="56" y="310" width="250" height="105" class="box" />
+  <text x="86" y="354" class="text">Kannada Text</text>
+  <text x="86" y="384" class="small">Typed or kiosk input</text>
+
+  <rect x="390" y="225" width="260" height="130" class="accent" />
+  <text x="452" y="278" class="text">Browser App</text>
+  <text x="428" y="308" class="small">Real-time phrase matching</text>
+
+  <rect x="390" y="430" width="260" height="95" class="box" />
+  <text x="430" y="470" class="text">Phrase Pack</text>
+  <text x="430" y="498" class="small">translation-pack.json</text>
+
+  <rect x="740" y="165" width="260" height="115" class="safe" />
+  <text x="782" y="210" class="text">Translations</text>
+  <text x="782" y="240" class="small">English, Tamil, Telugu</text>
+
+  <rect x="740" y="335" width="260" height="115" class="box" />
+  <text x="790" y="380" class="text">Text-to-Speech</text>
+  <text x="790" y="410" class="small">Browser SpeechSynthesis</text>
+
+  <rect x="740" y="500" width="260" height="85" class="warn" />
+  <text x="782" y="535" class="text">Human Review</text>
+  <text x="782" y="562" class="small">Unknown or clinical decisions</text>
+
+  <rect x="1040" y="250" width="140" height="110" class="accent" />
+  <text x="1066" y="294" class="text">CI/CD</text>
+  <text x="1054" y="322" class="small">GitHub Pages</text>
+
+  <path d="M306 192 C350 195 350 260 390 270" class="arrow" />
+  <path d="M306 362 C350 358 350 320 390 305" class="arrow" />
+  <path d="M520 430 L520 355" class="arrow" />
+  <path d="M650 290 L740 222" class="arrow" />
+  <path d="M870 280 L870 335" class="arrow" />
+  <path d="M650 330 C690 470 710 530 740 542" class="arrow" />
+  <path d="M1000 222 C1032 228 1048 250 1060 270" class="arrow" />
+</svg>

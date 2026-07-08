@@ -1,0 +1,11 @@
+{
+  "project": "Day 14 - Hospital Voice Translation Assistant",
+  "generatedAt": "2026-07-08T17:37:01.942990+00:00",
+  "decision": "passed",
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "phraseCount": 12
+  },
+  "issues": []
+}

@@ -23,7 +23,8 @@ I created this repo for learners who want project-based practice across Linux, G
 | Day 11 | Observability Pipeline with AI Incident Summary | Complete | Logs, metrics, traces, SLOs, incident intelligence |
 | Day 12 | EvalOps Quality Gate for AI Incident Summaries | Complete | EvalOps, AI output scoring, quality gates, hallucination checks |
 | Day 13 | Local RAG DevOps Runbook Assistant | Complete | RAG, runbook retrieval, citations, incident response |
-| Day 14-30 | Coming next | Planned | AI PR review, Kubernetes, monitoring |
+| Day 14 | Hospital Voice Translation Assistant | Complete | Speech-to-text, translation UX, text-to-speech, GitHub Pages CI/CD |
+| Day 15-30 | Coming next | Planned | AI PR review, Kubernetes, monitoring |
 
 ## Repository Structure
 
@@ -42,11 +43,13 @@ cloud-devops-projects/
 |   |-- day-10-terraform-policy-guardrails/
 |   |-- day-11-observability-ai-incident-summary/
 |   |-- day-12-evalops-ai-quality-gate/
-|   `-- day-13-rag-devops-runbook-assistant/
+|   |-- day-13-rag-devops-runbook-assistant/
+|   `-- day-14-hospital-voice-translator/
 |-- .github/
 |   `-- workflows/
 |       |-- day-06-docker-ci.yml
-|       `-- day-07-publish-image.yml
+|       |-- day-07-publish-image.yml
+|       `-- day-14-hospital-voice-translator-pages.yml
 |-- 01-private-vpc-ecs-fargate/
 |-- 02-aws-bedrock-ai-governance-lab/
 `-- 03-aws-enterprise-ai-governance-ecs/
@@ -84,7 +87,7 @@ Do not upload secrets, access keys, private IPs from office systems, customer na
 
 ## Safety Notes
 
-- Days 1-7 are designed to run locally. Day 8 begins the AWS foundation with IAM identity verification, budget guardrails, and secure S3 evidence storage. Day 9 adds read-only security audit reporting. Day 10 reviews Terraform plans locally before any cloud changes are applied. Day 11 uses local synthetic telemetry to teach observability and incident response without cloud cost. Day 12 evaluates local AI incident summaries without cloud cost. Day 13 retrieves local runbook guidance without cloud cost.
+- Days 1-7 are designed to run locally. Day 8 begins the AWS foundation with IAM identity verification, budget guardrails, and secure S3 evidence storage. Day 9 adds read-only security audit reporting. Day 10 reviews Terraform plans locally before any cloud changes are applied. Day 11 uses local synthetic telemetry to teach observability and incident response without cloud cost. Day 12 evaluates local AI incident summaries without cloud cost. Day 13 retrieves local runbook guidance without cloud cost. Day 14 runs as a static browser app and deploys through GitHub Pages CI/CD.
 - Docker-based days require Docker Desktop on Windows or Docker Engine on Linux.
 - AWS/Terraform days should be run in a personal sandbox AWS account only.
 - Always destroy paid cloud resources after testing.
