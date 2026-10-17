@@ -1,6 +1,6 @@
 # Day 15 Evidence
 
-The `evidence/` folder contains desktop (`01-dashboard.png`) and compact (`02-mobile.png`) screenshots of the local dashboard reviewing the synthetic sample. They show the line number and finding, with no credential value in the result panel.
+The `evidence/` folder contains desktop (`01-dashboard.png`) and compact (`02-mobile.png`) screenshots of the local dashboard reviewing the synthetic sample. They show the line number and finding, with no credential value in the result panel. `03-ci-success.png` captures the successful GitHub Actions validation and report artifact.
 
 ## Capture checklist
 

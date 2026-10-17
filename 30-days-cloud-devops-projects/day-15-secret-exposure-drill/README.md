@@ -90,7 +90,7 @@ The fake password on line 3 produces one high-severity finding and a `BLOCK AND 
 
 ![Local Day 15 dashboard](./screenshots/evidence/01-dashboard.png)
 
-The [compact screenshot](./screenshots/evidence/02-mobile.png) shows the full response checklist. Use [screenshots/README.md](./screenshots/README.md) for the evidence checklist. Record a clean scan and the GitHub Actions result after running the project yourself.
+The [compact screenshot](./screenshots/evidence/02-mobile.png) shows the full response checklist. The [CI screenshot](./screenshots/evidence/03-ci-success.png) shows the successful validation run. Use [screenshots/README.md](./screenshots/README.md) for the evidence checklist. Record a clean scan when running the project yourself.
 
 ## Break And Fix
 
