@@ -1,1 +1,11 @@
-{"as_of":"2026-10-17","maximum_age_days":365,"blocked_licenses":["UNKNOWN","UNLICENSED"],"packages":[{"name":"web-framework-demo","version":"1.2.0","license":"MIT","last_updated":"2026-09-01"},{"name":"old-parser-demo","version":"0.4.0","license":"UNKNOWN","last_updated":"2024-01-01"}]}
+{
+  "as_of": "2026-10-17",
+  "packages": [
+    {"name": "web-framework-demo", "version": "2.4.0", "license": "MIT", "owner": "Platform", "last_reviewed": "2026-09-01"},
+    {"name": "logging-core-demo", "version": "1.8.2", "license": "Apache-2.0", "owner": "Observability", "last_reviewed": "2026-08-18"},
+    {"name": "legacy-parser-demo", "version": "0.4.0", "license": "UNKNOWN", "owner": "API", "last_reviewed": "2024-01-01"},
+    {"name": "queue-client-demo", "version": "1.2.1", "license": "MIT", "owner": "", "last_reviewed": "2026-06-03"},
+    {"name": "date-utils-demo", "version": "3.1.0", "license": "BSD-3-Clause", "owner": "Platform", "last_reviewed": "2026-07-28"},
+    {"name": "report-kit-demo", "version": "5.0.2", "license": "Apache-2.0", "owner": "Analytics", "last_reviewed": "2025-08-12"}
+  ]
+}

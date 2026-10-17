@@ -1,0 +1,113 @@
+{
+  "as_of": "2026-10-17",
+  "decision": "BLOCK",
+  "summary": {
+    "components": 6,
+    "blocked_components": 3,
+    "findings": 4
+  },
+  "policy": {
+    "blocked_licenses": [
+      "UNKNOWN",
+      "UNLICENSED"
+    ],
+    "maximum_review_age_days": 365,
+    "require_owner": true
+  },
+  "components": [
+    {
+      "name": "web-framework-demo",
+      "version": "2.4.0",
+      "license": "MIT",
+      "owner": "Platform",
+      "last_reviewed": "2026-09-01",
+      "review_age_days": 46,
+      "status": "PASS",
+      "finding_codes": []
+    },
+    {
+      "name": "logging-core-demo",
+      "version": "1.8.2",
+      "license": "Apache-2.0",
+      "owner": "Observability",
+      "last_reviewed": "2026-08-18",
+      "review_age_days": 60,
+      "status": "PASS",
+      "finding_codes": []
+    },
+    {
+      "name": "legacy-parser-demo",
+      "version": "0.4.0",
+      "license": "UNKNOWN",
+      "owner": "API",
+      "last_reviewed": "2024-01-01",
+      "review_age_days": 1020,
+      "status": "BLOCK",
+      "finding_codes": [
+        "BLOCKED_LICENSE",
+        "STALE_REVIEW"
+      ]
+    },
+    {
+      "name": "queue-client-demo",
+      "version": "1.2.1",
+      "license": "MIT",
+      "owner": "",
+      "last_reviewed": "2026-06-03",
+      "review_age_days": 136,
+      "status": "BLOCK",
+      "finding_codes": [
+        "MISSING_OWNER"
+      ]
+    },
+    {
+      "name": "date-utils-demo",
+      "version": "3.1.0",
+      "license": "BSD-3-Clause",
+      "owner": "Platform",
+      "last_reviewed": "2026-07-28",
+      "review_age_days": 81,
+      "status": "PASS",
+      "finding_codes": []
+    },
+    {
+      "name": "report-kit-demo",
+      "version": "5.0.2",
+      "license": "Apache-2.0",
+      "owner": "Analytics",
+      "last_reviewed": "2025-08-12",
+      "review_age_days": 431,
+      "status": "BLOCK",
+      "finding_codes": [
+        "STALE_REVIEW"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "component": "legacy-parser-demo@0.4.0",
+      "code": "BLOCKED_LICENSE",
+      "detail": "License UNKNOWN is blocked by policy.",
+      "action": "Replace the component or obtain an approved exception."
+    },
+    {
+      "component": "legacy-parser-demo@0.4.0",
+      "code": "STALE_REVIEW",
+      "detail": "Last policy review was 1020 days ago (limit 365).",
+      "action": "Review the component and record a new review date."
+    },
+    {
+      "component": "queue-client-demo@1.2.1",
+      "code": "MISSING_OWNER",
+      "detail": "No accountable owner is recorded.",
+      "action": "Assign an owner before release."
+    },
+    {
+      "component": "report-kit-demo@5.0.2",
+      "code": "STALE_REVIEW",
+      "detail": "Last policy review was 431 days ago (limit 365).",
+      "action": "Review the component and record a new review date."
+    }
+  ],
+  "scope": "Synthetic inventory policy checks only; no vulnerability or live registry lookup."
+}

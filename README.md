@@ -25,7 +25,7 @@ I created this repo for learners who want project-based practice across Linux, G
 | Day 13 | Local RAG DevOps Runbook Assistant | Complete | RAG, runbook retrieval, citations, incident response |
 | Day 14 | Hospital Voice Translation Assistant | Complete | Speech-to-text, translation UX, text-to-speech, GitHub Pages CI/CD |
 | Day 15 | [Secret Exposure Response Dashboard](./30-days-cloud-devops-projects/day-15-secret-exposure-drill/README.md) | Complete | Local app, redacted reports, tests, CI, screenshots |
-| Day 16 | [Dependency Policy Gate](./30-days-cloud-devops-projects/day-16-dependency-policy/README.md) | Starter lab | License and dependency age checks |
+| Day 16 | [Dependency Policy Gate](./30-days-cloud-devops-projects/day-16-dependency-policy/README.md) | Complete | Local dashboard, policy reports, tests, CI, screenshots |
 | Day 17 | [First Kubernetes Deployment](./30-days-cloud-devops-projects/day-17-kubernetes-first-deployment/README.md) | Starter lab | Deployment and Service manifests |
 | Day 18 | [Kubernetes Health and Rollout Controls](./30-days-cloud-devops-projects/day-18-kubernetes-health-rollout/README.md) | Starter lab | Probes, resource limits, rollout strategy |
 | Day 19 | [Environment Overlays with Kustomize](./30-days-cloud-devops-projects/day-19-kustomize-environments/README.md) | Starter lab | Staging and production overlays |

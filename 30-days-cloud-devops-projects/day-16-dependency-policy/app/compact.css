@@ -1,0 +1,7 @@
+@media (max-width: 700px) {
+  table { min-width: 0; }
+  th:nth-child(4), td:nth-child(4),
+  th:nth-child(5), td:nth-child(5) { display: none; }
+  th, td { padding: 12px 8px; }
+  .component-name { white-space: normal; overflow-wrap: anywhere; }
+}

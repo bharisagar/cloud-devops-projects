@@ -1,0 +1,5 @@
+{
+  "blocked_licenses": ["UNKNOWN", "UNLICENSED"],
+  "maximum_review_age_days": 365,
+  "require_owner": true
+}
