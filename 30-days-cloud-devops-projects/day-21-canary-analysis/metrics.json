@@ -1,0 +1,1 @@
+{"minimum_requests":1000,"max_error_rate_increase_pct_points":0.5,"max_p95_latency_increase_percent":20,"baseline":{"requests":10000,"errors":20,"p95_ms":180},"canary":{"requests":2000,"errors":30,"p95_ms":245}}

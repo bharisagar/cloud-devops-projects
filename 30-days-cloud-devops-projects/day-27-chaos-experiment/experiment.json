@@ -1,0 +1,1 @@
+{"hypothesis":"One application Pod can fail without customer-visible outage","max_recovery_seconds":60,"max_error_rate_percent":1.0,"observed":{"recovery_seconds":85,"error_rate_percent":0.2}}

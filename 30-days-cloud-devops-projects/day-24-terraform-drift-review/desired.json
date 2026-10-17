@@ -1,0 +1,1 @@
+{"resources":{"aws_security_group.web":{"ingress_ports":[443],"owner":"platform"},"aws_s3_bucket.logs":{"public":false,"owner":"platform"}}}

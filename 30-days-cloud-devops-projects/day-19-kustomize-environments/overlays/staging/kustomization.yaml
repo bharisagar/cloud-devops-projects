@@ -1,0 +1,15 @@
+resources:
+  - ../../base
+nameSuffix: -staging
+labels:
+  - pairs:
+      environment: staging
+    includeSelectors: true
+patches:
+  - target:
+      kind: Deployment
+      name: catalog
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1

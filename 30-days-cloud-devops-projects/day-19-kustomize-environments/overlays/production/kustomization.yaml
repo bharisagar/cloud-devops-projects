@@ -1,0 +1,15 @@
+resources:
+  - ../../base
+nameSuffix: -production
+labels:
+  - pairs:
+      environment: production
+    includeSelectors: true
+patches:
+  - target:
+      kind: Deployment
+      name: catalog
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3

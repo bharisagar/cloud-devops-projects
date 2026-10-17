@@ -1,0 +1,1 @@
+{"release":"catalog-1.4.0","checks":{"build":true,"unit_tests":true,"integration_tests":true,"security_scan":false,"terraform_policy":true,"change_approval":true}}

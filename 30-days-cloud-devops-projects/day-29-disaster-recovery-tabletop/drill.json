@@ -1,0 +1,1 @@
+{"service":"checkout","rto_minutes":60,"rpo_minutes":15,"observed":{"recovery_minutes":48,"data_loss_minutes":22},"scenario":"primary region unavailable"}
