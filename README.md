@@ -24,7 +24,22 @@ I created this repo for learners who want project-based practice across Linux, G
 | Day 12 | EvalOps Quality Gate for AI Incident Summaries | Complete | EvalOps, AI output scoring, quality gates, hallucination checks |
 | Day 13 | Local RAG DevOps Runbook Assistant | Complete | RAG, runbook retrieval, citations, incident response |
 | Day 14 | Hospital Voice Translation Assistant | Complete | Speech-to-text, translation UX, text-to-speech, GitHub Pages CI/CD |
-| Day 15-30 | Security, Kubernetes, delivery, and recovery labs | Complete | Local sample analysis, manifest rendering, readiness review |
+| Day 15 | [Secret Exposure Drill](./30-days-cloud-devops-projects/day-15-secret-exposure-drill/README.md) | Complete | Credential detection and response |
+| Day 16 | [Dependency Policy Gate](./30-days-cloud-devops-projects/day-16-dependency-policy/README.md) | Complete | License and dependency age checks |
+| Day 17 | [First Kubernetes Deployment](./30-days-cloud-devops-projects/day-17-kubernetes-first-deployment/README.md) | Complete | Deployment and Service manifests |
+| Day 18 | [Kubernetes Health and Rollout Controls](./30-days-cloud-devops-projects/day-18-kubernetes-health-rollout/README.md) | Complete | Probes, resource limits, rollout strategy |
+| Day 19 | [Environment Overlays with Kustomize](./30-days-cloud-devops-projects/day-19-kustomize-environments/README.md) | Complete | Staging and production overlays |
+| Day 20 | [GitOps Drift Detection](./30-days-cloud-devops-projects/day-20-gitops-drift/README.md) | Complete | Desired versus observed state |
+| Day 21 | [Canary Release Analysis](./30-days-cloud-devops-projects/day-21-canary-analysis/README.md) | Complete | Error and latency release gates |
+| Day 22 | [Release Quality Gate](./30-days-cloud-devops-projects/day-22-release-quality-gate/README.md) | Complete | Build, test, security, and approval checks |
+| Day 23 | [Artifact Integrity Check](./30-days-cloud-devops-projects/day-23-artifact-integrity/README.md) | Complete | SHA-256 payload verification |
+| Day 24 | [Terraform Drift Review](./30-days-cloud-devops-projects/day-24-terraform-drift-review/README.md) | Complete | Infrastructure state comparison |
+| Day 25 | [Cloud Cost Forecast](./30-days-cloud-devops-projects/day-25-cloud-cost-forecast/README.md) | Complete | Budget forecasting |
+| Day 26 | [Backup Restore Verification](./30-days-cloud-devops-projects/day-26-backup-restore-verification/README.md) | Complete | Restored data comparison |
+| Day 27 | [Bounded Chaos Experiment](./30-days-cloud-devops-projects/day-27-chaos-experiment/README.md) | Complete | Recovery and impact limits |
+| Day 28 | [Capacity Planning](./30-days-cloud-devops-projects/day-28-capacity-planning/README.md) | Complete | Replica sizing from peak load |
+| Day 29 | [Disaster Recovery Tabletop](./30-days-cloud-devops-projects/day-29-disaster-recovery-tabletop/README.md) | Complete | RTO and RPO checks |
+| Day 30 | [Cloud DevOps Readiness Capstone](./30-days-cloud-devops-projects/day-30-capstone-readiness/README.md) | Complete | Cross-project readiness review |
 
 ## Repository Structure
 
@@ -46,7 +61,20 @@ cloud-devops-projects/
 |   |-- day-13-rag-devops-runbook-assistant/
 |   |-- day-14-hospital-voice-translator/
 |   |-- day-15-secret-exposure-drill/
-|   |-- ...
+|   |-- day-16-dependency-policy/
+|   |-- day-17-kubernetes-first-deployment/
+|   |-- day-18-kubernetes-health-rollout/
+|   |-- day-19-kustomize-environments/
+|   |-- day-20-gitops-drift/
+|   |-- day-21-canary-analysis/
+|   |-- day-22-release-quality-gate/
+|   |-- day-23-artifact-integrity/
+|   |-- day-24-terraform-drift-review/
+|   |-- day-25-cloud-cost-forecast/
+|   |-- day-26-backup-restore-verification/
+|   |-- day-27-chaos-experiment/
+|   |-- day-28-capacity-planning/
+|   |-- day-29-disaster-recovery-tabletop/
 |   `-- day-30-capstone-readiness/
 |-- .github/
 |   `-- workflows/
