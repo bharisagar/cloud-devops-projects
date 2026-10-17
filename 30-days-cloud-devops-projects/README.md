@@ -1,6 +1,6 @@
 # 30 Days Cloud DevOps Projects
 
-This is the day-by-day learning path. Days 1-14 cover local foundations, AWS, Terraform, observability, AI quality, and a deployed browser app. Days 15-30 add local security, Kubernetes, delivery, infrastructure, cost, and recovery exercises. The later labs use synthetic data unless a README explicitly describes an optional cluster step.
+This is the day-by-day learning path. Days 1-14 cover local foundations, AWS, Terraform, observability, AI quality, and a deployed browser app. Day 15 is a complete local security response dashboard with tests, CI, reports, and screenshot evidence. Days 16-30 currently contain starter labs that will be expanded into individual portfolio projects. The later labs use synthetic data unless a README explicitly describes an optional cluster step.
 
 ## Days 1-30
 
@@ -20,7 +20,7 @@ This is the day-by-day learning path. Days 1-14 cover local foundations, AWS, Te
 | [Day 12](./day-12-evalops-ai-quality-gate/README.md) | EvalOps Quality Gate for AI Incident Summaries | Score AI-generated incident summaries against golden expectations and block low-quality output before it reaches responders. |
 | [Day 13](./day-13-rag-devops-runbook-assistant/README.md) | Local RAG DevOps Runbook Assistant | Retrieve cited runbook guidance from local markdown knowledge and produce an evidence-backed incident response plan. |
 | [Day 14](./day-14-hospital-voice-translator/README.md) | Hospital Voice Translation Assistant | Convert Kannada patient phrases into English, Tamil, and Telugu speech output with GitHub Actions CI/CD deployment. |
-| [Day 15](./day-15-secret-exposure-drill/README.md) | Secret Exposure Drill | Detect synthetic literal credentials and plan a response. |
+| [Day 15](./day-15-secret-exposure-drill/README.md) | Secret Exposure Response Dashboard | Scan synthetic configuration, review redacted findings, and generate a response report with CI evidence. |
 | [Day 16](./day-16-dependency-policy/README.md) | Dependency Policy Gate | Check a sample inventory for license and age violations. |
 | [Day 17](./day-17-kubernetes-first-deployment/README.md) | First Kubernetes Deployment | Render a Deployment and internal Service. |
 | [Day 18](./day-18-kubernetes-health-rollout/README.md) | Kubernetes Health and Rollout Controls | Add probes, resource limits, and rolling update policy. |

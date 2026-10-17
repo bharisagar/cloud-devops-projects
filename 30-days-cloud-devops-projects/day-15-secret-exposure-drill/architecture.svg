@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 180" role="img" aria-label="Synthetic config to dashboard and CLI through shared scanner">
+  <rect width="900" height="180" fill="#f5f7f6"/>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="17" text-anchor="middle">
+    <rect x="20" y="55" width="180" height="70" rx="6" fill="#dcefeb" stroke="#87bdb5"/><text x="110" y="97" fill="#184f4a">Synthetic input</text>
+    <rect x="250" y="55" width="180" height="70" rx="6" fill="#fff" stroke="#bfcdd0"/><text x="340" y="97" fill="#233b42">Dashboard / CLI</text>
+    <rect x="480" y="55" width="180" height="70" rx="6" fill="#dcefeb" stroke="#87bdb5"/><text x="570" y="97" fill="#184f4a">Shared scanner</text>
+    <rect x="710" y="55" width="170" height="70" rx="6" fill="#fff1df" stroke="#e4bf8e"/><text x="795" y="97" fill="#764d20">Redacted report</text>
+  </g>
+  <g stroke="#6e888d" stroke-width="3" fill="none"><path d="M205 90h36m-8-8 8 8-8 8"/><path d="M435 90h36m-8-8 8 8-8 8"/><path d="M665 90h36m-8-8 8 8-8 8"/></g>
+</svg>

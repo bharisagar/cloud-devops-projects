@@ -1,0 +1,23 @@
+{
+  "source": "sample.env.txt",
+  "lines_scanned": 4,
+  "risk_score": 20,
+  "decision": "BLOCK AND TRIAGE",
+  "findings": [
+    {
+      "id": "LITERAL-3",
+      "line": 3,
+      "severity": "high",
+      "title": "Literal password assignment",
+      "action": "Move the value to a secret manager, rotate it if real, and review repository history."
+    }
+  ],
+  "response_steps": [
+    "Confirm whether the credential is real without copying its value into a ticket.",
+    "Revoke or disable exposed credentials and issue replacements.",
+    "Remove the literal from current configuration and use a managed secret reference.",
+    "Check access logs and repository history for potential use or spread.",
+    "Document owner, timeline, verification, and follow-up controls."
+  ],
+  "limitations": "Training rules detect simple patterns only. A clear result is not a security guarantee."
+}

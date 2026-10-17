@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 15 | Secret Exposure Response</title>
+  <link rel="stylesheet" href="/app/styles.css">
+  <script src="/app/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">15</span><div><strong>Secret Exposure Response</strong><span>Cloud DevOps project</span></div></div>
+    <div class="local-badge"><span class="local-dot" aria-hidden="true"></span> Local workspace</div>
+  </header>
+
+  <main>
+    <div class="page-heading">
+      <div><p class="eyebrow">DAY 15 / SECURITY OPERATIONS</p><h1>Exposure review</h1><p class="subhead">Inspect sample configuration, identify literal credentials, and prepare a response plan.</p></div>
+      <div class="header-actions"><button id="sampleButton" type="button" class="secondary">Load sample</button><button id="downloadButton" type="button" class="secondary" disabled>Download report</button></div>
+    </div>
+
+    <div class="notice" role="note"><span class="notice-icon" aria-hidden="true">!</span><span>Training rules only. Use synthetic data here; never paste a real credential into a demo.</span></div>
+
+    <div class="workspace">
+      <section class="input-pane" aria-labelledby="inputHeading">
+        <div class="section-heading"><div><p class="section-kicker">01 / INPUT</p><h2 id="inputHeading">Configuration sample</h2></div><span id="lineCount" class="small-meta">0 lines</span></div>
+        <label for="sourceText" class="field-label">Text to inspect</label>
+        <textarea id="sourceText" spellcheck="false" aria-describedby="sourceHelp" placeholder="PASSWORD=example-fake-value"></textarea>
+        <p id="sourceHelp" class="field-help">The server processes this text in memory and does not save it.</p>
+        <div class="input-actions"><button id="analyzeButton" type="button" class="primary">Analyze exposure</button><button id="clearButton" type="button" class="text-button">Clear</button><span id="status" role="status" aria-live="polite">Ready</span></div>
+      </section>
+
+      <section class="result-pane" aria-labelledby="resultHeading">
+        <div class="section-heading"><div><p class="section-kicker">02 / ASSESSMENT</p><h2 id="resultHeading">Review result</h2></div><span id="scanState" class="state-pill neutral">Awaiting scan</span></div>
+        <div class="metrics"><div><span class="metric-label">RISK SCORE</span><strong id="riskScore">--</strong><small>/ 100</small></div><div><span class="metric-label">FINDINGS</span><strong id="findingCount">--</strong><small>items</small></div><div><span class="metric-label">LINES</span><strong id="scannedCount">--</strong><small>scanned</small></div></div>
+        <div class="decision"><span class="metric-label">DECISION</span><strong id="decisionText">Run an analysis to see the decision.</strong></div>
+        <div class="finding-header"><h3>Findings</h3><span id="findingLabel">No scan yet</span></div>
+        <div id="findings" class="findings"><p class="empty-state">Load the synthetic sample to see a redacted finding.</p></div>
+      </section>
+    </div>
+
+    <section class="response" aria-labelledby="responseHeading"><div class="section-heading"><div><p class="section-kicker">03 / RESPONSE</p><h2 id="responseHeading">Action checklist</h2></div></div><ol id="responseSteps"><li>Analyze an input to generate response steps.</li></ol><p id="limitations" class="limitations"></p></section>
+  </main>
+</body>
+</html>
